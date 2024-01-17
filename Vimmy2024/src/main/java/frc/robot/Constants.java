@@ -4,15 +4,12 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.sensors.Pigeon2;
-
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.ctre.phoenix.sensors.WPI_CANCoder;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,21 +21,23 @@ import com.ctre.phoenix.sensors.WPI_CANCoder;
  */
 public final class Constants {
 
+  //public static final Pigeon2 gyro = new Pigeon2(2);
   public static final Pigeon2 gyro = new Pigeon2(2);
-  
-  public static final CANSparkMax flaMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax fltMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax fraMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax frtMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax blaMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax bltMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax braMotor = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax brtMotor = new CANSparkMax(0, MotorType.kBrushless);
 
-  public static final WPI_CANCoder flEncoder = new WPI_CANCoder(0);
-  public static final WPI_CANCoder frEncoder = new WPI_CANCoder(0);
-  public static final WPI_CANCoder blEncoder = new WPI_CANCoder(0);
-  public static final WPI_CANCoder brEncoder = new WPI_CANCoder(0);
+  public static final CANSparkMax flaMotor = new CANSparkMax(23, MotorType.kBrushless);
+  public static final CANSparkMax fltMotor = new CANSparkMax(22, MotorType.kBrushless);
+  public static final CANSparkMax fraMotor = new CANSparkMax(21, MotorType.kBrushless);
+  public static final CANSparkMax frtMotor = new CANSparkMax(20, MotorType.kBrushless);
+  public static final CANSparkMax blaMotor = new CANSparkMax(25, MotorType.kBrushless);
+  public static final CANSparkMax bltMotor = new CANSparkMax(24, MotorType.kBrushless);
+  public static final CANSparkMax braMotor = new CANSparkMax(27, MotorType.kBrushless);
+  public static final CANSparkMax brtMotor = new CANSparkMax(26, MotorType.kBrushless);
+
+  //public static final WPI_CANCoder flEncoder = new WPI_CANCoder(0);
+  public static final CANcoder flEncoder = new CANcoder(0);
+  public static final CANcoder frEncoder = new CANcoder(0);
+  public static final CANcoder blEncoder = new CANcoder(0);
+  public static final CANcoder brEncoder = new CANcoder(0);
 
   public static final double controllerDeadZone = 0.1;
   public static final double modulePMult = 0.02;

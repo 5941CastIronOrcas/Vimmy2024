@@ -49,9 +49,9 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    RobotYawAngle = Functions.DeltaAngleDeg(Constants.gyro.getYaw(), 0);
-    RobotYawRate = -(Constants.gyro.getYaw() - RobotYawOld)/0.02;
-    RobotYawOld = Constants.gyro.getYaw();
+    RobotYawAngle = Functions.DeltaAngleDeg(Constants.gyro.getYaw().getValueAsDouble(), 0);
+    RobotYawRate = -(Constants.gyro.getYaw().getValueAsDouble() - RobotYawOld)/0.02;
+    RobotYawOld = Constants.gyro.getYaw().getValueAsDouble();
   }
 
   @Override
