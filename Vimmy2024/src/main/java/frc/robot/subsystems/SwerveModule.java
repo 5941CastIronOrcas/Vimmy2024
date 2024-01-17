@@ -30,15 +30,11 @@ public class SwerveModule {
             throttle *= -1;
         }
         
-        if(Math.abs(Functions.DeltaAngleDeg(angle, encoder.getAbsolutePosition().getValueAsDouble() * 360)) > 10) {
-            throttle = 0;
-        }
-        
         if(Math.abs(speed) < 0.001) {
             angle = encoder.getAbsolutePosition().getValueAsDouble() * 360;
         }
         
-        angleMotor.set(Functions.Clamp(Functions.DeltaAngleDeg(angle, encoder.getAbsolutePosition().getValueAsDouble() * 360) * -(Constants.modulePMult),-Constants.maxTurnSpeed * aMult,Constants.maxTurnSpeed * aMult));
+        angleMotor.set(Functions.Clamp(Functions.DeltaAngleDeg(angle, encoder.getAbsolutePosition().getValueAsDouble() * 360) * -(Constants.modulePMult),-aMult,aMult));
         throttleMotor.set(throttle * tMult);
     }
 }

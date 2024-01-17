@@ -41,7 +41,6 @@ public final class Constants {
 
   public static final double controllerDeadZone = 0.1;
   public static final double modulePMult = 0.02;
-  public static final double maxTurnSpeed = 0.5;
   public static final double turnMult = 0.2;
   
   public static final XboxController controller1 = new XboxController(0);
