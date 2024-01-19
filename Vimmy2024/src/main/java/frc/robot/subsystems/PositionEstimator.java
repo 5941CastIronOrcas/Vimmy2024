@@ -4,11 +4,20 @@
 
 package frc.robot.subsystems;
 
+import java.sql.Driver;
+
+import org.ejml.equation.Function;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Functions;
 
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
+  public static double robotYawDriverRelative = 0;
+  public static double robotYawFieldRelative = 0;
   public PositionEstimator() {}
 
   /**
@@ -38,6 +47,14 @@ public class PositionEstimator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
+    if(DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+      robotYawFieldRelative = Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90);
+    } else if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+            robotYawFieldRelative = Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90);      
+    } else {
+      robotYawFieldRelative = robotYawDriverRelative;
+    }
   }
 
   @Override
