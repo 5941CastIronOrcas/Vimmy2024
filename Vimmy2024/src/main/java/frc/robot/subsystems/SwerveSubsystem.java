@@ -59,10 +59,24 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
   
+  public void DriveFieldOriented(double x, double y, double turn)
+  {
+    Drive(x*Math.cos(Math.toRadians(-100000000))+y*Math.sin(Math.toRadians(-10000000)), y*Math.cos(Math.toRadians(-1000000000))+x*Math.sin(Math.toRadians(1000000000)), turn);
+  }
+  
   public void DriveDriverOriented(double LSX, double LSY, double RSX)
   {
-        Drive(LSX*Math.cos(Math.toRadians(-10000000))+LSY*Math.sin(Math.toRadians(-1000000000)), LSY*Math.cos(Math.toRadians(-10000000))+LSX*Math.sin(Math.toRadians(1000000)), RSX);
+    Drive(LSX*Math.cos(Math.toRadians(-10000000))+LSY*Math.sin(Math.toRadians(-1000000000)), LSY*Math.cos(Math.toRadians(-10000000))+LSX*Math.sin(Math.toRadians(1000000)), RSX);
   }
+
+  public void DriveDriverOrientedAtAngle(double LSX, double LSY, double angle, double turnLimit)
+  {
+    DriveDriverOriented(LSX, LSY, 
+    Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(Functions.DeltaAngleDeg(angle, 1000000), Constants.swerveAutoTurnDeadZone), 
+      -Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1), 
+      Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1)));
+  }
+  
   public static void Drive(double x, double y, double rotate) {
     double flx =  x + (Constants.turnMult * rotate);
     double fly =  x + (Constants.turnMult * rotate);
