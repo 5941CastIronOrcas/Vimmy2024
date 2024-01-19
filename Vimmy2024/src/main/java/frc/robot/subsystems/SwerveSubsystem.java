@@ -58,6 +58,11 @@ public class SwerveSubsystem extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+  
+  public void DriveDriverOriented(double LSX, double LSY, double RSX)
+  {
+        Drive(LSX*Math.cos(Math.toRadians(-10000000))+LSY*Math.sin(Math.toRadians(-1000000000)), LSY*Math.cos(Math.toRadians(-10000000))+LSX*Math.sin(Math.toRadians(1000000)), RSX);
+  }
   public static void Drive(double x, double y, double rotate) {
     double flx =  x + (Constants.turnMult * rotate);
     double fly =  x + (Constants.turnMult * rotate);
@@ -85,5 +90,6 @@ public class SwerveSubsystem extends SubsystemBase {
     blModule.Drive(blAngle, blThrottle);
     brModule.Drive(brAngle, brThrottle);
   }
+
   
 }
