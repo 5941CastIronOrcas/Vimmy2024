@@ -71,7 +71,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }*/
   public void DriveFieldOriented(double x, double y, double turn)
   {
-    Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotYawFieldRelative))+y*Math.sin(Math.toRadians(-PositionEstimator.robotYawFieldRelative)), y*Math.cos(Math.toRadians(-PositionEstimator.robotYawFieldRelative))+x*Math.sin(Math.toRadians(PositionEstimator.robotYawFieldRelative)), turn);
+    Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+y*Math.sin(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees())), y*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+x*Math.sin(Math.toRadians(PositionEstimator.robotPosition.getRotation().getDegrees())), turn);
   }
   
   public void DriveDriverOriented(double LSX, double LSY, double RSX)
