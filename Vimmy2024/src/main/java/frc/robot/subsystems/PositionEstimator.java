@@ -8,6 +8,8 @@ import java.sql.Driver;
 
 import org.ejml.equation.Function;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +19,7 @@ import frc.robot.Functions;
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static double robotYawDriverRelative = 0;
-  public static double robotYawFieldRelative = 0;
+  public static Pose2d robotPosition = new Pose2d();  
   public static double deltaX = 0;
   public static double deltaY = 0;
   public PositionEstimator() {}
@@ -51,23 +53,24 @@ public class PositionEstimator extends SubsystemBase {
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
     if(DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-      robotYawFieldRelative = Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90);
+      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90)));
     } else if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
-            robotYawFieldRelative = Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90);      
+            robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90)));      
     } else {
-      robotYawFieldRelative = robotYawDriverRelative;
+      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative)));
+      
     }
      deltaX = ((
-         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotYawFieldRelative)) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotYawFieldRelative)) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotYawFieldRelative)) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotYawFieldRelative)) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
         / 4.0);
     deltaY = ((
-         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotYawFieldRelative)) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotYawFieldRelative)) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotYawFieldRelative)) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotYawFieldRelative)) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
         / 4.0);
   }
 
