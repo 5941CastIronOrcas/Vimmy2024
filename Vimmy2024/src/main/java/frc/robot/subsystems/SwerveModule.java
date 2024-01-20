@@ -12,6 +12,7 @@ public class SwerveModule {
     private CANcoder encoder;
     private float aMult;
     private float tMult;
+    public double anglePos;
     public SwerveModule (CANSparkMax angleMotorIN, CANSparkMax throttleMotorIN, CANcoder encoderIN, boolean aMotorInvert, boolean tMotorInvert) {
         
         angleMotor = angleMotorIN;
@@ -23,7 +24,7 @@ public class SwerveModule {
     }
     public void Drive(double angle, double speed) {
         double throttle = speed;
-        
+        anglePos = encoder.getAbsolutePosition().getValueAsDouble();
         
         if (Math.abs(Functions.DeltaAngleDeg(encoder.getAbsolutePosition().getValueAsDouble() * 360, angle)) > Math.abs(Functions.DeltaAngleDeg(encoder.getAbsolutePosition().getValueAsDouble() * 360, angle + 180))) {
             angle += 180;
@@ -36,5 +37,6 @@ public class SwerveModule {
         
         angleMotor.set(Functions.Clamp(Functions.DeltaAngleDeg(angle, encoder.getAbsolutePosition().getValueAsDouble() * 360) * -(Constants.modulePMult),-aMult,aMult));
         throttleMotor.set(throttle * tMult);
+        
     }
 }
