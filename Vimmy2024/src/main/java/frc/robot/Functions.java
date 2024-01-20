@@ -45,18 +45,18 @@ public class Functions {
     }
     public static double DriverToFieldAngle(double angle)
     {
-        if(DriverStation.getAlliance().equals(DriverStation.Alliance.Red))
+        if(Robot.isRedAlliance)
         {angle = Functions.DeltaAngleDeg(0, angle - 90);}
-        else if(DriverStation.getAlliance().equals(DriverStation.Alliance.Blue))
+        else if(Robot.isBlueAlliance)
         {angle = Functions.DeltaAngleDeg(0, angle + 90);}
         return angle;
     }
 
     public static double FieldToDriverAngle(double angle)
     {
-        if(DriverStation.getAlliance().equals(DriverStation.Alliance.Red))
+        if(Robot.isRedAlliance)
         {angle = Functions.DeltaAngleDeg(0, angle + 90);}
-        else if(DriverStation.getAlliance().equals(DriverStation.Alliance.Blue))
+        else if(Robot.isBlueAlliance)
         {angle = Functions.DeltaAngleDeg(0, angle - 90);}
         return angle;
     }
