@@ -59,6 +59,16 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
   
+  /*public void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
+  {
+    double angleToTarget = Math.atan2(x-VisionSubsystem.conFieldX, y-VisionSubsystem.conFieldY);
+    double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-VisionSubsystem.conFieldX, y-VisionSubsystem.conFieldY);
+    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(VisionSubsystem.deltaX, VisionSubsystem.deltaY);
+    double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
+    double xComponent = Functions.DeadZone(output * Math.sin(angleToTarget), Constants.swerveDriveToDeadZone);
+    double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
+    DriveFieldOrientedAtAngle(xComponent, yComponent, angle, turnLimit);
+  }*/
   public void DriveFieldOriented(double x, double y, double turn)
   {
     Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotYawFieldRelative))+y*Math.sin(Math.toRadians(-PositionEstimator.robotYawFieldRelative)), y*Math.cos(Math.toRadians(-PositionEstimator.robotYawFieldRelative))+x*Math.sin(Math.toRadians(PositionEstimator.robotYawFieldRelative)), turn);

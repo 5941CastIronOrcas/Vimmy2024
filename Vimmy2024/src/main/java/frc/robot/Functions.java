@@ -16,6 +16,10 @@ public class Functions {
     public static double Exponential(double input) {
         return input * Math.abs(input);
     }
+    public static double Pythagorean(double x, double y)
+    {
+        return Math.sqrt((x * x) + (y * y));
+    }
     public static double DeltaAngleDeg(double startAngle, double endAngle) {
         return((((endAngle - startAngle - 180) % 360) +360) % 360) - 180;
       }
