@@ -13,11 +13,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.SwerveSubsystem;
 
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static double robotYawDriverRelative = 0;
   public static double robotYawFieldRelative = 0;
+  public static double deltaX = 0;
+  public static double deltaY = 0;
   public PositionEstimator() {}
 
   /**
@@ -55,6 +58,18 @@ public class PositionEstimator extends SubsystemBase {
     } else {
       robotYawFieldRelative = robotYawDriverRelative;
     }
+     deltaX = ((
+         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotYawFieldRelative)) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotYawFieldRelative)) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotYawFieldRelative)) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotYawFieldRelative)) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+        / 4.0);
+    deltaY = ((
+         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotYawFieldRelative)) * Constants.frtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotYawFieldRelative)) * -Constants.fltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotYawFieldRelative)) * Constants.brtMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotYawFieldRelative)) * -Constants.bltMotor.getEncoder().getVelocity() * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+        / 4.0);
   }
 
   @Override
