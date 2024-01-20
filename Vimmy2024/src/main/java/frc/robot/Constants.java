@@ -44,8 +44,12 @@ public final class Constants {
   public static final double modulePMult = 0.02;
   public static final double turnMult = 0.2;
   public static final double swerveAutoTurnPMult = 0.005;
-  public static double swerveAutoTurnMaxSpeed = 0.5;
-  public static double swerveAutoTurnDeadZone = 0.5;
+  public static final double swerveAutoTurnMaxSpeed = 0.5;
+  public static final double swerveAutoTurnDeadZone = 0.5;
+  public static final double swerveDriveToPMult = 1.0;
+  public static final double swerveDriveToDMult = 7.0;
+  public static final double swerveDriveToMaxSpeed = 3.6576;
+  public static final double swerveDriveToDeadZone = 0.01;
   
   public static final XboxController controller1 = new XboxController(0);
   

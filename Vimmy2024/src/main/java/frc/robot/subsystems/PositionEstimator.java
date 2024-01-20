@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.Robot;
 
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -52,9 +53,9 @@ public class PositionEstimator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
-    if(DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+    if(Robot.isRedAlliance) {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90)));
-    } else if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+    } else if (Robot.isBlueAlliance) {
             robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90)));      
     } else {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative)));

@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.Robot;
+
 //import frc.robot.subsystems.SwerveModule;
 import java.lang.Math;
 
@@ -59,21 +62,33 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
   
-  /*public void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
+  public void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
   {
-    double angleToTarget = Math.atan2(x-VisionSubsystem.conFieldX, y-VisionSubsystem.conFieldY);
-    double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-VisionSubsystem.conFieldX, y-VisionSubsystem.conFieldY);
-    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(VisionSubsystem.deltaX, VisionSubsystem.deltaY);
+    double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
+    double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
+    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.deltaX, PositionEstimator.deltaY);
     double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
     double xComponent = Functions.DeadZone(output * Math.sin(angleToTarget), Constants.swerveDriveToDeadZone);
     double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
     DriveFieldOrientedAtAngle(xComponent, yComponent, angle, turnLimit);
-  }*/
+  }
   public void DriveFieldOriented(double x, double y, double turn)
   {
     Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+y*Math.sin(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees())), y*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+x*Math.sin(Math.toRadians(PositionEstimator.robotPosition.getRotation().getDegrees())), turn);
   }
   
+public void DriveFieldOrientedAtAngle(double x, double y, double angle, double turnLimit)
+  {
+    /*DriveDriverOriented(DriverStation.getAlliance() == DriverStation.Alliance.Red?y:-y, 
+    DriverStation.getAlliance() == DriverStation.Alliance.Red?-x:x, 
+    Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeltaAngleDegrees(angle, robotYawFieldRelative), 
+    -Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1), 
+    Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1)));*/
+    DriveDriverOrientedAtAngle(Robot.isRedAlliance?y:-y, 
+    Robot.isRedAlliance?-x:x, 
+    Functions.FieldToDriverAngle(angle), turnLimit);
+  }
+
   public void DriveDriverOriented(double LSX, double LSY, double RSX)
   {
     Drive(LSX*Math.cos(Math.toRadians(-PositionEstimator.robotYawDriverRelative))+LSY*Math.sin(Math.toRadians(-PositionEstimator.robotYawDriverRelative)), LSY*Math.cos(Math.toRadians(-PositionEstimator.robotYawDriverRelative))+LSX*Math.sin(Math.toRadians(PositionEstimator.robotYawDriverRelative)), RSX);
