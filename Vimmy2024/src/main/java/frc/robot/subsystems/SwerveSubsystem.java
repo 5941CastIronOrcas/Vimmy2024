@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.Main;
 import frc.robot.Robot;
 
 //import frc.robot.subsystems.SwerveModule;
@@ -19,6 +20,10 @@ public class SwerveSubsystem extends SubsystemBase {
   public static double RobotYawAngle = 0;
   public static double RobotYawRate = 0;
   public static double RobotYawOld = 0;
+  public static double flThrottleOut = 0;
+  public static double frThrottleOut = 0;
+  public static double blThrottleOut = 0;
+  public static double brThrottleOut = 0;
   public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,false,false);
   public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,false,false);
   public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,false,false);
@@ -124,6 +129,10 @@ public void DriveFieldOrientedAtAngle(double x, double y, double angle, double t
     double frThrottle = Math.sqrt(Math.pow(frx,2) + Math.pow(fry,2)) / maxDist;
     double blThrottle = Math.sqrt(Math.pow(blx,2) + Math.pow(bly,2)) / maxDist;
     double brThrottle = Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)) / maxDist;
+    flThrottleOut += Functions.Clamp(flThrottle-flThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
+    frThrottleOut += Functions.Clamp(frThrottle-frThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
+    blThrottleOut += Functions.Clamp(blThrottle-blThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
+    brThrottleOut += Functions.Clamp(brThrottle-brThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
     flModule.Drive(flAngle, flThrottle);
     frModule.Drive(frAngle, frThrottle);
     blModule.Drive(blAngle, blThrottle);
