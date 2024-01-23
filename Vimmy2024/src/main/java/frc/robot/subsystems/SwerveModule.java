@@ -6,6 +6,9 @@ import frc.robot.Functions;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 
+/** The SwerveModule class takes the input angle and throttle from SwerveSubsystem, and rotates the angle and throttle motors.
+ **/
+
 public class SwerveModule {
     private CANSparkMax angleMotor;
     private CANSparkMax throttleMotor;

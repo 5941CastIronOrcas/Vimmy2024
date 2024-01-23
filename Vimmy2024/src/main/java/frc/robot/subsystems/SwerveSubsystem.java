@@ -15,6 +15,9 @@ import frc.robot.Robot;
 //import frc.robot.subsystems.SwerveModule;
 import java.lang.Math;
 
+/** The SwerveSubsystem class is used to calculate the angle and throttle of each swerve module, taking the sticks as input.
+ **/
+
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static double RobotYawAngle = 0;
