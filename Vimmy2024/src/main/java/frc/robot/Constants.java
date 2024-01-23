@@ -39,18 +39,12 @@ public final class Constants {
   public static final Boolean armMotor2Invert = false;
 
 
-  public static double armGearRatio1 = 0; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
-  public static double armGearRatio2 = 0;
+  public static double armGearRatio = 0; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
 
-  public static double armMotor1PMult = 1.0/30.0;
-  public static double armMotor1DMult = -0.0001;
-  public static double armMotor2PMult = 1.0/30.0;
-  public static double armMotor2DMult = -0.0001;
+  public static double armMotorPMult = 1.0/30.0;
+  public static double armMotorDMult = -0.0001;
 
-  public static double armMotor2MinAngle = 0;
-
-  public static double armMotor1GravMult = 0;
-  public static double armMotor2GravMult = 0;
+  public static double armMotorGravMult = 0;
 
   public static double maxArmSpeed = 0.3;
 
