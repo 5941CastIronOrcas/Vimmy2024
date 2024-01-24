@@ -70,7 +70,7 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
   
-  public void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
+  public static void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
   {
     double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
     double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
@@ -80,12 +80,12 @@ public class SwerveSubsystem extends SubsystemBase {
     double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
     DriveFieldOrientedAtAngle(xComponent, yComponent, angle, turnLimit);
   }
-  public void DriveFieldOriented(double x, double y, double turn)
+  public static void DriveFieldOriented(double x, double y, double turn)
   {
     Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+y*Math.sin(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees())), y*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+x*Math.sin(Math.toRadians(PositionEstimator.robotPosition.getRotation().getDegrees())), turn);
   }
   
-public void DriveFieldOrientedAtAngle(double x, double y, double angle, double turnLimit)
+  public static void DriveFieldOrientedAtAngle(double x, double y, double angle, double turnLimit)
   {
     /*DriveDriverOriented(DriverStation.getAlliance() == DriverStation.Alliance.Red?y:-y, 
     DriverStation.getAlliance() == DriverStation.Alliance.Red?-x:x, 
@@ -97,12 +97,12 @@ public void DriveFieldOrientedAtAngle(double x, double y, double angle, double t
     Functions.FieldToDriverAngle(angle), turnLimit);
   }
 
-  public void DriveDriverOriented(double LSX, double LSY, double RSX)
+  public static void DriveDriverOriented(double LSX, double LSY, double RSX)
   {
     Drive(LSX*Math.cos(Math.toRadians(-PositionEstimator.robotYawDriverRelative))+LSY*Math.sin(Math.toRadians(-PositionEstimator.robotYawDriverRelative)), LSY*Math.cos(Math.toRadians(-PositionEstimator.robotYawDriverRelative))+LSX*Math.sin(Math.toRadians(PositionEstimator.robotYawDriverRelative)), RSX);
   }
 
-  public void DriveDriverOrientedAtAngle(double LSX, double LSY, double angle, double turnLimit)
+  public static void DriveDriverOrientedAtAngle(double LSX, double LSY, double angle, double turnLimit)
   {
     DriveDriverOriented(LSX, LSY, 
     Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(Functions.DeltaAngleDeg(angle, PositionEstimator.robotYawDriverRelative), Constants.swerveAutoTurnDeadZone), 
