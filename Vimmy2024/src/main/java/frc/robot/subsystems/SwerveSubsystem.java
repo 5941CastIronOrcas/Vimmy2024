@@ -125,7 +125,7 @@ public class SwerveSubsystem extends SubsystemBase {
       Math.sqrt(Math.pow(flx,2) + Math.pow(fly,2)),
       Math.sqrt(Math.pow(frx,2) + Math.pow(fry,2)),
       Math.sqrt(Math.pow(blx,2) + Math.pow(bly,2)),
-      Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)),1.0});
+      Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)),1.0}); //use x*x not Math.pow()
     double flAngle = -Math.toDegrees(Math.atan2(fly,flx))-90;
     double frAngle = -Math.toDegrees(Math.atan2(fry,frx))-90;
     double blAngle = -Math.toDegrees(Math.atan2(bly,blx))-90;
@@ -133,7 +133,7 @@ public class SwerveSubsystem extends SubsystemBase {
     double flThrottle = Math.sqrt(Math.pow(flx,2) + Math.pow(fly,2)) / maxDist;
     double frThrottle = Math.sqrt(Math.pow(frx,2) + Math.pow(fry,2)) / maxDist;
     double blThrottle = Math.sqrt(Math.pow(blx,2) + Math.pow(bly,2)) / maxDist;
-    double brThrottle = Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)) / maxDist;
+    double brThrottle = Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)) / maxDist; //use x*x not Math.pow()
     flThrottleOut += Functions.Clamp(flThrottle-flThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
     frThrottleOut += Functions.Clamp(frThrottle-frThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
     blThrottleOut += Functions.Clamp(blThrottle-blThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
