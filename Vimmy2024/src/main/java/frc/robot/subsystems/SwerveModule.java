@@ -29,9 +29,9 @@ public class SwerveModule {
     }
     public void Drive(double angle, double speed) {
         double throttle = speed;
-        anglePos = encoder.getAbsolutePosition().getValueAsDouble();
+        anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
         
-        if (Math.abs(Functions.DeltaAngleDeg(encoder.getAbsolutePosition().getValueAsDouble() * 360, angle)) > Math.abs(Functions.DeltaAngleDeg(encoder.getAbsolutePosition().getValueAsDouble() * 360, angle + 180))) {
+        if (Math.abs(Functions.DeltaAngleDeg(anglePos, angle)) > Math.abs(Functions.DeltaAngleDeg(anglePos, angle + 180))) {
             angle += 180;
             throttle *= -1;
         }
@@ -40,7 +40,7 @@ public class SwerveModule {
             angle = defaultAngle;
         }
         
-        angleMotor.set(Functions.Clamp(Functions.DeltaAngleDeg(angle, encoder.getAbsolutePosition().getValueAsDouble() * 360) * -(Constants.modulePMult),-aMult,aMult));
+        angleMotor.set(Functions.Clamp(aMult*Functions.DeltaAngleDeg(angle, anglePos) * (Constants.modulePMult), -1,1));
         throttleMotor.set(throttle * tMult);
         
     }

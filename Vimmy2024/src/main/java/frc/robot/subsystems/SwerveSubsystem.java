@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,10 +28,10 @@ public class SwerveSubsystem extends SubsystemBase {
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
   public static double brThrottleOut = 0;
-  public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,false,false,-45);
-  public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,false,false,45);
-  public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,false,false,45);
-  public static SwerveModule brModule = new SwerveModule(Constants.braMotor,Constants.brtMotor,Constants.brEncoder,false,false,-45);
+  public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,false,-45);
+  public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,true,45);
+  public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,false,45);
+  public static SwerveModule brModule = new SwerveModule(Constants.braMotor,Constants.brtMotor,Constants.brEncoder,true,true,-45);
   public SwerveSubsystem() {}
 
   /**
@@ -111,23 +112,24 @@ public class SwerveSubsystem extends SubsystemBase {
   }
   
   public static void Drive(double x, double y, double rotate) {
-    double flx =  x + (Constants.turnMult * rotate);
-    double fly =  x + (Constants.turnMult * rotate);
-    double frx =  x + (Constants.turnMult * rotate);
-    double fry =  x - (Constants.turnMult * rotate);
-    double blx =  x - (Constants.turnMult * rotate);
-    double bly =  x - (Constants.turnMult * rotate);
-    double brx =  x - (Constants.turnMult * rotate);
-    double bry =  x + (Constants.turnMult * rotate);
+    SmartDashboard.putNumber("turn", rotate);
+    double flx =  x - (Constants.turnMult * rotate);
+    double fly =  y - (Constants.turnMult * rotate);
+    double frx =  x - (Constants.turnMult * rotate);
+    double fry =  y + (Constants.turnMult * rotate);
+    double blx =  x + (Constants.turnMult * rotate);
+    double bly =  y - (Constants.turnMult * rotate);
+    double brx =  x + (Constants.turnMult * rotate);
+    double bry =  y + (Constants.turnMult * rotate);
     double maxDist = Functions.Max(new double[]{
       Math.sqrt(Math.pow(flx,2) + Math.pow(fly,2)),
       Math.sqrt(Math.pow(frx,2) + Math.pow(fry,2)),
       Math.sqrt(Math.pow(blx,2) + Math.pow(bly,2)),
       Math.sqrt(Math.pow(brx,2) + Math.pow(bry,2)),1.0});
-    double flAngle = Math.atan2(fly,flx);
-    double frAngle = Math.atan2(fry,frx);
-    double blAngle = Math.atan2(bly,blx);
-    double brAngle = Math.atan2(bry,brx);
+    double flAngle = -Math.toDegrees(Math.atan2(fly,flx))-90;
+    double frAngle = -Math.toDegrees(Math.atan2(fry,frx))-90;
+    double blAngle = -Math.toDegrees(Math.atan2(bly,blx))-90;
+    double brAngle = -Math.toDegrees(Math.atan2(bry,brx))-90;
     double flThrottle = Math.sqrt(Math.pow(flx,2) + Math.pow(fly,2)) / maxDist;
     double frThrottle = Math.sqrt(Math.pow(frx,2) + Math.pow(fry,2)) / maxDist;
     double blThrottle = Math.sqrt(Math.pow(blx,2) + Math.pow(bly,2)) / maxDist;
@@ -140,6 +142,11 @@ public class SwerveSubsystem extends SubsystemBase {
     frModule.Drive(frAngle, frThrottle);
     blModule.Drive(blAngle, blThrottle);
     brModule.Drive(brAngle, brThrottle);
+    SmartDashboard.putNumber("FRAT", frAngle);
+    SmartDashboard.putNumber("FLAT", flAngle);
+    SmartDashboard.putNumber("BRAT", brAngle);
+    SmartDashboard.putNumber("BLAT", blAngle);
+
   }
 
   

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.PositionEstimator;
@@ -99,6 +100,10 @@ public class Robot extends TimedRobot {
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(0);
     }
+    SmartDashboard.putNumber("FRA", SwerveSubsystem.frModule.anglePos);
+    SmartDashboard.putNumber("FLA", SwerveSubsystem.flModule.anglePos);
+    SmartDashboard.putNumber("BRA", SwerveSubsystem.brModule.anglePos);
+    SmartDashboard.putNumber("BLA", SwerveSubsystem.blModule.anglePos);
     
     SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,(Functions.Pythagorean(RSX, RSY) >= 0.8)?RSAngle:PositionEstimator.robotYawDriverRelative,speed);
