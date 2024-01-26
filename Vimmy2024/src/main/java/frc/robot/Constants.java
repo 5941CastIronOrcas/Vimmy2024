@@ -32,6 +32,22 @@ public final class Constants {
   public static final CANSparkMax bltMotor = new CANSparkMax(24, MotorType.kBrushless);
   public static final CANSparkMax braMotor = new CANSparkMax(27, MotorType.kBrushless);
   public static final CANSparkMax brtMotor = new CANSparkMax(26, MotorType.kBrushless);
+
+  public static final CANSparkMax armMotor1 = new CANSparkMax(0, MotorType.kBrushless);
+  public static final CANSparkMax armMotor2 = new CANSparkMax(0, MotorType.kBrushless);
+  public static final Boolean armMotor1Invert = false;
+  public static final Boolean armMotor2Invert = false;
+
+
+  public static double armGearRatio = 0; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
+
+  public static double armMotorPMult = 1.0/30.0;
+  public static double armMotorDMult = -0.0001;
+
+  public static double armMotorGravMult = 0;
+
+  public static double maxArmSpeed = 0.3;
+
   public static final double swerveDriveRatio = 1.00 / 6.75;
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
   //public static final WPI_CANCoder flEncoder = new WPI_CANCoder(0);
