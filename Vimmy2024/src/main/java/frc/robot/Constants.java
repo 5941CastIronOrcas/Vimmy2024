@@ -61,8 +61,8 @@ public final class Constants {
   public static final double turnMult = 1.0;
   public static final double maxThrottleChange = 0.1;
   
-  public static final double swerveAutoTurnPMult = 0.05;
-  public static final double swerveAutoTurnMaxSpeed = 1;
+  public static final double swerveAutoTurnPMult = 0.005;
+  public static final double swerveAutoTurnMaxSpeed = 1.0;
   public static final double swerveAutoTurnDeadZone = 0.5;
   
   public static final double swerveDriveToPMult = 1.0;

@@ -107,11 +107,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("BRA", SwerveSubsystem.brModule.anglePos);
     SmartDashboard.putNumber("BLA", SwerveSubsystem.blModule.anglePos);
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
-    SmartDashboard.putNumber("RSAngle", (Functions.Pythagorean(RSX, RSY) >= 0.1)?RSAngle:PositionEstimator.robotYawDriverRelative);
+    SmartDashboard.putNumber("RSAngle", RSAngle);
     
     //SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
-    SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,(Functions.Pythagorean(RSX, RSY) >= 0.1)?RSAngle:PositionEstimator.robotYawDriverRelative,speed);
+    SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
   }
 
   @Override
