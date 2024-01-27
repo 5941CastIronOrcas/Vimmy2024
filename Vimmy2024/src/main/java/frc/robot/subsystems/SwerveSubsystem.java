@@ -21,9 +21,6 @@ import java.lang.Math;
 
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public static double RobotYawAngle = 0;
-  public static double RobotYawRate = 0;
-  public static double RobotYawOld = 0;
   public static double flThrottleOut = 0;
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
@@ -61,9 +58,6 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    RobotYawAngle = Functions.DeltaAngleDeg(Constants.gyro.getYaw().getValueAsDouble(), 0);
-    RobotYawRate = -(Constants.gyro.getYaw().getValueAsDouble() - RobotYawOld)/0.02;
-    RobotYawOld = Constants.gyro.getYaw().getValueAsDouble();
   }
 
   @Override

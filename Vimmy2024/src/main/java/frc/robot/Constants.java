@@ -22,7 +22,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 public final class Constants {
 
   //public static final Pigeon2 gyro = new Pigeon2(2);
-  public static final Pigeon2 gyro = new Pigeon2(2);
+  public static final Pigeon2 gyro = new Pigeon2(54);
 
   public static final CANSparkMax flaMotor = new CANSparkMax(27, MotorType.kBrushless);
   public static final CANSparkMax fltMotor = new CANSparkMax(26, MotorType.kBrushless);
@@ -39,7 +39,7 @@ public final class Constants {
   public static final Boolean armMotor2Invert = false;
 
 
-  public static double armGearRatio = 0; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
+  public static double armGearRatio = 1; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
 
   public static double armMotorPMult = 1.0/30.0;
   public static double armMotorDMult = -0.0001;
@@ -58,11 +58,11 @@ public final class Constants {
 
   public static final double controllerDeadZone = 0.1;
   public static final double modulePMult = 0.01;
-  public static final double turnMult = 0.2;
+  public static final double turnMult = 1.0;
   public static final double maxThrottleChange = 0.1;
   
-  public static final double swerveAutoTurnPMult = 0.005;
-  public static final double swerveAutoTurnMaxSpeed = 0.5;
+  public static final double swerveAutoTurnPMult = 0.05;
+  public static final double swerveAutoTurnMaxSpeed = 1;
   public static final double swerveAutoTurnDeadZone = 0.5;
   
   public static final double swerveDriveToPMult = 1.0;

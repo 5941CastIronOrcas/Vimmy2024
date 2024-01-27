@@ -11,6 +11,7 @@ import org.ejml.equation.Function;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,6 +21,7 @@ import frc.robot.Robot;
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static double robotYawDriverRelative = 0;
+  public static double robotYawRate = 0;
   public static Pose2d robotPosition = new Pose2d();  
   public static double deltaX = 0;
   public static double deltaY = 0;
@@ -53,6 +55,10 @@ public class PositionEstimator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
+    //robotYawRate = Constants.gyro.getRate();
+    robotYawRate = -Constants.gyro.getAngularVelocityZDevice().getValueAsDouble();
+    SmartDashboard.putNumber("YawRate", robotYawRate);
+
     if(Robot.isRedAlliance) {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90)));
     } else if (Robot.isBlueAlliance) {

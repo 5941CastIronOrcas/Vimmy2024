@@ -20,8 +20,8 @@ import frc.robot.subsystems.SwerveSubsystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  public static Boolean isRedAlliance;
-  public static Boolean isBlueAlliance;
+  public static Boolean isRedAlliance = true;
+  public static Boolean isBlueAlliance = false;
 
   private RobotContainer m_robotContainer;
 
@@ -50,8 +50,10 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    isRedAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
-    isBlueAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Blue);
+    //isRedAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+    //isBlueAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Blue);
+    isRedAlliance= true;
+    isBlueAlliance = false;
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -90,12 +92,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    double speed = 1-(0.75*Constants.controller1.getRightTriggerAxis());
+    double speed = 1-(0.75*Constants.controller1.getLeftTriggerAxis());
     double LSX = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftX(), Constants.controllerDeadZone)) * speed;
     double LSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
-    //double RSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;;
-    //double RSAngle = Math.atan2(RSY, RSX);
+    double RSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;;
+    double RSAngle = Math.toDegrees(Math.atan2(RSY, RSX))+90;
 
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(0);
@@ -104,9 +106,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("FLA", SwerveSubsystem.flModule.anglePos);
     SmartDashboard.putNumber("BRA", SwerveSubsystem.brModule.anglePos);
     SmartDashboard.putNumber("BLA", SwerveSubsystem.blModule.anglePos);
+    SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
+    SmartDashboard.putNumber("RSAngle", (Functions.Pythagorean(RSX, RSY) >= 0.1)?RSAngle:PositionEstimator.robotYawDriverRelative);
     
-    SwerveSubsystem.Drive(LSX, LSY, RSX);
-    //SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,(Functions.Pythagorean(RSX, RSY) >= 0.8)?RSAngle:PositionEstimator.robotYawDriverRelative,speed);
+    //SwerveSubsystem.Drive(LSX, LSY, RSX);
+    //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
+    SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,(Functions.Pythagorean(RSX, RSY) >= 0.1)?RSAngle:PositionEstimator.robotYawDriverRelative,speed);
   }
 
   @Override

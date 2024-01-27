@@ -29,15 +29,16 @@ public class SwerveModule {
     }
     public void Drive(double angle, double speed) {
         double throttle = speed;
-        anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
+        //anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
+        anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
+
+        if(Math.abs(speed) < 0.001) {
+            angle = defaultAngle;
+        }
         
         if (Math.abs(Functions.DeltaAngleDeg(anglePos, angle)) > Math.abs(Functions.DeltaAngleDeg(anglePos, angle + 180))) {
             angle += 180;
             throttle *= -1;
-        }
-        
-        if(Math.abs(speed) < 0.001) {
-            angle = defaultAngle;
         }
         
         angleMotor.set(Functions.Clamp(aMult*Functions.DeltaAngleDeg(angle, anglePos) * (Constants.modulePMult), -1,1));
