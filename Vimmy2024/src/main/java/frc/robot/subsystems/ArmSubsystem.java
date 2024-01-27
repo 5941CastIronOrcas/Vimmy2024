@@ -33,4 +33,13 @@ public class ArmSubsystem extends SubsystemBase {
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t1:t1);
     SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotor1Invert)?-t1:t1);
   }
+  public void Spinintake(double input)
+  {
+    Constants.intakeMotor.set(input);
+  }
+  public void SpinShooter(double input)
+  {
+    Constants.shooterMotor1.set(input);
+    Constants.shooterMotor2.set(-input);
+  }
 }
