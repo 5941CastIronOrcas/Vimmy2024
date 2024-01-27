@@ -33,9 +33,9 @@ public class SwerveModule {
         anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
 
         if(Math.abs(speed) < 0.001) {
-            angle = defaultAngle;
+            angle = anglePos;
         }
-        
+
         if (Math.abs(Functions.DeltaAngleDeg(anglePos, angle)) > Math.abs(Functions.DeltaAngleDeg(anglePos, angle + 180))) {
             angle += 180;
             throttle *= -1;

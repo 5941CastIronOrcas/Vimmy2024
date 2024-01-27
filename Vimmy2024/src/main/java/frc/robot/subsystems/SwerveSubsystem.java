@@ -100,11 +100,11 @@ public class SwerveSubsystem extends SubsystemBase {
   public static void DriveDriverOrientedAtAngle(double LSX, double LSY, double angle, double turnLimit)
   {
     turnLimit = Functions.Clamp(turnLimit, 0, 1);
-    
+
     DriveDriverOriented(LSX, LSY, 
     Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(
       Functions.DeltaAngleDeg(angle, PositionEstimator.robotYawDriverRelative), 
-      Constants.swerveAutoTurnDeadZone), 
+      Constants.swerveAutoTurnDeadZone)+Constants.swerveAutoTurnDMult*PositionEstimator.robotYawRate, 
       -Constants.swerveAutoTurnMaxSpeed*turnLimit, 
       Constants.swerveAutoTurnMaxSpeed*turnLimit));
   }
