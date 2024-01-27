@@ -34,9 +34,10 @@ public final class Constants {
   public static final CANSparkMax brtMotor = new CANSparkMax(22, MotorType.kBrushless);
 
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
-  public static final CANSparkMax armMotor2 = new CANSparkMax(29, MotorType.kBrushless);
   public static final Boolean armMotor1Invert = false;
-  public static final Boolean armMotor2Invert = false;
+  public static final CANSparkMax intakeMotor = new CANSparkMax(29, MotorType.kBrushless);
+  public static final CANSparkMax shooterMotor1 = new CANSparkMax(30, MotorType.kBrushless);
+  public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
 
 
   public static double armGearRatio = 1; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
