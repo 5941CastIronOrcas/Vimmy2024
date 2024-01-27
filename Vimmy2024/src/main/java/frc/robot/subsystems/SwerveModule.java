@@ -33,7 +33,8 @@ public class SwerveModule {
         anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
 
         if(Math.abs(speed) < 0.001) {
-            angle = anglePos;
+            //angle = anglePos;
+            angle = defaultAngle;
         }
 
         if (Math.abs(Functions.DeltaAngleDeg(anglePos, angle)) > Math.abs(Functions.DeltaAngleDeg(anglePos, angle + 180))) {

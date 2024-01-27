@@ -23,8 +23,8 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void moveArmTo(double a1, double a2) {
-    rotateArm(Functions.Clamp((Constants.armMotorPMult * (a1 - armAngle)) 
-    +(Constants.armMotorGravMult) * Math.cos(Math.toRadians(armAngle)) 
+    rotateArm(Functions.Clamp((Constants.armMotorPMult*(a1 - armAngle)) 
+    +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     +(Constants.armMotorDMult*Constants.armMotor1.getEncoder().getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
     SmartDashboard.putNumber("Arm Motor Target", a1);

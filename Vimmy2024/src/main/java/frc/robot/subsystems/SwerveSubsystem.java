@@ -25,10 +25,10 @@ public class SwerveSubsystem extends SubsystemBase {
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
   public static double brThrottleOut = 0;
-  public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,false,-45);
-  public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,true,45);
-  public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,false,45);
-  public static SwerveModule brModule = new SwerveModule(Constants.braMotor,Constants.brtMotor,Constants.brEncoder,true,true,-45);
+  public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,false,45);
+  public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,true,-45);
+  public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,false,-45);
+  public static SwerveModule brModule = new SwerveModule(Constants.braMotor,Constants.brtMotor,Constants.brEncoder,true,true,45);
   public SwerveSubsystem() {}
 
   /**
@@ -104,13 +104,12 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveDriverOriented(LSX, LSY, 
     Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(
       Functions.DeltaAngleDeg(angle, PositionEstimator.robotYawDriverRelative), 
-      Constants.swerveAutoTurnDeadZone)+Constants.swerveAutoTurnDMult*PositionEstimator.robotYawRate, 
+      Constants.swerveAutoTurnDeadZone)-Constants.swerveAutoTurnDMult*PositionEstimator.robotYawRate, 
       -Constants.swerveAutoTurnMaxSpeed*turnLimit, 
       Constants.swerveAutoTurnMaxSpeed*turnLimit));
   }
   
   public static void Drive(double x, double y, double rotate) {
-    SmartDashboard.putNumber("turn", rotate);
     double flx =  x - (Constants.turnMult * rotate);
     double fly =  y - (Constants.turnMult * rotate);
     double frx =  x - (Constants.turnMult * rotate);
@@ -140,11 +139,6 @@ public class SwerveSubsystem extends SubsystemBase {
     frModule.Drive(frAngle, frThrottle);
     blModule.Drive(blAngle, blThrottle);
     brModule.Drive(brAngle, brThrottle);
-    SmartDashboard.putNumber("FRAT", frAngle);
-    SmartDashboard.putNumber("FLAT", flAngle);
-    SmartDashboard.putNumber("BRAT", brAngle);
-    SmartDashboard.putNumber("BLAT", blAngle);
-
   }
 
   

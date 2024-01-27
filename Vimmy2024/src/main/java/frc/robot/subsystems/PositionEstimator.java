@@ -21,6 +21,7 @@ import frc.robot.Robot;
 public class PositionEstimator extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static double robotYawDriverRelative = 0;
+  private static double gyroYawOld = 0;
   public static double robotYawRate = 0;
   public static Pose2d robotPosition = new Pose2d();  
   public static double deltaX = 0;
@@ -56,15 +57,15 @@ public class PositionEstimator extends SubsystemBase {
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
     //robotYawRate = Constants.gyro.getRate();
-    robotYawRate = -Constants.gyro.getAngularVelocityZDevice().getValueAsDouble();
-    SmartDashboard.putNumber("YawRate", robotYawRate);
+    robotYawRate = -(Constants.gyro.getYaw().getValueAsDouble() - gyroYawOld)/0.02;
+    gyroYawOld = Constants.gyro.getYaw().getValueAsDouble();
 
     if(Robot.isRedAlliance) {
-      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90)));
+      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative - 90))));
     } else if (Robot.isBlueAlliance) {
-            robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90)));      
+            robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative + 90))));      
     } else {
-      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Functions.DeltaAngleDeg(0, robotYawDriverRelative)));
+      robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative))));
       
     }
      deltaX = ((

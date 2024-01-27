@@ -21,9 +21,14 @@ import com.ctre.phoenix6.hardware.Pigeon2;
  */
 public final class Constants {
 
-  //public static final Pigeon2 gyro = new Pigeon2(2);
+  //Gyro
   public static final Pigeon2 gyro = new Pigeon2(54);
 
+  //Controller Stuff
+  public static final XboxController controller1 = new XboxController(0);
+  public static final double controllerDeadZone = 0.1;
+
+  //Swerve Motor Declarations:
   public static final CANSparkMax flaMotor = new CANSparkMax(27, MotorType.kBrushless);
   public static final CANSparkMax fltMotor = new CANSparkMax(26, MotorType.kBrushless);
   public static final CANSparkMax fraMotor = new CANSparkMax(25, MotorType.kBrushless);
@@ -32,7 +37,12 @@ public final class Constants {
   public static final CANSparkMax bltMotor = new CANSparkMax(20, MotorType.kBrushless);
   public static final CANSparkMax braMotor = new CANSparkMax(23, MotorType.kBrushless);
   public static final CANSparkMax brtMotor = new CANSparkMax(22, MotorType.kBrushless);
-
+  //Swerve Encoder Declarations
+  public static final CANcoder flEncoder = new CANcoder(50);
+  public static final CANcoder frEncoder = new CANcoder(51);
+  public static final CANcoder blEncoder = new CANcoder(52);
+  public static final CANcoder brEncoder = new CANcoder(53);
+  //Arm Motor Declarations:
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
   public static final Boolean armMotor1Invert = false;
   public static final CANSparkMax intakeMotor = new CANSparkMax(29, MotorType.kBrushless);
@@ -40,39 +50,29 @@ public final class Constants {
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
 
 
+  //Arm Constants
   public static double armGearRatio = 1; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
-
   public static double armMotorPMult = 1.0/30.0;
-  public static double armMotorDMult = -0.0001;
-
+  public static double armMotorDMult = 0;
   public static double armMotorGravMult = 0;
-
   public static double maxArmSpeed = 0.3;
 
-  public static final double swerveDriveRatio = 1.00 / 6.75;
+  //Swerve Module Constants
+  public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
-  //public static final WPI_CANCoder flEncoder = new WPI_CANCoder(0);
-  public static final CANcoder flEncoder = new CANcoder(50);
-  public static final CANcoder frEncoder = new CANcoder(51);
-  public static final CANcoder blEncoder = new CANcoder(52);
-  public static final CANcoder brEncoder = new CANcoder(53);
-
-  public static final double controllerDeadZone = 0.1;
   public static final double modulePMult = 0.01;
-  public static final double turnMult = 1.0;
   public static final double maxThrottleChange = 0.1;
   
-  public static final double swerveAutoTurnPMult = 0.005;
-  public static final double swerveAutoTurnDMult = 0.01;
-  public static final double swerveAutoTurnMaxSpeed = 1.0;
+  public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
+  public static final double swerveAutoTurnPMult = 0.006;
+  public static final double swerveAutoTurnDMult = 0.00035;
+  public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
   public static final double swerveAutoTurnDeadZone = 0.5;
   
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 7.0;
-  public static final double swerveDriveToMaxSpeed = 3.6576;
-  public static final double swerveDriveToDeadZone = 0.01;
-  
-  public static final XboxController controller1 = new XboxController(0);
+  public static final double swerveMaxSpeed = 4.60248;
+  public static final double swerveDriveToDeadZone = 0.03;
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

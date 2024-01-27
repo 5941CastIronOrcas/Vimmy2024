@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
+  public static double tempDemoAngle = 0; //remove later
 
   private RobotContainer m_robotContainer;
 
@@ -50,10 +52,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    //isRedAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
-    //isBlueAlliance = DriverStation.getAlliance().equals(DriverStation.Alliance.Blue);
-    isRedAlliance= true;
-    isBlueAlliance = false;
+    isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
+    isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -102,16 +102,25 @@ public class Robot extends TimedRobot {
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(0);
     }
-    SmartDashboard.putNumber("FRA", SwerveSubsystem.frModule.anglePos);
-    SmartDashboard.putNumber("FLA", SwerveSubsystem.flModule.anglePos);
-    SmartDashboard.putNumber("BRA", SwerveSubsystem.brModule.anglePos);
-    SmartDashboard.putNumber("BLA", SwerveSubsystem.blModule.anglePos);
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
-    SmartDashboard.putNumber("RSAngle", RSAngle);
-    
+    SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
+    SmartDashboard.putNumber("Robot X", PositionEstimator.robotPosition.getX());
+    SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
+    if(Constants.controller1.getXButtonPressed())
+    {
+      PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());
+      tempDemoAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
+    }
     //SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
-    SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
+    if(Constants.controller1.getAButton())
+    {
+      SwerveSubsystem.DriveTo(0, 0, tempDemoAngle, speed, speed);
+    }
+    else
+    {
+      SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
+    }
   }
 
   @Override
