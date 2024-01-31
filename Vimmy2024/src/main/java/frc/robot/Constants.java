@@ -43,15 +43,14 @@ public final class Constants {
   public static final CANcoder blEncoder = new CANcoder(52);
   public static final CANcoder brEncoder = new CANcoder(53);
   //Arm Motor Declarations:
-  public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
-  public static final Boolean armMotor1Invert = false;
+  public static final CANSparkMax armMotor = new CANSparkMax(28, MotorType.kBrushless);
+  public static final Boolean armMotorInvert = false;
   public static final CANSparkMax intakeMotor = new CANSparkMax(29, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor1 = new CANSparkMax(30, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
 
 
   //Arm Constants
-  public static double armGearRatio = 1; //PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//PLACEHOLDER//
   public static double armMotorPMult = 1.0/30.0;
   public static double armMotorDMult = 0;
   public static double armMotorGravMult = 0;
