@@ -53,8 +53,8 @@ public final class Constants {
   public static final CANSparkMax shooterMotor1 = new CANSparkMax(30, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
   //Limit Switch Declarations
-  public static final ArrayList<DigitalInput> limitSwitches = new ArrayList<DigitalInput>();
-  
+  //public static final ArrayList<DigitalInput> limitSwitches = new ArrayList<DigitalInput>();
+  public static final DigitalInput[] limitSwitches = new DigitalInput[]{new DigitalInput(0)};
 
 
   //Arm Constants
