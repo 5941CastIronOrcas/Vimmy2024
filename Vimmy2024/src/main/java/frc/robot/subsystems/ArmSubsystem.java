@@ -25,16 +25,16 @@ public class ArmSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public void moveArmTo(double a1, double a2) {
-    rotateArm(Functions.Clamp((Constants.armMotorPMult*(a1 - armAngle)) 
+  public void moveArmTo(double a) {
+    rotateArm(Functions.Clamp((Constants.armMotorPMult*(a - armAngle)) 
     +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     +(Constants.armMotorDMult*Constants.armMotor.getEncoder().getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
-    SmartDashboard.putNumber("Arm Motor Target", a1);
+    SmartDashboard.putNumber("Arm Motor Target", a);
   }
-  public void rotateArm(double t1) {
-    Constants.armMotor.set((Constants.armMotorInvert)?-t1:t1);
-    SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotorInvert)?-t1:t1);
+  public void rotateArm(double t) {
+    Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
+    SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotorInvert)?-t:t);
   }
   public void Spinintake(double input)
   {
@@ -45,4 +45,6 @@ public class ArmSubsystem extends SubsystemBase {
     Constants.shooterMotor1.set(input);
     Constants.shooterMotor2.set(-input);
   }
+
+  
 }

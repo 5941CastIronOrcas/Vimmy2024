@@ -4,10 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import java.util.ArrayList;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
 
@@ -48,6 +52,9 @@ public final class Constants {
   public static final CANSparkMax intakeMotor = new CANSparkMax(29, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor1 = new CANSparkMax(30, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
+  //Limit Switch Declarations
+  public static final ArrayList<DigitalInput> limitSwitches = new ArrayList<DigitalInput>();
+  
 
 
   //Arm Constants
