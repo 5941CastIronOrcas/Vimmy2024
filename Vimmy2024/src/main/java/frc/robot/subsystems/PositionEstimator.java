@@ -18,8 +18,10 @@ import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
 
+import org.photonvision.*;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 public class PositionEstimator extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
   public static double robotYawDriverRelative = 0;
   private static double gyroYawOld = 0;
   public static double robotYawRate = 0;
@@ -27,6 +29,9 @@ public class PositionEstimator extends SubsystemBase {
   public static double deltaX = 0;
   public static double deltaY = 0;
   public PositionEstimator() {}
+
+  public static String cameraName = "";
+  public static PhotonCamera camera = new PhotonCamera(cameraName);
 
   /**
    * Example command factory method.
@@ -50,6 +55,24 @@ public class PositionEstimator extends SubsystemBase {
   public boolean exampleCondition() {
     // Query some boolean state, such as a digital sensor.
     return false;
+  }
+
+  public static Boolean camCheck() {
+    var result = camera.getLatestResult();
+
+    return result.hasTargets();
+  }
+
+  public static PhotonTrackedTarget obtainTargets() {
+    var result = camera.getLatestResult();
+
+    if  (result.hasTargets()) {
+      //Sends back the most clear target and its data
+      return result.getBestTarget();
+    } 
+    else {
+      return new PhotonTrackedTarget();
+    }
   }
 
   @Override
