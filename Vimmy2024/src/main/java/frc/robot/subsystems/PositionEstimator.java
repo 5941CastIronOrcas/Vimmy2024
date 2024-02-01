@@ -103,6 +103,7 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * (1.0/3000.0) * 60)
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.blModule.velocity * (1.0/3000.0) * 60))
         / 4.0);
+    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(deltaX, deltaY));
     robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
   }
 
