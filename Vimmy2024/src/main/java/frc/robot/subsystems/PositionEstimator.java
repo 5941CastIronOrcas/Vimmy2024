@@ -92,16 +92,16 @@ public class PositionEstimator extends SubsystemBase {
       
     }
      deltaX = ((
-         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.flModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.blModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * (1.0/3000.0) * 60)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.flModule.velocity * (1.0/3000.0) * 60)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * (1.0/3000.0) * 60)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.blModule.velocity * (1.0/3000.0) * 60))
         / 4.0);
     deltaY = ((
-         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.flModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.blModule.velocity * Constants.swerveDriveRatio * (1.0/3000.0) * Constants.swerveWheelCircumference))
+         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * (1.0/3000.0) * 60)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.flModule.velocity * (1.0/3000.0) * 60)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * (1.0/3000.0) * 60)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * -SwerveSubsystem.blModule.velocity * (1.0/3000.0) * 60))
         / 4.0);
     robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
   }
