@@ -55,13 +55,6 @@ public class ArmSubsystem extends SubsystemBase {
           pressed = true;
         }
     }
-    if (pressed)
-    {
-      Spinintake (0);
-    }
-    else
-    {
-      Spinintake (input);
-    }
+    Spinintake((pressed)?0:input);
   }
 }
