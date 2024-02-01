@@ -33,7 +33,7 @@ public class SwerveModule {
         double throttle = speed;
         //anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
         anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
-        velocity = throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60);
+        velocity = (throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60 * Constants.swerveDriveRatio * Constants.swerveWheelCircumference;
         SmartDashboard.putNumber("wheel velocity", velocity);
         SmartDashboard.putNumber("angle velocity", encoder.getVelocity().getValueAsDouble());
 
