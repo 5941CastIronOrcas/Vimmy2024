@@ -45,6 +45,23 @@ public class ArmSubsystem extends SubsystemBase {
     Constants.shooterMotor1.set(input);
     Constants.shooterMotor2.set(-input);
   }
-
-  
+  public void Intake(double input)
+  {
+    boolean pressed = false;
+    for (int i = 0; i < 8 ; i++)
+    {
+        if (Constants.limitSwitches[i].get())
+        {
+          pressed = true;
+        }
+    }
+    if (pressed)
+    {
+      Spinintake (0);
+    }
+    else
+    {
+      Spinintake (input);
+    }
+  }
 }
