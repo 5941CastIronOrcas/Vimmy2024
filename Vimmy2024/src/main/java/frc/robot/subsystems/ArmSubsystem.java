@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.EncoderType;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,13 +11,14 @@ import frc.robot.Constants;
 import frc.robot.Functions;
 
 public class ArmSubsystem extends SubsystemBase {
-    public double armAngle;
+  public RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+  public double armAngle;
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {}
 
   @Override
   public void periodic() {
-    armAngle = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192).getPosition() * 360;
+    armAngle = armEncoder.getPosition() * 360;
     // This method will be called once per scheduler run
   }
 
@@ -28,7 +30,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void moveArmTo(double a) {
     rotateArm(Functions.Clamp((Constants.armMotorPMult*(a - armAngle)) 
     +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
-    +(Constants.armMotorDMult*Constants.armMotor.getEncoder().getVelocity()), 
+    +(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
     SmartDashboard.putNumber("Arm Motor Target", a);
   }
@@ -36,7 +38,7 @@ public class ArmSubsystem extends SubsystemBase {
     Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
     SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotorInvert)?-t:t);
   }
-  public void Spinintake(double input)
+  public void SpinIntake(double input)
   {
     Constants.intakeMotor.set(input);
   }
@@ -55,6 +57,7 @@ public class ArmSubsystem extends SubsystemBase {
           pressed = true;
         }
     }
-    Spinintake((pressed)?0:input);
+    SpinIntake((pressed)?0:input);
   }
+
 }
