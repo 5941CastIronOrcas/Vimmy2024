@@ -21,6 +21,8 @@ import java.lang.Math;
 
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
+  public static double xOut = 0;
+  public static double yOut = 0;
   public static double flThrottleOut = 0;
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
@@ -110,14 +112,16 @@ public class SwerveSubsystem extends SubsystemBase {
   }
   
   public static void Drive(double x, double y, double rotate) {
-    double flx =  x - (Constants.turnMult * rotate);
-    double fly =  y - (Constants.turnMult * rotate);
-    double frx =  x - (Constants.turnMult * rotate);
-    double fry =  y + (Constants.turnMult * rotate);
-    double blx =  x + (Constants.turnMult * rotate);
-    double bly =  y - (Constants.turnMult * rotate);
-    double brx =  x + (Constants.turnMult * rotate);
-    double bry =  y + (Constants.turnMult * rotate);
+    xOut += Functions.Clamp(x-xOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
+    yOut += Functions.Clamp(y-yOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
+    double flx =  xOut - (Constants.turnMult * rotate);
+    double fly =  yOut - (Constants.turnMult * rotate);
+    double frx =  xOut - (Constants.turnMult * rotate);
+    double fry =  yOut + (Constants.turnMult * rotate);
+    double blx =  xOut + (Constants.turnMult * rotate);
+    double bly =  yOut - (Constants.turnMult * rotate);
+    double brx =  xOut + (Constants.turnMult * rotate);
+    double bry =  yOut + (Constants.turnMult * rotate);
     double maxDist = Functions.Max(new double[]{
       Functions.Pythagorean(flx, fly),
       Functions.Pythagorean(frx, fry),

@@ -67,7 +67,8 @@ public final class Constants {
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
   public static final double modulePMult = 0.01;
-  public static final double maxThrottleChange = 0.1;
+  public static final double maxThrottleChange = 2.0;
+  public static final double swerveMaxAccel = 0.3;
   
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
   public static final double swerveAutoTurnPMult = 0.006;
