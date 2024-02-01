@@ -8,8 +8,13 @@ import java.sql.Driver;
 
 import org.ejml.equation.Function;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +24,7 @@ import frc.robot.Functions;
 import frc.robot.Robot;
 
 import org.photonvision.*;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class PositionEstimator extends SubsystemBase {
@@ -28,10 +34,15 @@ public class PositionEstimator extends SubsystemBase {
   public static Pose2d robotPosition = new Pose2d();  
   public static double deltaX = 0;
   public static double deltaY = 0;
-  public PositionEstimator() {}
 
+  public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
+ 
+  public static Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
   public static String cameraName = "";
   public static PhotonCamera camera = new PhotonCamera(cameraName);
+
+  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.LOWEST_AMBIGUITY, camera, robotToCam);
+
 
   /**
    * Example command factory method.
@@ -75,6 +86,43 @@ public class PositionEstimator extends SubsystemBase {
     }
   }
 
+  public static Pose2d getEstimatedGlobalPose() {
+    //var emptyTarget = new PhotonTrackedTarget();
+    if (!camCheck()) {
+      return robotPosition;
+    }
+    
+    /*if (photonPoseEstimator.update().isPresent()) {
+      return photonPoseEstimator.update().orElse(null).estimatedPose.toPose2d();
+    }*/
+    
+    
+    try{
+      if (photonPoseEstimator.update().isPresent()) {
+        return photonPoseEstimator.update().get().estimatedPose.toPose2d();
+      }
+    }
+    catch(Exception e)
+    {
+      System.out.println("Caught Error: " + e);
+    }
+    
+    return robotPosition;
+  }
+
+  public boolean isValid(Pose2d oldPose, Pose2d newPose)
+  {
+    double maxMovement = Constants.swerveMaxSpeed * camera.getLatestResult().getLatencyMillis() * 0.001;
+    double currentMovement = Functions.Pythagorean(oldPose.getX() - newPose.getX(), oldPose.getY() - newPose.getY());
+    if (currentMovement > maxMovement) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -105,6 +153,8 @@ public class PositionEstimator extends SubsystemBase {
         / 4.0);
     SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(deltaX, deltaY));
     robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+
+    SmartDashboard.putBoolean("isPresent", camCheck());
   }
 
   @Override
