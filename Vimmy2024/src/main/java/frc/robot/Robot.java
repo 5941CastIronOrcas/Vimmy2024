@@ -106,8 +106,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
     SmartDashboard.putNumber("Robot X", PositionEstimator.robotPosition.getX());
     SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
-    SmartDashboard.putNumber("BL Angle", SwerveSubsystem.blModule.anglePos);
-    if(Constants.controller1.getXButtonPressed())
+    if(Constants.controller1.getYButtonPressed())
     {
       PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());
       tempDemoAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
