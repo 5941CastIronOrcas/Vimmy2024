@@ -135,10 +135,10 @@ public class SwerveSubsystem extends SubsystemBase {
     frThrottleOut += Functions.Clamp(frThrottle-frThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
     blThrottleOut += Functions.Clamp(blThrottle-blThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
     brThrottleOut += Functions.Clamp(brThrottle-brThrottleOut, -Constants.maxThrottleChange, Constants.maxThrottleChange);
-    flModule.Drive(flAngle, flThrottle);
-    frModule.Drive(frAngle, frThrottle);
-    blModule.Drive(blAngle, blThrottle);
-    brModule.Drive(brAngle, brThrottle);
+    flModule.Drive(flAngle, flThrottleOut);
+    frModule.Drive(frAngle, frThrottleOut);
+    blModule.Drive(blAngle, blThrottleOut);
+    brModule.Drive(brAngle, brThrottleOut);
   }
 
   
