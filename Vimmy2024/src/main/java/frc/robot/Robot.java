@@ -125,10 +125,20 @@ public class Robot extends TimedRobot {
     }
 
     ArmSubsystem.rotateArm(LSY2);
-    ArmSubsystem.SpinIntake(Constants.controller2.getLeftTriggerAxis());
-    if (Constants.controller2.getAButton()) {
-      ArmSubsystem.SpinShooter(1);
+    
+    if(Constants.controller2.getXButton())
+    {
+      ArmSubsystem.SpinIntake(0.75);
     }
+    else if(Constants.controller2.getBButton())
+    {
+      ArmSubsystem.SpinIntake(-0.25);
+    }
+    else
+    {
+      ArmSubsystem.SpinIntake(0);
+    }
+    ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
   }
 
   @Override
