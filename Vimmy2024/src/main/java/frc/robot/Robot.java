@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -96,7 +97,8 @@ public class Robot extends TimedRobot {
     double LSX = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftX(), Constants.controllerDeadZone)) * speed;
     double LSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
-    double RSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;;
+    double RSY = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
+    double LSY2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSAngle = Math.toDegrees(Math.atan2(RSY, RSX))+90;
 
     if (Constants.controller1.getRightBumperPressed()) {
@@ -120,6 +122,12 @@ public class Robot extends TimedRobot {
     else
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
+    }
+
+    ArmSubsystem.rotateArm(LSY2);
+    ArmSubsystem.SpinIntake(Constants.controller2.getLeftTriggerAxis());
+    if (Constants.controller2.getAButton()) {
+      ArmSubsystem.SpinShooter(1);
     }
   }
 

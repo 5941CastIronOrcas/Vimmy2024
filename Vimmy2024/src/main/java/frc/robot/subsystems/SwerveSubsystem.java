@@ -89,8 +89,8 @@ public class SwerveSubsystem extends SubsystemBase {
     Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeltaAngleDegrees(angle, robotYawFieldRelative), 
     -Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1), 
     Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1)));*/
-    DriveDriverOrientedAtAngle(Robot.isRedAlliance?y:-y, 
-    Robot.isRedAlliance?-x:x, 
+    DriveDriverOrientedAtAngle(Robot.isRedAlliance?-y:y, 
+    Robot.isRedAlliance?x:-x, 
     Functions.FieldToDriverAngle(angle), turnLimit);
   }
 
@@ -144,6 +144,5 @@ public class SwerveSubsystem extends SubsystemBase {
     blModule.Drive(blAngle, blThrottleOut);
     brModule.Drive(brAngle, brThrottleOut);
   }
-
   
 }

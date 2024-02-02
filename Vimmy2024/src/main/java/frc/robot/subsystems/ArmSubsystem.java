@@ -11,8 +11,8 @@ import frc.robot.Constants;
 import frc.robot.Functions;
 
 public class ArmSubsystem extends SubsystemBase {
-  public RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-  public double armAngle;
+  public static RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+  public static double armAngle;
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {}
 
@@ -27,37 +27,50 @@ public class ArmSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public void moveArmTo(double a) {
+  public static void moveArmTo(double a) {
     rotateArm(Functions.Clamp((Constants.armMotorPMult*(a - armAngle)) 
     +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     +(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
     SmartDashboard.putNumber("Arm Motor Target", a);
   }
-  public void rotateArm(double t) {
+  public static void rotateArm(double t) {
     Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
     SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotorInvert)?-t:t);
   }
-  public void SpinIntake(double input)
+  public static void SpinIntake(double input)
   {
     Constants.intakeMotor.set(input);
   }
-  public void SpinShooter(double input)
+  public static void SpinShooter(double input)
   {
     Constants.shooterMotor1.set(input);
     Constants.shooterMotor2.set(-input);
   }
-  public void Intake(double input)
+  public static void Intake(double input)
   {
     boolean pressed = false;
     for (int i = 0; i < 8 ; i++)
     {
-        if (Constants.limitSwitches[i].get())
-        {
-          pressed = true;
-        }
+      if (Constants.limitSwitches[i].get())
+      {
+        pressed = true;
+      }
     }
     SpinIntake((pressed)?0:input);
   }
-
+  public static void IntakeRing() {
+    moveArmTo(Constants.intakeAngle);
+    Intake(1);
+  }
+  public static void ShootAtAngle(double a) {
+    if ((Constants.intakeMotor.getEncoder().getVelocity() >= Constants.minShootRpm)) {
+      SpinShooter(1);
+    } else {
+      moveArmTo(a);
+    }
+  }
+  public static void DepositAmp() {
+    ShootAtAngle(Constants.ampDepositAngle);
+  }
 }
