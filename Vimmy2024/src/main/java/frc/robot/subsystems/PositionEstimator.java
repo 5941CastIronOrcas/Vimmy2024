@@ -122,6 +122,9 @@ public class PositionEstimator extends SubsystemBase {
     }
   }
 
+  public static double distToSpeaker() {
+    return Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
+  }
 
   @Override
   public void periodic() {
