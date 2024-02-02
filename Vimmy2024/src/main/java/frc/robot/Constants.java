@@ -64,12 +64,13 @@ public final class Constants {
   //Arm Constants
   public static double armMotorPMult = 1.0/90.0;
   public static double armMotorDMult = 0;
-  public static double armMotorGravMult = 0;
-  public static double maxArmSpeed = 0.3;
+  public static double armMotorGravMult = 0; //how much the arm PID compensates for gravity
+  public static double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
+  public static double armAngleVariation = 1; //how close the arm has to be to the target angle in degrees to allow shooting
 
-  public static final double intakeAngle = 0;
-  public static final double minShootRpm = 5000;
-  public static final double ampDepositAngle = 90;
+  public static final double intakeAngle = 0; //the angle in degrees the arm should be at to intake a ring
+  public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
+  public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
   public static final Vector2D redSpeaker = new Vector2D(0,0);
   public static final Vector2D blueSpeaker = new Vector2D(0,0);
 
@@ -77,19 +78,19 @@ public final class Constants {
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
   public static final double modulePMult = 0.01;
-  public static final double maxThrottleChange = 2.0;
-  public static final double swerveMaxAccel = 0.3;
+  public static final double maxThrottleChange = 2.0; //the maximum amount the wheel throttle is allowed to change per frame (max 2.0)
+  public static final double swerveMaxAccel = 0.3; //the max amount swerve is allowed to accelerate, measured in percent per frame (max 2.0)
   
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
   public static final double swerveAutoTurnPMult = 0.006;
   public static final double swerveAutoTurnDMult = 0.00035;
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
-  public static final double swerveAutoTurnDeadZone = 0.5;
+  public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
   
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 7.0;
-  public static final double swerveMaxSpeed = 4.60248;
-  public static final double swerveDriveToDeadZone = 0.03;
+  public static final double swerveMaxSpeed = 4.60248; //the max speed we're capable of moving at (used to discard impossible data)
+  public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

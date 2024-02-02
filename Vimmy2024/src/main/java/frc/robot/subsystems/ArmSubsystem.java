@@ -19,6 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     armAngle = armEncoder.getPosition() * 360;
+    SmartDashboard.putNumber("Arm Angle", armAngle);
     // This method will be called once per scheduler run
   }
 
@@ -32,7 +33,7 @@ public class ArmSubsystem extends SubsystemBase {
     +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     +(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
-    SmartDashboard.putNumber("Arm Motor Target", a);
+    SmartDashboard.putNumber("Arm Target", a);
   }
   public static void rotateArm(double t) {
     Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
@@ -64,13 +65,24 @@ public class ArmSubsystem extends SubsystemBase {
     Intake(1);
   }
   public static void ShootAtAngle(double a) {
-    if ((Constants.intakeMotor.getEncoder().getVelocity() >= Constants.minShootRpm)) {
-      SpinShooter(1);
+    SpinShooter(1);
+    moveArmTo(a);
+    if ((Constants.intakeMotor.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
+      SpinIntake(1);
     } else {
-      moveArmTo(a);
+      SpinIntake(0);
     }
   }
   public static void DepositAmp() {
-    ShootAtAngle(Constants.ampDepositAngle);
+    SpinShooter(0.2);
+    moveArmTo(Constants.ampDepositAngle);
+    if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
+    {
+      SpinIntake(1);
+    }
+    else 
+    {
+      SpinIntake(0);
+    }
   }
 }
