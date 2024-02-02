@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
+
+import frc.robot.utilityObjects.Vector2D;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -30,6 +33,7 @@ public final class Constants {
 
   //Controller Stuff
   public static final XboxController controller1 = new XboxController(0);
+  public static final XboxController controller2 = new XboxController(1);
   public static final double controllerDeadZone = 0.1;
 
   //Swerve Motor Declarations:
@@ -58,10 +62,16 @@ public final class Constants {
 
 
   //Arm Constants
-  public static double armMotorPMult = 1.0/30.0;
+  public static double armMotorPMult = 1.0/90.0;
   public static double armMotorDMult = 0;
   public static double armMotorGravMult = 0;
   public static double maxArmSpeed = 0.3;
+
+  public static final double intakeAngle = 0;
+  public static final double minShootRpm = 5000;
+  public static final double ampDepositAngle = 90;
+  public static final Vector2D redSpeaker = new Vector2D(0,0);
+  public static final Vector2D blueSpeaker = new Vector2D(0,0);
 
   //Swerve Module Constants
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
