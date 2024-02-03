@@ -9,7 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Functions;
 
 public class ArmSubsystem extends SubsystemBase {
-  public static RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+  public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle;
   public static boolean hasNote = false;
   public ArmSubsystem() {}
@@ -20,9 +20,9 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Arm Angle", armAngle);
     SmartDashboard.putBoolean("Has Note", hasNote);
     hasNote = false;
-    for (int i = 0; i < Constants.limitSwitches.length ; i++)
+    for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++)
     {
-      if (!Constants.limitSwitches[i].get())
+      if (!Constants.noteDetectionSwitches[i].get())
       {
         hasNote = true;
       }
@@ -43,8 +43,9 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Arm Target", a);
   }
   public static void rotateArm(double t) {
-    Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
-    SmartDashboard.putNumber("Arm Throttle", (Constants.armMotorInvert)?-t:t);
+    Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
+    Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
+    SmartDashboard.putNumber("Arm Throttle", t);
   }
   public static void SpinIntake(double input)
   {

@@ -24,16 +24,16 @@ import frc.robot.utilityObjects.Vector2D;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
-  //Gyro
-  public static final Pigeon2 gyro = new Pigeon2(54);
-
-  //Controller Stuff
+  //CONTROLLER STUFF:
   public static final XboxController controller1 = new XboxController(0);
   public static final XboxController controller2 = new XboxController(1);
   public static final double controllerDeadZone = 0.1;
 
-  //Swerve Motor Declarations:
+
+  //SWERVE STUFF:
+  //Gyro
+  public static final Pigeon2 gyro = new Pigeon2(54);
+  //Swerve Motor Declarations
   public static final CANSparkMax flaMotor = new CANSparkMax(27, MotorType.kBrushless);
   public static final CANSparkMax fltMotor = new CANSparkMax(26, MotorType.kBrushless);
   public static final CANSparkMax fraMotor = new CANSparkMax(25, MotorType.kBrushless);
@@ -47,48 +47,56 @@ public final class Constants {
   public static final CANcoder frEncoder = new CANcoder(51);
   public static final CANcoder blEncoder = new CANcoder(52);
   public static final CANcoder brEncoder = new CANcoder(53);
-  //Arm Motor Declarations:
-  public static final CANSparkMax armMotor = new CANSparkMax(28, MotorType.kBrushless);
-  public static final Boolean armMotorInvert = false;
-  public static final CANSparkMax intakeMotor = new CANSparkMax(29, MotorType.kBrushless);
-  public static final CANSparkMax shooterMotor1 = new CANSparkMax(30, MotorType.kBrushless);
-  public static final CANSparkMax shooterMotor2 = new CANSparkMax(31, MotorType.kBrushless);
-  //Limit Switch Declarations
-  //public static final ArrayList<DigitalInput> limitSwitches = new ArrayList<DigitalInput>();
-  public static final DigitalInput[] limitSwitches = new DigitalInput[]{new DigitalInput(0)};
-
-
-  //Arm Constants
-  public static double armMotorPMult = 1.0/90.0;
-  public static double armMotorDMult = 0;
-  public static double armMotorGravMult = 0; //how much the arm PID compensates for gravity
-  public static double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
-  public static double armAngleVariation = 1; //how close the arm has to be to the target angle in degrees to allow shooting
-
-  public static final double intakeAngle = 0; //the angle in degrees the arm should be at to intake a ring
-  public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
-  public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
-  public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
-  public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
-  public static final double speakerHeight = 2.05;
-
   //Swerve Module Constants
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
   public static final double modulePMult = 0.01;
-  public static final double maxThrottleChange = 2.0; //the maximum amount the wheel throttle is allowed to change per frame (max 2.0)
+  public static final double maxThrottleChange = 2.0; //the maximum amount the wheel throttle of each module is allowed to change per frame (max 2.0)
   public static final double swerveMaxAccel = 0.3; //the max amount swerve is allowed to accelerate, measured in percent per frame (max 2.0)
-  
+  //Swerve Drive Turning Constants
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
   public static final double swerveAutoTurnPMult = 0.006;
   public static final double swerveAutoTurnDMult = 0.00035;
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
   public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
-  
+  //Swerve Drive Constants
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 7.0;
-  public static final double swerveMaxSpeed = 4.60248; //the max speed we're capable of moving at (used to discard impossible data)
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
+
+
+  //ARM STUFF:
+  //Arm Motor Declarations
+  public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
+  public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless);
+  public static final Boolean armMotor1Invert = false;
+  public static final Boolean armMotor2Invert = true;
+  public static final CANSparkMax intakeMotor = new CANSparkMax(30, MotorType.kBrushless);
+  public static final CANSparkMax shooterMotor1 = new CANSparkMax(31, MotorType.kBrushless);
+  public static final CANSparkMax shooterMotor2 = new CANSparkMax(32, MotorType.kBrushless);
+  //Arm Sensor Declarations
+  public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
+  //Arm Control Constants
+  public static double armMotorPMult = 1.0/90.0;
+  public static double armMotorDMult = 0;
+  public static double armMotorGravMult = 0; //how much the arm PID compensates for gravity
+  public static double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
+  public static double armAngleVariation = 1; //how close the arm has to be to the target angle in degrees to allow shooting
+  //Intake / Shooter Control Constants
+  public static final double minShootRpm = 5500; //the minimum RPM the shooter needs to be at to shoot
+  public static final double intakeAngle = 0; //the angle in degrees the arm should be at to intake a ring
+  public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
+
+
+  //POSITION ESTIMATION AND FIELD CONSTANTS:
+  public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
+  public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
+  public static final double speakerHeight = 2.05;
+  public static final double swerveMaxSpeed = 4.60248; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
+  public static final String apriltagCamera1Name = "";
+  public static final String apriltagCamera2Name = "";
+  public static final String noteDetectionCameraName = "";
+
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

@@ -32,19 +32,18 @@ public class PositionEstimator extends SubsystemBase {
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
   public static Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
-  public static String cameraName = "";
-  public static PhotonCamera camera = new PhotonCamera(cameraName);
+  public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
 
-  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, robotToCam);
+  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
 
   public static Boolean camCheck() {
-    var result = camera.getLatestResult();
+    var result = camera1.getLatestResult();
 
     return result.hasTargets();
   }
 
   public static PhotonTrackedTarget obtainTargets() {
-    var result = camera.getLatestResult();
+    var result = camera1.getLatestResult();
 
     if  (result.hasTargets()) {
       //Sends back the most clear target and its data
@@ -81,7 +80,7 @@ public class PositionEstimator extends SubsystemBase {
 
   public boolean isValid(Pose2d oldPose, Pose2d newPose)
   {
-    double maxMovement = Constants.swerveMaxSpeed * camera.getLatestResult().getLatencyMillis() * 0.001;
+    double maxMovement = Constants.swerveMaxSpeed * camera1.getLatestResult().getLatencyMillis() * 0.001;
     double currentMovement = Functions.Pythagorean(oldPose.getX() - newPose.getX(), oldPose.getY() - newPose.getY());
     if (currentMovement > maxMovement) {
       return false;

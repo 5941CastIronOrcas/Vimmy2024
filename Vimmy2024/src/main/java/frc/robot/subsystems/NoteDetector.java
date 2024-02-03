@@ -9,11 +9,11 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class NoteDetector extends SubsystemBase {
 
-  public static String cameraName = "";
-  public static PhotonCamera camera = new PhotonCamera(cameraName);
+  public static PhotonCamera camera = new PhotonCamera(Constants.noteDetectionCameraName);
   public static boolean noteVisible = false;
   public static double notePitch = 0;
   public static double noteYaw = 0;
