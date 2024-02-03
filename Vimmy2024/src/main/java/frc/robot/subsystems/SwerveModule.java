@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Functions;
 
@@ -33,7 +32,7 @@ public class SwerveModule {
         double throttle = speed;
         //anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
         anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
-        velocity = (throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60 * Constants.swerveDriveRatio * Constants.swerveWheelCircumference;
+        velocity = Functions.DeadZone((throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60 * Constants.swerveDriveRatio * Constants.swerveWheelCircumference, 0.00001);
 
         if(Math.abs(speed) < 0.001) {
             //angle = anglePos;

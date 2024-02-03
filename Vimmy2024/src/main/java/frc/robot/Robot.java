@@ -55,6 +55,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
     isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
+    SmartDashboard.putNumber("Robot X", PositionEstimator.robotPosition.getX());
+    SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
+    SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
+    SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -104,10 +108,6 @@ public class Robot extends TimedRobot {
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(0);
     }
-    SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
-    SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    SmartDashboard.putNumber("Robot X", PositionEstimator.robotPosition.getX());
-    SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
     if(Constants.controller1.getYButtonPressed())
     {
       PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());

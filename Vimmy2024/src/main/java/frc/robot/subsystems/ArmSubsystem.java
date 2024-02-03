@@ -11,12 +11,22 @@ import frc.robot.Functions;
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle;
+  public static boolean hasNote = false;
   public ArmSubsystem() {}
 
   @Override
   public void periodic() {
     armAngle = armEncoder.getPosition() * 360;
     SmartDashboard.putNumber("Arm Angle", armAngle);
+    SmartDashboard.putBoolean("Has Note", hasNote);
+    hasNote = false;
+    for (int i = 0; i < Constants.limitSwitches.length ; i++)
+    {
+      if (!Constants.limitSwitches[i].get())
+      {
+        hasNote = true;
+      }
+    }
     // This method will be called once per scheduler run
   }
 
@@ -47,15 +57,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void Intake(double input)
   {
-    boolean pressed = false;
-    for (int i = 0; i < 8 ; i++)
-    {
-      if (Constants.limitSwitches[i].get())
-      {
-        pressed = true;
-      }
-    }
-    SpinIntake((pressed)?0:input);
+    SpinIntake((hasNote)?0:input);
   }
   public static void IntakeRing() {
     moveArmTo(Constants.intakeAngle);
