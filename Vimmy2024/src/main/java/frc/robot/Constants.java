@@ -71,8 +71,8 @@ public final class Constants {
   public static final double intakeAngle = 0; //the angle in degrees the arm should be at to intake a ring
   public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
   public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
-  public static final Vector2D redSpeaker = new Vector2D(0,0);
-  public static final Vector2D blueSpeaker = new Vector2D(0,0);
+  public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
+  public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
 
   //Swerve Module Constants
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
