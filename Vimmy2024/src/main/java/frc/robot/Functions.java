@@ -1,7 +1,6 @@
 package frc.robot;
 import java.lang.Math;
 
-import edu.wpi.first.wpilibj.DriverStation;
 
 public class Functions {
     

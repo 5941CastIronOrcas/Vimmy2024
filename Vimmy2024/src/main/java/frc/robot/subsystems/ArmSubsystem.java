@@ -1,11 +1,9 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.EncoderType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
@@ -13,7 +11,6 @@ import frc.robot.Functions;
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle;
-  /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {}
 
   @Override
@@ -37,7 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void rotateArm(double t) {
     Constants.armMotor.set((Constants.armMotorInvert)?-t:t);
-    SmartDashboard.putNumber("Arm Motor Throttle", (Constants.armMotorInvert)?-t:t);
+    SmartDashboard.putNumber("Arm Throttle", (Constants.armMotorInvert)?-t:t);
   }
   public static void SpinIntake(double input)
   {

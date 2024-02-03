@@ -4,14 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.Vector;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import java.util.ArrayList;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -73,6 +70,7 @@ public final class Constants {
   public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
+  public static final double speakerHeight = 2.05;
 
   //Swerve Module Constants
   public static final double swerveDriveRatio = 1.00 / 6.75; //L2=1/6.75  L3=1/6.12
