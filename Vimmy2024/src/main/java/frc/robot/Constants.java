@@ -42,6 +42,11 @@ public final class Constants {
   public static final CANSparkMax bltMotor = new CANSparkMax(20, MotorType.kBrushless);
   public static final CANSparkMax braMotor = new CANSparkMax(23, MotorType.kBrushless);
   public static final CANSparkMax brtMotor = new CANSparkMax(22, MotorType.kBrushless);
+  //Swerve Motor Inversions
+  public static final boolean fltInvert = true;
+  public static final boolean frtInvert = false;
+  public static final boolean bltInvert = false;
+  public static final boolean brtInvert = false;
   //Swerve Encoder Declarations
   public static final CANcoder flEncoder = new CANcoder(50);
   public static final CANcoder frEncoder = new CANcoder(51);
