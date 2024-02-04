@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
@@ -37,31 +38,24 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
   
-  public static void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit)
+  public static void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
-    double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
+    double angleToTarget = 90-Math.atan2(y-PositionEstimator.robotPosition.getY(), x-PositionEstimator.robotPosition.getX());
     double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
     double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.deltaX, PositionEstimator.deltaY);
     double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
     double xComponent = Functions.DeadZone(output * Math.sin(angleToTarget), Constants.swerveDriveToDeadZone);
     double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
-    DriveFieldOrientedAtAngle(xComponent, yComponent, angle, turnLimit);
+    DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);
   }
   public static void DriveFieldOriented(double x, double y, double turn)
   {
-    Drive(x*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+y*Math.sin(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees())), y*Math.cos(Math.toRadians(-PositionEstimator.robotPosition.getRotation().getDegrees()))+x*Math.sin(Math.toRadians(PositionEstimator.robotPosition.getRotation().getDegrees())), turn);
+    DriveDriverOriented(Robot.isRedAlliance?y:-y, Robot.isRedAlliance?-x:x, turn);
   }
   
   public static void DriveFieldOrientedAtAngle(double x, double y, double angle, double turnLimit)
   {
-    /*DriveDriverOriented(DriverStation.getAlliance() == DriverStation.Alliance.Red?y:-y, 
-    DriverStation.getAlliance() == DriverStation.Alliance.Red?-x:x, 
-    Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeltaAngleDegrees(angle, robotYawFieldRelative), 
-    -Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1), 
-    Constants.swerveAutoTurnMaxSpeed*Functions.Clamp(turnLimit, 0, 1)));*/
-    DriveDriverOrientedAtAngle(Robot.isRedAlliance?-y:y, 
-    Robot.isRedAlliance?x:-x, 
-    Functions.FieldToDriverAngle(angle), turnLimit);
+    DriveDriverOrientedAtAngle(Robot.isRedAlliance?y:-y, Robot.isRedAlliance?-x:x, Functions.FieldToDriverAngle(angle), turnLimit);
   }
 
   public static void DriveDriverOriented(double LSX, double LSY, double RSX)
@@ -84,23 +78,23 @@ public class SwerveSubsystem extends SubsystemBase {
   public static void Drive(double x, double y, double rotate) {
     xOut += Functions.Clamp(x-xOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
     yOut += Functions.Clamp(y-yOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
-    double flx =  xOut - (Constants.turnMult * rotate);
-    double fly =  yOut - (Constants.turnMult * rotate);
-    double frx =  xOut - (Constants.turnMult * rotate);
-    double fry =  yOut + (Constants.turnMult * rotate);
-    double blx =  xOut + (Constants.turnMult * rotate);
-    double bly =  yOut - (Constants.turnMult * rotate);
-    double brx =  xOut + (Constants.turnMult * rotate);
-    double bry =  yOut + (Constants.turnMult * rotate);
+    double flx =  xOut + (Constants.turnMult * rotate);
+    double fly =  yOut + (Constants.turnMult * rotate);
+    double frx =  xOut + (Constants.turnMult * rotate);
+    double fry =  yOut - (Constants.turnMult * rotate);
+    double blx =  xOut - (Constants.turnMult * rotate);
+    double bly =  yOut + (Constants.turnMult * rotate);
+    double brx =  xOut - (Constants.turnMult * rotate);
+    double bry =  yOut - (Constants.turnMult * rotate);
     double maxDist = Functions.Max(new double[]{
       Functions.Pythagorean(flx, fly),
       Functions.Pythagorean(frx, fry),
       Functions.Pythagorean(blx, bly),
       Functions.Pythagorean(brx, bry),1.0}); //use x*x not Math.pow()
-    double flAngle = -Math.toDegrees(Math.atan2(fly,flx))-90;
-    double frAngle = -Math.toDegrees(Math.atan2(fry,frx))-90;
-    double blAngle = -Math.toDegrees(Math.atan2(bly,blx))-90;
-    double brAngle = -Math.toDegrees(Math.atan2(bry,brx))-90;
+    double flAngle = 90-Math.toDegrees(Math.atan2(fly,flx));
+    double frAngle = 90-Math.toDegrees(Math.atan2(fry,frx));
+    double blAngle = 90-Math.toDegrees(Math.atan2(bly,blx));
+    double brAngle = 90-Math.toDegrees(Math.atan2(bry,brx));
     double flThrottle = Functions.Pythagorean(flx, fly) / maxDist;
     double frThrottle = Functions.Pythagorean(frx, fry) / maxDist;
     double blThrottle = Functions.Pythagorean(blx, bly) / maxDist;

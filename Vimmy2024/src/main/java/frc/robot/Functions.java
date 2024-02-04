@@ -45,18 +45,18 @@ public class Functions {
     public static double DriverToFieldAngle(double angle)
     {
         if(Robot.isRedAlliance)
-        {angle = Functions.DeltaAngleDeg(0, angle - 90);}
+        {angle = angle - 90;}
         else if(Robot.isBlueAlliance)
-        {angle = Functions.DeltaAngleDeg(0, angle + 90);}
+        {angle = angle + 90;}
         return angle;
     }
 
     public static double FieldToDriverAngle(double angle)
     {
         if(Robot.isRedAlliance)
-        {angle = Functions.DeltaAngleDeg(0, angle + 90);}
+        {angle = angle + 90;}
         else if(Robot.isBlueAlliance)
-        {angle = Functions.DeltaAngleDeg(0, angle - 90);}
+        {angle = angle - 90;}
         return angle;
     }
 }
