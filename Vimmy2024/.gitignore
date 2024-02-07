@@ -180,4 +180,6 @@ ctre_sim/
 *.pdb
 *.lock
 *.probe
+*.bin
+*.properties
 Vimmy2024/.gradle/8.5/executionHistory/executionHistory.lock

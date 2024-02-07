@@ -26,6 +26,7 @@ public class PositionEstimator extends SubsystemBase {
   private static double gyroYawOld = 0;
   public static double robotYawRate = 0;
   public static Pose2d robotPosition = new Pose2d();  
+  public static Pose2d previousPosition = new Pose2d();
   public static double deltaX = 0;
   public static double deltaY = 0;
 
@@ -57,7 +58,7 @@ public class PositionEstimator extends SubsystemBase {
   public static Pose2d getEstimatedGlobalPose() {
     //var emptyTarget = new PhotonTrackedTarget();
     if (!camCheck()) {
-      return robotPosition;
+      return previousPosition;
     }
     
     /*if (photonPoseEstimator.update().isPresent()) {
@@ -75,7 +76,7 @@ public class PositionEstimator extends SubsystemBase {
       System.out.println("Caught Error: " + e);
     }
     
-    return robotPosition;
+    return previousPosition;
   }
 
   public boolean isValid(Pose2d oldPose, Pose2d newPose)
@@ -110,22 +111,45 @@ public class PositionEstimator extends SubsystemBase {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative))));
     }
      deltaX = ((
-         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * 0.02)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity * 0.02)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * 0.02)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity * 0.02))
+         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
+       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
     deltaY = ((
-         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity * 0.02)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity * 0.02)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity * 0.02)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity * 0.02))
+         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
+       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
-    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(deltaX, deltaY));
-    robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+    previousPosition = robotPosition;
 
+    Pose2d globalPose = robotPosition;
+    if (camCheck()) {
+      if (getEstimatedGlobalPose() != null) {
+        globalPose = getEstimatedGlobalPose();
+      }
+    }
+    if (camCheck()) {
+      if (robotPosition != globalPose && isValid(robotPosition, globalPose)) {
+        // apriltags present and information updated
+        robotPosition = globalPose;
+      }
+      else {
+      // apriltags present, information not updated
+      robotPosition = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+      }
+    }
+    else {
+      // no apriltags detected
+      robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+    }
+    if (camCheck() && getEstimatedGlobalPose() != null) {
+      robotPosition = getEstimatedGlobalPose();
+    }
     SmartDashboard.putBoolean("isPresent", camCheck());
     SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
+    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(deltaX, deltaY));
   }
 
   @Override
