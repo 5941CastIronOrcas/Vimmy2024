@@ -11,6 +11,7 @@ import frc.robot.Functions;
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle = 0;
+  public static double g = Constants.gravity;
   public static boolean hasNote = false;
   public ArmSubsystem() {}
 
@@ -84,6 +85,12 @@ public class ArmSubsystem extends SubsystemBase {
     {
       SpinIntake(0);
     }
-    
+  }
+
+  public static void PrepShooter() {
+    SpinShooter(1);
+    if (Math.pow(Constants.launchSpeed,4) > 0) {
+
+    }
   }
 }

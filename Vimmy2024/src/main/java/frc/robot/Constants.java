@@ -84,14 +84,16 @@ public final class Constants {
   public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
   //Arm Control Constants
   public static double armMotorPMult = 1.0/90.0;
-  public static double armMotorDMult = 0;
-  public static double armMotorGravMult = 0; //how much the arm PID compensates for gravity
+  public static double armMotorDMult = 0.0;
+  public static double armMotorGravMult = 0.0; //how much the arm PID compensates for gravity
   public static double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
-  public static double armAngleVariation = 1; //how close the arm has to be to the target angle in degrees to allow shooting
+  public static double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
   //Intake / Shooter Control Constants
   public static final double minShootRpm = 5500; //the minimum RPM the shooter needs to be at to shoot
-  public static final double intakeAngle = 0; //the angle in degrees the arm should be at to intake a ring
-  public static final double ampDepositAngle = 90; //the angle the arm should be at to do the amp
+  public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
+  public static final double ampDepositAngle = 90.0; //the angle the arm should be at to do the amp
+  public static final double launchSpeed = 10.0;
+  public static final double gravity = 9.81;
 
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
