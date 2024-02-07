@@ -67,7 +67,7 @@ public final class Constants {
   public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
   //Swerve Drive Constants
   public static final double swerveDriveToPMult = 1.0;
-  public static final double swerveDriveToDMult = 7.0;
+  public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
 
 

@@ -125,6 +125,7 @@ public class PositionEstimator extends SubsystemBase {
     robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
 
     SmartDashboard.putBoolean("isPresent", camCheck());
+    SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
   }
 
   @Override
