@@ -176,3 +176,8 @@ logs/
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
+
+*.pdb
+*.lock
+*.probe
+Vimmy2024/.gradle/8.5/executionHistory/executionHistory.lock
