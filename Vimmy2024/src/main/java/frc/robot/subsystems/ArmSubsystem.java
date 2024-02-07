@@ -10,7 +10,7 @@ import frc.robot.Functions;
 
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-  public static double armAngle;
+  public static double armAngle = 0;
   public static boolean hasNote = false;
   public ArmSubsystem() {}
 

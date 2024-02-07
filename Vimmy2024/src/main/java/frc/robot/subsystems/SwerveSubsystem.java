@@ -40,7 +40,14 @@ public class SwerveSubsystem extends SubsystemBase {
   
   public static void DriveTo(double x, double y, double angle, double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
-    double angleToTarget = 90-Math.atan2(y-PositionEstimator.robotPosition.getY(), x-PositionEstimator.robotPosition.getX());
+    /*double angleToTarget = 90-Math.atan2(y-PositionEstimator.robotPosition.getY(), x-PositionEstimator.robotPosition.getX());
+    double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
+    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.deltaX, PositionEstimator.deltaY);
+    double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
+    double xComponent = Functions.DeadZone(output * Math.sin(angleToTarget), Constants.swerveDriveToDeadZone);
+    double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
+    DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);*/
+    double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
     double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
     double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.deltaX, PositionEstimator.deltaY);
     double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
@@ -76,8 +83,11 @@ public class SwerveSubsystem extends SubsystemBase {
   }
   
   public static void Drive(double x, double y, double rotate) {
-    xOut += Functions.Clamp(x-xOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
-    yOut += Functions.Clamp(y-yOut, -Constants.swerveMaxAccel, Constants.swerveMaxAccel);
+    double currentMaxAccel = Constants.swerveMaxAccel;
+    //uncomment the below line to enable adaptive acceleration limiter
+    //currentMaxAccel = Constants.swerveMaxAccelExtended + (Math.cos(ArmSubsystem.armAngle)*(Constants.swerveMaxAccel-Constants.swerveMaxAccelExtended));
+    xOut += Functions.Clamp(x-xOut, -currentMaxAccel, currentMaxAccel);
+    yOut += Functions.Clamp(y-yOut, -currentMaxAccel, currentMaxAccel);
     double flx =  xOut + (Constants.turnMult * rotate);
     double fly =  yOut + (Constants.turnMult * rotate);
     double frx =  xOut + (Constants.turnMult * rotate);
