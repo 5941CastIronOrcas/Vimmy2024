@@ -36,7 +36,7 @@ public class PositionEstimator extends SubsystemBase {
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
 
   public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
-  public static Vector2D[] deltaBuffer = new Vector2D[]{};
+  public static Vector2D[] deltaBuffer = new Vector2D[50];
 
 
   public static Boolean camCheck() {
@@ -124,6 +124,11 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
+
+    for (int i = 49; i < 0; i--) {
+      deltaBuffer[i] = deltaBuffer[i - 1];
+    }
+    deltaBuffer[49] = velocity;
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
