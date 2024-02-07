@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
+import frc.robot.utilityObjects.Vector2D;
 
 import org.photonvision.*;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
@@ -36,6 +37,8 @@ public class PositionEstimator extends SubsystemBase {
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
 
   public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
+  public static Vector2D[] deltaBuffer = new Vector2D[]{};
+
 
   public static Boolean camCheck() {
     var result = camera1.getLatestResult();
@@ -122,9 +125,11 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
-    previousPosition = robotPosition;
 
+
+    previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
+
     if (camCheck()) {
       if (getEstimatedGlobalPose() != null) {
         globalPose = getEstimatedGlobalPose();
