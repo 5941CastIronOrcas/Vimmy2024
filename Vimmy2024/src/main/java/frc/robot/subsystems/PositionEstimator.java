@@ -28,8 +28,7 @@ public class PositionEstimator extends SubsystemBase {
   public static double robotYawRate = 0;
   public static Pose2d robotPosition = new Pose2d();  
   public static Pose2d previousPosition = new Pose2d();
-  public static double deltaX = 0;
-  public static double deltaY = 0;
+  public static Vector2D velocity = new Vector2D(0, 0);
 
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
@@ -113,19 +112,18 @@ public class PositionEstimator extends SubsystemBase {
     } else {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative))));
     }
-     deltaX = ((
+     velocity.x = ((
          (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
        + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
        + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
        + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
-    deltaY = ((
+    velocity.y = ((
          (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
        + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
        + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
-
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
@@ -142,19 +140,19 @@ public class PositionEstimator extends SubsystemBase {
       }
       else {
       // apriltags present, information not updated
-      robotPosition = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+      robotPosition = new Pose2d(robotPosition.getX() + velocity.x, robotPosition.getY() + velocity.y, robotPosition.getRotation());
       }
     }
     else {
       // no apriltags detected
-      robotPosition  = new Pose2d(robotPosition.getX() + deltaX, robotPosition.getY() + deltaY, robotPosition.getRotation());
+      robotPosition  = new Pose2d(robotPosition.getX() + velocity.x, robotPosition.getY() + velocity.y, robotPosition.getRotation());
     }
     if (camCheck() && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
     }
     SmartDashboard.putBoolean("isPresent", camCheck());
     SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
-    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(deltaX, deltaY));
+    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(velocity.x, velocity.y));
   }
 
   @Override
