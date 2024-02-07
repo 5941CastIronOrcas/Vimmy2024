@@ -88,9 +88,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void PrepShooter() {
+    double dist = PositionEstimator.distToSpeaker();
+    double d = Math.pow(Constants.launchSpeed,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*Constants.launchSpeed*Constants.launchSpeed));
     SpinShooter(1);
-    if (Math.pow(Constants.launchSpeed,4) > 0) {
-
+    if (d>0) {
+      moveArmTo(Math.atan((Constants.launchSpeed*Constants.launchSpeed-d)/(g*dist)));
     }
   }
 }
