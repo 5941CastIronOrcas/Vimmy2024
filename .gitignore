@@ -3,4 +3,5 @@
 *.pdb
 *.lock
 *.probe
+Vimmy2024/.gradle/*
 Vimmy2024/.gradle/8.5/executionHistory/executionHistory.lock
