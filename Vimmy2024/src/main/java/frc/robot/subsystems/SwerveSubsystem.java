@@ -81,6 +81,10 @@ public class SwerveSubsystem extends SubsystemBase {
       -Constants.swerveAutoTurnMaxSpeed*turnLimit, 
       Constants.swerveAutoTurnMaxSpeed*turnLimit));
   }
+
+  public static void FaceSpeaker(double x, double y, double turnLimit) {
+    DriveFieldOrientedAtAngle(x, y, Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()), turnLimit);
+  }
   
   public static void Drive(double x, double y, double rotate) {
     double currentMaxAccel = Constants.swerveMaxAccel;

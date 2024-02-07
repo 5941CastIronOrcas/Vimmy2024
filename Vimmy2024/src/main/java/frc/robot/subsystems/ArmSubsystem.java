@@ -84,5 +84,6 @@ public class ArmSubsystem extends SubsystemBase {
     {
       SpinIntake(0);
     }
+    
   }
 }
