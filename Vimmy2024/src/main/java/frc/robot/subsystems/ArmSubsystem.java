@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.Robot;
 
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
@@ -104,7 +105,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static void ShootSpeaker() {
     boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    boolean correctRobotAngle = true;
+    boolean correctRobotAngle = (Math.abs(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()) - PositionEstimator.robotPosition.getRotation().getRadians()) < Math.toRadians(Constants.swerveAngleVariation));
     if (shooterFast && correctArmAngle && correctRobotAngle) {
       SpinIntake(1);
     }
