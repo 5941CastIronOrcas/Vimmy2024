@@ -65,6 +65,7 @@ public final class Constants {
   public static final double swerveAutoTurnDMult = 0.00035;
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
   public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
+  public static final double swerveAngleVariation = 1.0;
   //Swerve Drive Constants
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 0.14;
