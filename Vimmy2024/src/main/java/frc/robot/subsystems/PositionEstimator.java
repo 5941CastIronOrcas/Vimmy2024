@@ -129,7 +129,7 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
 
-    for (int i = Constants.framerate - 1; i < 0; i--) {
+    for (int i = Constants.framerate - 1; i > 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];
     }
     deltaBuffer[Constants.framerate - 1] = velocity;
@@ -172,7 +172,7 @@ public class PositionEstimator extends SubsystemBase {
     }
     SmartDashboard.putBoolean("isPresent", camCheck());
     SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
-    SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(velocity.x, velocity.y));
+    SmartDashboard.putNumber("Speed in m/s", Functions.Pythagorean(velocity.x, velocity.y));
   }
 
   // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() / 20.0];
