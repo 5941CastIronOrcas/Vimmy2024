@@ -27,18 +27,21 @@ public class GOADataSynthesizer extends SubsystemBase {
     blueSubwoofer.add(new Obstacle(0, 6.53796, true, Constants.subwooferAvoidanceMult));
     blueSubwoofer.add(new Obstacle(0, 4.557776, true, Constants.subwooferAvoidanceMult));
     blueSubwoofer.add(new Obstacle(0.918718, 5.027168, true, Constants.subwooferAvoidanceMult));
-    //Stage
-    ArrayList<Obstacle> stage = new ArrayList<Obstacle>(); 
-    stage.add(new Obstacle(3.0734, 4.105, true, Constants.subwooferAvoidanceMult));
-    stage.add(new Obstacle(13.4666, 4.105, true, Constants.subwooferAvoidanceMult));
-    stage.add(new Obstacle(5.770626, 2.547726, true, Constants.subwooferAvoidanceMult));
-    stage.add(new Obstacle(5.770626, 5.662274, true, Constants.subwooferAvoidanceMult));
-    stage.add(new Obstacle(10.769374, 2.547726, true, Constants.subwooferAvoidanceMult));
-    stage.add(new Obstacle(10.769374, 5.662274, true, Constants.subwooferAvoidanceMult));
+    //Red stage
+    ArrayList<Obstacle> redStage = new ArrayList<Obstacle>(); 
+    redStage.add(new Obstacle(13.4666, 4.105, true, Constants.subwooferAvoidanceMult));
+    redStage.add(new Obstacle(10.769374, 2.547726, true, Constants.subwooferAvoidanceMult));
+    redStage.add(new Obstacle(10.769374, 5.662274, true, Constants.subwooferAvoidanceMult));
+    //Blue stage
+    ArrayList<Obstacle> blueStage = new ArrayList<Obstacle>(); 
+    blueStage.add(new Obstacle(3.0734, 4.105, true, Constants.subwooferAvoidanceMult));
+    blueStage.add(new Obstacle(5.770626, 2.547726, true, Constants.subwooferAvoidanceMult));
+    blueStage.add(new Obstacle(5.770626, 5.662274, true, Constants.subwooferAvoidanceMult));
 
     staticObstacles.add(redSubwoofer);
     staticObstacles.add(blueSubwoofer);
-    staticObstacles.add(stage);
+    staticObstacles.add(redStage);
+    staticObstacles.add(blueStage);
   }
 
   @Override
