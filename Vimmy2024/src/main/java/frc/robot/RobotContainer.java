@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GOADataSynthesizer;
 import frc.robot.subsystems.NoteDetector;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -29,6 +30,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final NoteDetector noteDetector = new NoteDetector();
+  private final GOADataSynthesizer dataSynthesizer = new GOADataSynthesizer();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
