@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
@@ -107,6 +108,8 @@ public final class Constants {
   public static final String noteDetectionCameraName = "";
   public static final int framerate = 50;
 
+  //Arduino Communication:
+  public static SerialPort arduino;
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
