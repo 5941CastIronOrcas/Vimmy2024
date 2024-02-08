@@ -28,6 +28,7 @@ public class ArduinoCommunication {
     // this function will recall double value from [adressToPing]
     // uncomment commented code below to have debug messages.
     public static double RecallOneValue(byte adressToPing) {
+        if (Constants.isArduinoConnected) {
         double finalValue = -1;
         Constants.arduino.write(new byte[] {adressToPing}, 1);
         if (Constants.arduino.getBytesReceived() > 0) {
@@ -41,5 +42,7 @@ public class ArduinoCommunication {
             }
         }
         return finalValue;
+        }
+        return -3;
     }
 }
