@@ -160,7 +160,7 @@ public class PositionEstimator extends SubsystemBase {
     SmartDashboard.putNumber("Speed in m/s", 50*Functions.Pythagorean(velocity.x, velocity.y));
   }
 
-  // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() * 20];
+  // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() / 20.0];
 
   @Override
   public void simulationPeriodic() {

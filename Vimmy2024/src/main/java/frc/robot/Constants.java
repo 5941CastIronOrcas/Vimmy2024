@@ -104,6 +104,7 @@ public final class Constants {
   public static final String apriltagCamera1Name = "";
   public static final String apriltagCamera2Name = "";
   public static final String noteDetectionCameraName = "";
+  public static final int framerate = 50;
 
   
   public static class OperatorConstants {
