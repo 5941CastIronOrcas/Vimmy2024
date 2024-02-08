@@ -6,6 +6,7 @@ import frc.robot.Constants;
 public class ArduinoCommunication {
     // this function wraps arduino to port.
     public static void Wrap() {
+        Constants.isArduinoConnected = true;
         try {
             Constants.arduino = new SerialPort(500000, SerialPort.Port.kUSB);
             System.out.println("Connected on kUSB");
@@ -19,6 +20,7 @@ public class ArduinoCommunication {
                     System.out.println("Connected on kUSB2");
                 } catch (Exception e2) {
                     System.out.println("the serial communication with arduino is very confused...");
+                    Constants.isArduinoConnected = false;
                 }
             }
         }

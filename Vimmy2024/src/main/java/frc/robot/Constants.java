@@ -113,6 +113,7 @@ public final class Constants {
 
   //Arduino Communication:
   public static SerialPort arduino;
+  public static boolean isArduinoConnected = false;
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
