@@ -21,14 +21,16 @@ public class ArmSubsystem extends SubsystemBase {
     armAngle = armEncoder.getPosition() * 360;
     SmartDashboard.putNumber("Arm Angle", armAngle);
     SmartDashboard.putBoolean("Has Note", hasNote);
-    hasNote = false;
-    for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++)
-    {
+    hasNote = ArduinoCommunication.RecallOneValue((byte) 0x2e) < Constants.SonicTreshold;
+    // this is an old version for limit switches 
+    /*
+    for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
       if (!Constants.noteDetectionSwitches[i].get())
       {
         hasNote = true;
       }
     }
+    */
     // This method will be called once per scheduler run
   }
 

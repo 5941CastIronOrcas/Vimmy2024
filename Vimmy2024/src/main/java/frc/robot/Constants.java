@@ -96,7 +96,8 @@ public final class Constants {
   public static final double ampDepositAngle = 90.0; //the angle the arm should be at to do the amp
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
-
+  // theshold for sonic sensor
+  public static final double SonicTreshold = 10;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
