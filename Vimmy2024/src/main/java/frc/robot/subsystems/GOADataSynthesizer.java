@@ -4,11 +4,20 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.utilityObjects.Obstacle;
 
 public class GOADataSynthesizer extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public GOADataSynthesizer() {}
+  public ArrayList<Obstacle> staticObstacles = new ArrayList<Obstacle>();
+  public ArrayList<Obstacle> movingObstacles = new ArrayList<Obstacle>();
+  public GOADataSynthesizer() {
+    //Red subwoofer
+    staticObstacles.add(new Obstacle(16.54-0.918718, 6.068568, true, Constants.subwooferAvoidanceMult));
+  }
 
   @Override
   public void periodic() {
