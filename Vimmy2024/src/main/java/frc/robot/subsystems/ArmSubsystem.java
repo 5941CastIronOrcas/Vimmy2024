@@ -68,7 +68,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static void ShootAtAngle(double a) {
     SpinShooter(1);
     moveArmTo(a);
-    if ((Constants.intakeMotor.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
+    if ((Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
       SpinIntake(1);
     } else {
       SpinIntake(0);
@@ -96,9 +96,15 @@ public class ArmSubsystem extends SubsystemBase {
     return 0.0;
   }
 
-  public static void PrepShooter() {
-    SpinShooter(1);
+  public static void PrepShooter(double speed) {
+    SpinShooter(speed);
     moveArmTo(GetSpeakerAngle());
+  }
+
+  public static void ShootSpeaker() {
+    if ((Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation) {
+      
+    }
   }
 
 }
