@@ -37,6 +37,10 @@ public class PositionEstimator extends SubsystemBase {
 
   public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
+  public static double latency = 0;
+
+  public static double sumX = 0;
+  public static double sumY = 0;
 
 
   public static Boolean camCheck() {
@@ -125,23 +129,34 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
 
-    for (int i = 49; i < 0; i--) {
+    for (int i = Constants.framerate - 1; i < 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];
     }
-    deltaBuffer[49] = velocity;
+    deltaBuffer[Constants.framerate - 1] = velocity;
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
+    latency = camera1.getLatestResult().getLatencyMillis();
+
+    
 
     if (camCheck()) {
       if (getEstimatedGlobalPose() != null) {
         globalPose = getEstimatedGlobalPose();
+        latency = camera1.getLatestResult().getLatencyMillis();
       }
     }
     if (camCheck()) {
       if (robotPosition != globalPose && isValid(robotPosition, globalPose)) {
         // apriltags present and information updated
-        robotPosition = globalPose;
+
+        // robotPosition = globalPose;
+        for (int i = 0; i < (latency / 20); i++) {
+          sumX += deltaBuffer[i].x;
+          sumY += deltaBuffer[i].y;
+        }
+
+        robotPosition = new Pose2d(globalPose.getX() + sumX, globalPose.getY() + sumY, globalPose.getRotation());
       }
       else {
       // apriltags present, information not updated
