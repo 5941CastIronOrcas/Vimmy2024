@@ -29,6 +29,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void autoBalance(double speed) {
-    moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult*(-Constants.gyro.getRoll().getValueAsDouble())), -Constants.climberMaxSpeed, Constants.climberMaxSpeed));
+    moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult*(-Constants.gyro.getRoll().getValueAsDouble())), 
+    -Constants.climberMaxSpeed, Constants.climberMaxSpeed));
   }
 }
