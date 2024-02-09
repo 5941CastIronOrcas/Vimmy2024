@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utilityObjects.Vector2D;
 
 public class GOAGuidanceSystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -18,5 +19,14 @@ public class GOAGuidanceSystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public static Vector2D GetAvoidanceVector()
+  {
+    
+    
+    
+    
+    return new Vector2D(0, 0);
   }
 }
