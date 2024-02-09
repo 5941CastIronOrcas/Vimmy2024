@@ -4,7 +4,12 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Functions;
+import frc.robot.utilityObjects.Obstacle;
 import frc.robot.utilityObjects.Vector2D;
 
 public class GOAGuidanceSystem extends SubsystemBase {
@@ -23,10 +28,42 @@ public class GOAGuidanceSystem extends SubsystemBase {
 
   public static Vector2D GetAvoidanceVector()
   {
-    
-    
-    
-    
-    return new Vector2D(0, 0);
+    Vector2D robotPosition = new Vector2D(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY());
+    ArrayList<Obstacle> relevantObstacles = new ArrayList<Obstacle>();
+    for(int i = 0; i < relevantObstacles.size(); i++)
+    {
+      if(Functions.Pythagorean(relevantObstacles.get(i).x-robotPosition.x, relevantObstacles.get(i).y-robotPosition.y) > Constants.GOAIgnoreRange)
+      {
+        relevantObstacles.remove(i--);
+      }
+    }
+    double[] obstacleAngles = new double[relevantObstacles.size()];
+    double[] obstacleDistances = new double[relevantObstacles.size()];
+    double[] obstacleRelativeVelocities = new double[relevantObstacles.size()];
+    for(int i = 0; i < obstacleAngles.length; i++)
+    {
+      obstacleAngles[i] = Math.atan2(relevantObstacles.get(i).x-robotPosition.x, relevantObstacles.get(i).y-robotPosition.y);
+      obstacleDistances[i] = Functions.Pythagorean(relevantObstacles.get(i).x - robotPosition.x, relevantObstacles.get(i).y - robotPosition.y);
+      obstacleRelativeVelocities[i] = 1; //fix this
+    }
+
+    Vector2D out = new Vector2D(0, 0);
+    for(int i  = 0; i < obstacleAngles.length; i++)
+    {
+      double avoidStrength = Constants.avoidanceMult + (Constants.VelocityAvoidanceMult * obstacleRelativeVelocities[i]); // fix this
+
+      out.x += avoidStrength * Math.sin(obstacleAngles[i]);
+      out.y += avoidStrength * Math.cos(obstacleAngles[i]);
+    }
+
+    return out;
+  }
+  public static double GetAvoidanceVectorX()
+  {
+    return GetAvoidanceVector().x;
+  }
+  public static double GetAvoidanceVectorY()
+  {
+    return GetAvoidanceVector().y;
   }
 }

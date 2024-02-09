@@ -27,13 +27,13 @@ public class GOADataSynthesizer extends SubsystemBase {
     staticObstacles.add(new Obstacle(0, 4.557776, true, Constants.subwooferAvoidanceMult));
     staticObstacles.add(new Obstacle(0.918718, 5.027168, true, Constants.subwooferAvoidanceMult));
     //Red stage
-    staticObstacles.add(new Obstacle(13.4666, 4.105, true, Constants.subwooferAvoidanceMult));
-    staticObstacles.add(new Obstacle(10.769374, 2.547726, true, Constants.subwooferAvoidanceMult));
-    staticObstacles.add(new Obstacle(10.769374, 5.662274, true, Constants.subwooferAvoidanceMult));
+    staticObstacles.add(new Obstacle(13.4666, 4.105, true, Constants.stageAvoidanceMult));
+    staticObstacles.add(new Obstacle(10.769374, 2.547726, true, Constants.stageAvoidanceMult));
+    staticObstacles.add(new Obstacle(10.769374, 5.662274, true, Constants.stageAvoidanceMult));
     //Blue stage 
-    staticObstacles.add(new Obstacle(3.0734, 4.105, true, Constants.subwooferAvoidanceMult));
-    staticObstacles.add(new Obstacle(5.770626, 2.547726, true, Constants.subwooferAvoidanceMult));
-    staticObstacles.add(new Obstacle(5.770626, 5.662274, true, Constants.subwooferAvoidanceMult));
+    staticObstacles.add(new Obstacle(3.0734, 4.105, true, Constants.stageAvoidanceMult));
+    staticObstacles.add(new Obstacle(5.770626, 2.547726, true, Constants.stageAvoidanceMult));
+    staticObstacles.add(new Obstacle(5.770626, 5.662274, true, Constants.stageAvoidanceMult));
 
     for (int i = 0; i < staticObstacles.size(); i++) allObstacles.add(staticObstacles.get(i));
     for (int i = 0; i < movingObstacles.size(); i++) allObstacles.add(movingObstacles.get(i));

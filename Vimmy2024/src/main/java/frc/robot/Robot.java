@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArduinoCommunication;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.GOAGuidanceSystem;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
     SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
     SmartDashboard.putNumber("Robot roll", Constants.gyro.getRoll().getValueAsDouble());
+    SmartDashboard.putNumber("AvoidanceX", GOAGuidanceSystem.GetAvoidanceVectorX());
+    SmartDashboard.putNumber("AvoidanceY", GOAGuidanceSystem.GetAvoidanceVectorY());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

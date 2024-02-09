@@ -71,8 +71,17 @@ public final class Constants {
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
-  //GOA Constants
+  
+  
+  //GOA CONSTANTS:
+  //Object-Specific Avoidance Mults
   public static final double subwooferAvoidanceMult = 1;
+  public static final double stageAvoidanceMult = 1;
+  //General Settings:
+  public static final double avoidanceMult = 1;
+  public static final double VelocityAvoidanceMult = 1;
+  public static final double GOAIgnoreRange = 5;
+
 
 
   //ARM STUFF:
