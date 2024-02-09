@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
     SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
+    SmartDashboard.putNumber("Robot roll", Constants.gyro.getRoll().getValueAsDouble());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

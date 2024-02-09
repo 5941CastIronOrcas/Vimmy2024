@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
@@ -28,6 +29,6 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void autoBalance(double speed) {
-    moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult), -Constants.climberMaxSpeed, Constants.climberMaxSpeed));
+    moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult*(-Constants.gyro.getRoll().getValueAsDouble())), -Constants.climberMaxSpeed, Constants.climberMaxSpeed));
   }
 }
