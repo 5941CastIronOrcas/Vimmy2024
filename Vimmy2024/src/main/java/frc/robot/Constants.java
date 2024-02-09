@@ -87,11 +87,11 @@ public final class Constants {
   //Arm Sensor Declarations
   public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
   //Arm Control Constants
-  public static double armMotorPMult = 1.0/90.0;
-  public static double armMotorDMult = 0.0;
-  public static double armMotorGravMult = 0.0; //how much the arm PID compensates for gravity
-  public static double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
-  public static double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
+  public static final double armMotorPMult = 1.0/90.0;
+  public static final double armMotorDMult = 0.0;
+  public static final double armMotorGravMult = 0.0; //how much the arm PID compensates for gravity
+  public static final double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
+  public static final double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
   //Intake / Shooter Control Constants
   public static final double minShootRpm = 5500; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
@@ -100,6 +100,17 @@ public final class Constants {
   public static final double gravity = 9.81;
   // theshold for sonic sensor
   public static final double SonicTreshold = 10;
+
+  //CLIMBER STUFF
+  //Climber Motor Declarations
+  public static final CANSparkMax climberMotorL = new CANSparkMax(0, MotorType.kBrushless);
+  public static final CANSparkMax climberMotorR = new CANSparkMax(0, MotorType.kBrushless);
+  public static final Boolean climberMotorLInvert = false;
+  public static final Boolean climberMotorRInvert = false;
+  //Climber Control Constants
+  public static final double climberBalancePMult = 0.01;
+  public static final double climberBalanceDMult = 0.01;
+  public static final double climberMaxSpeed = 1;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
