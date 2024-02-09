@@ -70,15 +70,15 @@ public class ArmSubsystem extends SubsystemBase {
     moveArmTo(Constants.intakeAngle);
     Intake(1);
   }
-  public static void ShootAtAngle(double a) {
-    SpinShooter(1);
-    moveArmTo(a);
-    if ((Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
-      SpinIntake(1);
-    } else {
-      SpinIntake(0);
-    }
-  }
+  // public static void ShootAtAngle(double a) {
+  //   SpinShooter(1);
+  //   moveArmTo(a);
+  //   if ((Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
+  //     SpinIntake(1);
+  //   } else {
+  //     SpinIntake(0);
+  //   }
+  // }
   public static void DepositAmp() {
     SpinShooter(0.2);
     moveArmTo(Constants.ampDepositAngle);
@@ -96,7 +96,7 @@ public class ArmSubsystem extends SubsystemBase {
     double dist = PositionEstimator.distToSpeaker();
     double d = Math.pow(Constants.launchSpeed,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*Constants.launchSpeed*Constants.launchSpeed));
     if (d>0) {
-      return (Math.atan((Constants.launchSpeed*Constants.launchSpeed-d)/(g*dist)));
+      return (-Math.toDegrees(Math.atan2((Constants.launchSpeed*Constants.launchSpeed-d),(g*dist)))+Constants.armAngleOffset+90);
     }
     return 0.0;
   }

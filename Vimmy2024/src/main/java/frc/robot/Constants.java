@@ -92,6 +92,7 @@ public final class Constants {
   public static final double armMotorGravMult = 0.0; //how much the arm PID compensates for gravity
   public static final double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
   public static final double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
+  public static final double armAngleOffset = 0;
   //Intake / Shooter Control Constants
   public static final double minShootRpm = 5500; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
@@ -103,8 +104,8 @@ public final class Constants {
 
   //CLIMBER STUFF
   //Climber Motor Declarations
-  public static final CANSparkMax climberMotorL = new CANSparkMax(0, MotorType.kBrushless);
-  public static final CANSparkMax climberMotorR = new CANSparkMax(0, MotorType.kBrushless);
+  public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);
+  public static final CANSparkMax climberMotorR = new CANSparkMax(34, MotorType.kBrushless);
   public static final Boolean climberMotorLInvert = false;
   public static final Boolean climberMotorRInvert = false;
   //Climber Control Constants
