@@ -59,4 +59,12 @@ public class Functions {
         {angle = angle - 90;}
         return angle;
     }
+    public static double AltAxisCoord(double x, double y, double a) //i dont know how to explain what this does, but it uses radians.
+    {
+        return (Math.tan(a)*(Math.sin(a)*Math.cos(a)*(x*Functions.Cot(a)+y))<0?(Math.sin(a)>0?-1:1):(Math.sin(a)<0?-1:1));
+    }
+    public static double Cot(double a)
+    {
+        return Math.cos(a) / Math.sin(a);
+    }
 }

@@ -42,18 +42,17 @@ public class GOAGuidanceSystem extends SubsystemBase {
     double[] obstacleRelativeVelocities = new double[relevantObstacles.size()];
     for(int i = 0; i < obstacleAngles.length; i++)
     {
-      obstacleAngles[i] = Math.atan2(relevantObstacles.get(i).x-robotPosition.x, relevantObstacles.get(i).y-robotPosition.y);
+      obstacleAngles[i] = Math.toDegrees(Math.atan2(relevantObstacles.get(i).x-robotPosition.x, relevantObstacles.get(i).y-robotPosition.y));
       obstacleDistances[i] = Functions.Pythagorean(relevantObstacles.get(i).x - robotPosition.x, relevantObstacles.get(i).y - robotPosition.y);
-      obstacleRelativeVelocities[i] = 1; //fix this
+      obstacleRelativeVelocities[i] = Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, Math.toRadians(90-obstacleAngles[i]));
     }
 
     Vector2D out = new Vector2D(0, 0);
     for(int i  = 0; i < obstacleAngles.length; i++)
     {
-      double avoidStrength = Constants.avoidanceMult + (Constants.VelocityAvoidanceMult * obstacleRelativeVelocities[i]); // fix this
-
-      out.x += avoidStrength * Math.sin(obstacleAngles[i]);
-      out.y += avoidStrength * Math.cos(obstacleAngles[i]);
+      double avoidStrength = ((Constants.avoidanceMult*relevantObstacles.get(i).avoidanceMult) + (Constants.VelocityAvoidanceMult * obstacleRelativeVelocities[i])) / Math.pow(obstacleDistances[i], Constants.avoidanceExponent);
+      out.x += -avoidStrength * Math.sin(Math.toRadians(obstacleAngles[i]));
+      out.y += -avoidStrength * Math.cos(Math.toRadians(obstacleAngles[i]));
     }
 
     return out;
