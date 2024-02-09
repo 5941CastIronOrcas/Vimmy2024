@@ -100,7 +100,7 @@ public final class Constants {
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
   // theshold for sonic sensor
-  public static final double SonicTreshold = 10;
+  public static final double hasNoteTreshold = 10;
 
   //CLIMBER STUFF
   //Climber Motor Declarations
@@ -117,7 +117,7 @@ public final class Constants {
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
   public static final double speakerHeight = 2.05;
-  public static final double swerveMaxSpeed = 4.60248; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
+  public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera";
   public static final String apriltagCamera2Name = "";
   public static final String noteDetectionCameraName = "HD_Web_Camera";

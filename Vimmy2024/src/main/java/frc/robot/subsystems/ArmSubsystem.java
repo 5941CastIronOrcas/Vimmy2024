@@ -23,7 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Has Note", hasNote);
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
     SmartDashboard.putNumber("Arduino Recall", recalledValue);
-    hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.SonicTreshold;
+    hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
     // this is an old version for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
