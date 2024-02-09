@@ -160,12 +160,12 @@ public class PositionEstimator extends SubsystemBase {
       }
       else {
       // apriltags present, information not updated
-      robotPosition = new Pose2d(robotPosition.getX() + velocity.x, robotPosition.getY() + velocity.y, robotPosition.getRotation());
+      robotPosition = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
       }
     }
     else {
       // no apriltags detected
-      robotPosition  = new Pose2d(robotPosition.getX() + velocity.x, robotPosition.getY() + velocity.y, robotPosition.getRotation());
+      robotPosition  = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
     }
     if (camCheck() && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
