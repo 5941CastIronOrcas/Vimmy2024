@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
     SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    SmartDashboard.putNumber("Robot roll", Constants.gyro.getRoll().getValueAsDouble());
+    SmartDashboard.putNumber("RobotRoll", Constants.gyro.getRoll().getValueAsDouble());
     SmartDashboard.putNumber("AvoidanceX", GOAGuidanceSystem.GetAvoidanceVectorX());
     SmartDashboard.putNumber("AvoidanceY", GOAGuidanceSystem.GetAvoidanceVectorY());
   }

@@ -1,6 +1,8 @@
 package frc.robot;
 import java.lang.Math;
 
+import frc.robot.utilityObjects.Vector2D;
+
 
 public class Functions {
     
@@ -59,6 +61,7 @@ public class Functions {
         {angle = angle - 90;}
         return angle;
     }
+    
     public static double AltAxisCoord(double x, double y, double a) //i dont know how to explain what this does, but it uses radians.
     {
         return (Math.tan(a)*(Math.sin(a)*Math.cos(a)*(x*Functions.Cot(a)+y))<0?(Math.sin(a)>0?-1:1):(Math.sin(a)<0?-1:1));
@@ -66,5 +69,11 @@ public class Functions {
     public static double Cot(double a)
     {
         return Math.cos(a) / Math.sin(a);
+    }
+
+    public static Vector2D ClampVector(Vector2D in, double max)
+    {
+        double n = (Math.min(max, Pythagorean(in.x, in.y)))/(Pythagorean(in.x, in.y));
+        return new Vector2D(n*in.x, n*in.y);
     }
 }

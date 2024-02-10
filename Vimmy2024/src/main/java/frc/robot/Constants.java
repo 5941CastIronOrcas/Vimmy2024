@@ -82,6 +82,8 @@ public final class Constants {
   public static final double VelocityAvoidanceMult = 4;
   public static final double GOAIgnoreRange = 5;
   public static final double avoidanceExponent = 4;
+  public static final double toTargetStrengthTop = 2;
+  public static final double toTargetStrengthCap = 5;
 
 
 
