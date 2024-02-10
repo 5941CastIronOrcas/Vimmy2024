@@ -129,7 +129,7 @@ public final class Constants {
   public static final double speakerHeight = 2.05;
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera";
-  public static final String apriltagCamera2Name = "";
+  public static final String apriltagCamera2Name = "USB2.0_PC_CAMERA";
   public static final String noteDetectionCameraName = "HD_Web_Camera";
   public static final int framerate = 50;
 

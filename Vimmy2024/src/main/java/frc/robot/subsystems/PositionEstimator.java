@@ -34,6 +34,7 @@ public class PositionEstimator extends SubsystemBase {
  
   public static Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
+  public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
 
   public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
@@ -48,7 +49,11 @@ public class PositionEstimator extends SubsystemBase {
 
     return result.hasTargets();
   }
+public static Boolean camCheck2() {
+    var result = camera2.getLatestResult();
 
+    return result.hasTargets();
+  }
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera1.getLatestResult();
       //Sends back the most clear target and its data
@@ -165,7 +170,8 @@ public class PositionEstimator extends SubsystemBase {
     if (camCheck() && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
     }
-    SmartDashboard.putBoolean("isPresent", camCheck());
+    SmartDashboard.putBoolean("isPresent1", camCheck());
+     SmartDashboard.putBoolean("isPresent2", camCheck2());
     SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
     SmartDashboard.putNumber("Speed in m/s", Functions.Pythagorean(velocity.x, velocity.y));
   }
