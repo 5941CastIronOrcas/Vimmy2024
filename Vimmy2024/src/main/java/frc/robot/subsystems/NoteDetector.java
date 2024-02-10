@@ -28,14 +28,9 @@ public class NoteDetector extends SubsystemBase {
 
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera.getLatestResult();
-
-    if  (result.hasTargets()) {
       //Sends back the most clear target and its data
       return result.getBestTarget();
-    } 
-    else {
-      return new PhotonTrackedTarget();
-    }
+
   }
 
   @Override

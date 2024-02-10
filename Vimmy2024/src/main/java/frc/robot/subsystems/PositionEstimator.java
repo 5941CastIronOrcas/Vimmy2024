@@ -51,14 +51,9 @@ public class PositionEstimator extends SubsystemBase {
 
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera1.getLatestResult();
-
-    if  (result.hasTargets()) {
       //Sends back the most clear target and its data
       return result.getBestTarget();
-    } 
-    else {
-      return new PhotonTrackedTarget();
-    }
+
   }
 
   public static Pose2d getEstimatedGlobalPose() {
