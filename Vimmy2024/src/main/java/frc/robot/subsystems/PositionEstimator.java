@@ -137,7 +137,7 @@ public class PositionEstimator extends SubsystemBase {
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
     latency = camera1.getLatestResult().getLatencyMillis();
-
+    
     
 
     if (camCheck()) {
