@@ -78,8 +78,8 @@ public final class Constants {
   public static final double subwooferAvoidanceMult = 1;
   public static final double stageAvoidanceMult = 1;
   //General Settings:
-  public static final double avoidanceMult = 1;
-  public static final double VelocityAvoidanceMult = 1;
+  public static final double avoidanceMult = 2;
+  public static final double VelocityAvoidanceMult = 4;
   public static final double GOAIgnoreRange = 5;
   public static final double avoidanceExponent = 4;
 
