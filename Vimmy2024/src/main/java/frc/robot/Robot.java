@@ -126,6 +126,10 @@ public class Robot extends TimedRobot {
     {
       SwerveSubsystem.DriveTo(0, 0, tempDemoAngle, speed, speed, LSX, LSY);
     }
+    else if(Constants.controller1.getXButton())
+    {
+      SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, GOAGuidanceSystem.GetProtectionAngle(), speed);
+    }
     else
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
