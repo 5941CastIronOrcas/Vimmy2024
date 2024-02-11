@@ -27,6 +27,8 @@ public class Robot extends TimedRobot {
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
   public static double tempDemoAngle = 0; //remove later
+  public static boolean robotLimp = true;
+  public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;
 
@@ -65,6 +67,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("RobotRoll", Constants.gyro.getRoll().getValueAsDouble());
     SmartDashboard.putNumber("AvoidanceX", GOAGuidanceSystem.GetAvoidanceVectorX());
     SmartDashboard.putNumber("AvoidanceY", GOAGuidanceSystem.GetAvoidanceVectorY());
+    SmartDashboard.putBoolean("robotLimp", robotLimp);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -72,7 +75,14 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    if(!limpButtonOld && Constants.limpRobotButton.get())
+    {
+      robotLimp = !robotLimp;
+      Functions.setRobotLimp(robotLimp);
+    }
+    limpButtonOld = Constants.limpRobotButton.get();
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -97,6 +107,8 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+      robotLimp = false;
+      Functions.setRobotLimp(robotLimp);
     }
   }
 

@@ -76,4 +76,12 @@ public class Functions {
         double n = (Math.min(max, Pythagorean(in.x, in.y)))/(Pythagorean(in.x, in.y));
         return new Vector2D(n*in.x, n*in.y);
     }
+
+    public static void setRobotLimp(boolean yes)
+    {
+        if(yes)
+        {
+            
+        }
+    }
 }

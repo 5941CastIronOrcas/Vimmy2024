@@ -30,6 +30,9 @@ public final class Constants {
   public static final XboxController controller2 = new XboxController(1);
   public static final double controllerDeadZone = 0.1;
 
+  //Misc
+  public static final DigitalInput limpRobotButton = new DigitalInput(0);
+
 
   //SWERVE STUFF:
   //Gyro
@@ -97,7 +100,7 @@ public final class Constants {
   public static final CANSparkMax shooterMotor1 = new CANSparkMax(31, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(32, MotorType.kBrushless);
   //Arm Sensor Declarations
-  public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
+  //public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
   //Arm Control Constants
   public static final double armMotorPMult = 1.0/90.0;
   public static final double armMotorDMult = 0.0;
