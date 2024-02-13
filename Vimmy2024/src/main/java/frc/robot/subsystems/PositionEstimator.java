@@ -49,11 +49,13 @@ public class PositionEstimator extends SubsystemBase {
 
     return result.hasTargets();
   }
-public static Boolean camCheck2() {
+
+  public static Boolean camCheck2() {
     var result = camera2.getLatestResult();
 
     return result.hasTargets();
   }
+  
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera1.getLatestResult();
       //Sends back the most clear target and its data
