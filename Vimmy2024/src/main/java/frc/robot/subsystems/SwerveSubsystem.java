@@ -86,7 +86,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public static void CollectNote(double XOffset, double YOffset, double speedLimit) {
-    double a = PositionEstimator.robotYawDriverRelative + NoteDetector.noteYaw;
+    double a = (PositionEstimator.robotYawDriverRelative + 180) + NoteDetector.noteYaw;
     DriveDriverOrientedAtAngle(Math.cos(-a+90), Math.sin(-a+90), a, speedLimit);
   }
   
