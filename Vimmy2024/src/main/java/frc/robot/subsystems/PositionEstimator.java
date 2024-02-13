@@ -55,7 +55,7 @@ public class PositionEstimator extends SubsystemBase {
 
     return result.hasTargets();
   }
-  
+
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera1.getLatestResult();
       //Sends back the most clear target and its data
@@ -74,23 +74,22 @@ public class PositionEstimator extends SubsystemBase {
     }*/
     
     
-    try{
+    try {
       if (photonPoseEstimator.update().isPresent()) {
         return photonPoseEstimator.update().get().estimatedPose.toPose2d();
       }
     }
-    catch(Exception e)
-    {
+    catch(Exception e) {
       System.out.println("Caught Error: " + e);
     }
     
     return previousPosition;
   }
 
-  public boolean isValid(Pose2d oldPose, Pose2d newPose)
-  {
+  public boolean isValid(Pose2d oldPose, Pose2d newPose) {
     double maxMovement = Constants.swerveMaxSpeed * camera1.getLatestResult().getLatencyMillis() * 0.001;
     double currentMovement = Functions.Pythagorean(oldPose.getX() - newPose.getX(), oldPose.getY() - newPose.getY());
+
     if (currentMovement > maxMovement) {
       return false;
     }
