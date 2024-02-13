@@ -17,6 +17,7 @@ public class NoteDetector extends SubsystemBase {
   public static boolean noteVisible = false;
   public static double notePitch = 0;
   public static double noteYaw = 0;
+  
 
   public NoteDetector() {}
 
@@ -25,7 +26,8 @@ public class NoteDetector extends SubsystemBase {
 
     return result.hasTargets();
   }
-
+  
+ 
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera.getLatestResult();
       //Sends back the most clear target and its data
@@ -36,7 +38,7 @@ public class NoteDetector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(camCheck())
+    if(camCheck() && ArmSubsystem.armAngle < 40)
     {
       noteVisible = true;
     }
@@ -44,14 +46,23 @@ public class NoteDetector extends SubsystemBase {
     {
       noteVisible = false;
     }
+  
     if(noteVisible)
     {
-      notePitch = camera.getLatestResult().getBestTarget().getPitch();
+      notePitch = camera.getLatestResult().getBestTarget().getPitch() + ArmSubsystem.armAngle;
       noteYaw = camera.getLatestResult().getBestTarget().getYaw();
     }
+
+    SmartDashboard.putBoolean("HasNote 1", noteVisible);
     SmartDashboard.putNumber("Note Pitch", notePitch);
     SmartDashboard.putNumber("Note Yaw", noteYaw);
+
+
+    
   }
+
+  
+  
 
   @Override
   public void simulationPeriodic() {
