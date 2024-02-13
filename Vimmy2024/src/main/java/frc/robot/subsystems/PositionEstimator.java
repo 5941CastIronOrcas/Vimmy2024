@@ -58,8 +58,17 @@ public class PositionEstimator extends SubsystemBase {
 
   public static PhotonTrackedTarget obtainTargets() {
     var result = camera1.getLatestResult();
-      //Sends back the most clear target and its data
+    //Sends back the most clear target and its data
+    if (result.hasTargets()) {
       return result.getBestTarget();
+    }
+    else {
+      return new PhotonTrackedTarget(0, 0, 0, 0, 0, null, null, 0, null, null);
+    }
+
+    //In Java/C++, You must always check if the result has a target via hasTargets()/HasTargets() 
+    //before getting targets or else you may get a null pointer exception. Further, you must use 
+    //the same result in every subsequent call in that loop.
 
   }
 
