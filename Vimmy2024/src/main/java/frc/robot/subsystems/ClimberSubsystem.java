@@ -15,7 +15,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (Constants.lClimberSwitch.get()) Constants.climberMotorL.getEncoder().setPosition(0.0);
+    if (Constants.rClimberSwitch.get()) Constants.climberMotorR.getEncoder().setPosition(0.0);
   }
 
   @Override
@@ -24,8 +25,8 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
-    Constants.climberMotorL.set((in+difference/2.0)*(Constants.climberMotorLInvert?-1:1));
-    Constants.climberMotorR.set((in-difference/2.0)*(Constants.climberMotorRInvert?-1:1));
+    Constants.climberMotorL.set(Functions.ClampMin(in+difference/2.0, Constants.lClimberSwitch.get()?0:-1)*(Constants.climberMotorLInvert?-1:1));
+    Constants.climberMotorR.set(Functions.ClampMin(in-difference/2.0, Constants.rClimberSwitch.get()?0:-1)*(Constants.climberMotorRInvert?-1:1));
   }
 
   public static void autoBalance(double speed) {
