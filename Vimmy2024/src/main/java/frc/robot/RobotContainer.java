@@ -8,6 +8,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.DriverDisplay;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GOADataSynthesizer;
 import frc.robot.subsystems.GOAGuidanceSystem;
@@ -33,6 +35,8 @@ public class RobotContainer {
   private final NoteDetector noteDetector = new NoteDetector();
   private final GOADataSynthesizer dataSynthesizer = new GOADataSynthesizer();
   private final GOAGuidanceSystem guidanceSystem = new GOAGuidanceSystem();
+  private final DriverDisplay driverDisplay = new DriverDisplay();
+  private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
