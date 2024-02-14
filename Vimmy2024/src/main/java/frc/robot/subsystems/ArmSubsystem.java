@@ -12,6 +12,7 @@ import frc.robot.Robot;
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle = 0;
+  public static double dist = 0;
   public static double g = Constants.gravity;
   public static boolean hasNote = false;
   public ArmSubsystem() {}
@@ -19,6 +20,7 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     armAngle = armEncoder.getPosition() * 360;
+    dist = PositionEstimator.distToSpeaker();
     SmartDashboard.putNumber("Arm Angle", armAngle);
     SmartDashboard.putBoolean("Has Note", hasNote);
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
@@ -93,7 +95,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    double dist = PositionEstimator.distToSpeaker();
     double d = Math.pow(Constants.launchSpeed,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*Constants.launchSpeed*Constants.launchSpeed));
     if (d>0) {
       return (-Math.toDegrees(Math.atan2((Constants.launchSpeed*Constants.launchSpeed-d),(g*dist)))+Constants.armAngleOffset+90);
