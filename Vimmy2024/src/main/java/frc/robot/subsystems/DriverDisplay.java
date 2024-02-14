@@ -13,13 +13,44 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class DriverDisplay extends SubsystemBase {
-
-  public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
   
-  private GenericEntry showNote = noteDetector.add("HasNote 1",false).getEntry();
-  private GenericEntry showNotePitch = noteDetector.add("Note Pitch", 0).getEntry();
-  private GenericEntry showNoteYaw = noteDetector.add("Note Yaw", 0).getEntry();
+  //NoteDetector
+  public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
+  public static GenericEntry showNote = noteDetector.add("HasNote 1",false).getEntry();
+  public static GenericEntry showNotePitch = noteDetector.add("Note Pitch", 0).getEntry();
+  public static GenericEntry showNoteYaw = noteDetector.add("Note Yaw", 0).getEntry();
  
+  //Arm
+  public static ShuffleboardTab arm = Shuffleboard.getTab("Arm");
+  public static GenericEntry armAngle = arm.add("Arm Note", 0).getEntry();
+  public static GenericEntry arduinoRecall = arm.add("Arduino Recall", 0).getEntry();
+  public static GenericEntry armHasNote = arm.add("Has Note", false).getEntry();
+  public static GenericEntry armTarget = arm.add("Arm Target", 0).getEntry();
+  public static GenericEntry armThrottle = arm.add("Arm Throttle", 0).getEntry();
+
+  //Swerve
+  public static ShuffleboardTab swerve = Shuffleboard.getTab("Swerve");
+  
+  public static GenericEntry throttleMotorPower = swerve.add("Throttle motor power", 0).getEntry();
+  public static GenericEntry throttleMotorRpm = swerve.add("Throttle motor rpm", 0).getEntry();
+  public static GenericEntry targetSpeed = swerve.add("Target speed", 0).getEntry();
+  public static GenericEntry targetVelocity = swerve.add("Target velocity", 0).getEntry();
+  
+
+  //Climber
+  public static ShuffleboardTab climber = Shuffleboard.getTab("Climber");
+
+  //GOA
+  public static ShuffleboardTab goa = Shuffleboard.getTab("GOA");
+
+
+
+  //Aipriltags
+  public static ShuffleboardTab aipriltags = Shuffleboard.getTab("Aipriltags");
+    public static GenericEntry isPresent1 = aipriltags.add("Is Present 1", false).getEntry();
+    public static GenericEntry isPresent2 = aipriltags.add("Is Present 2", false).getEntry();
+    public static GenericEntry latency = aipriltags.add("Latency", 0).getEntry();
+    public static GenericEntry speed = aipriltags.add("Speed", 0).getEntry();
 
 
   public DriverDisplay() {}
@@ -27,10 +58,8 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
-   showNoteYaw.setDouble(NoteDetector.noteYaw);
-   showNotePitch.setDouble(NoteDetector.notePitch);
-   showNote.setBoolean(NoteDetector.noteVisible);
-    
+   
+  
 
   }
 }

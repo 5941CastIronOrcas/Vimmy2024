@@ -20,12 +20,12 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     armAngle = armEncoder.getPosition() * 360;
+    DriverDisplay.armAngle.setDouble(armAngle);
     dist = PositionEstimator.distToSpeaker();
-    SmartDashboard.putNumber("Arm Angle", armAngle);
-    SmartDashboard.putBoolean("Has Note", hasNote);
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    SmartDashboard.putNumber("Arduino Recall", recalledValue);
+    DriverDisplay.arduinoRecall.setDouble(recalledValue);
     hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
+    DriverDisplay.armHasNote.setBoolean(hasNote);
     // this is an old version for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
@@ -48,12 +48,15 @@ public class ArmSubsystem extends SubsystemBase {
     +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     -(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
-    SmartDashboard.putNumber("Arm Target", a);
+     DriverDisplay.armTarget.setDouble(a);
   }
+  
   public static void rotateArm(double t) {
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
     Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
-    SmartDashboard.putNumber("Arm Throttle", t);
+    DriverDisplay.armThrottle.setDouble(t);
+    
+
   }
   public static void SpinIntake(double input)
   {
