@@ -15,6 +15,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GOAGuidanceSystem;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.utilityObjects.Vector2D;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -65,8 +66,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
     SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
     SmartDashboard.putNumber("RobotRoll", Constants.gyro.getRoll().getValueAsDouble());
-    SmartDashboard.putNumber("AvoidanceX", GOAGuidanceSystem.GetAvoidanceVectorX());
-    SmartDashboard.putNumber("AvoidanceY", GOAGuidanceSystem.GetAvoidanceVectorY());
+    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
+    SmartDashboard.putNumber("AvoidanceX", nono.x);
+    SmartDashboard.putNumber("AvoidanceY", nono.y);
     SmartDashboard.putBoolean("robotLimp", robotLimp);
   }
 
