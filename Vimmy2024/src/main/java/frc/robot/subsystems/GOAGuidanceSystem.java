@@ -73,6 +73,6 @@ public class GOAGuidanceSystem extends SubsystemBase {
   public static double GetProtectionAngle()
   {
     Vector2D a = GetAvoidanceVector();
-    return Math.toDegrees(Math.atan2(a.x, a.y));
+    return 180+Math.toDegrees(Math.atan2(a.x, a.y));
   }
 }
