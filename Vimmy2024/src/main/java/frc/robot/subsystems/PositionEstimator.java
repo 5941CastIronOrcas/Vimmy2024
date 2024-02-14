@@ -181,7 +181,7 @@ public class PositionEstimator extends SubsystemBase {
       robotPosition = getEstimatedGlobalPose();
     }
     SmartDashboard.putBoolean("isPresent1", camCheck());
-     SmartDashboard.putBoolean("isPresent2", camCheck2());
+    SmartDashboard.putBoolean("isPresent2", camCheck2());
     SmartDashboard.putNumber("Latency", camera1.getLatestResult().getLatencyMillis());
     SmartDashboard.putNumber("Speed in m/s", Functions.Pythagorean(velocity.x, velocity.y));
   }
