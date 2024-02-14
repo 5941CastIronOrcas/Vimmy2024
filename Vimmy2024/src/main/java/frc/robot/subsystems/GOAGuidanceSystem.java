@@ -57,14 +57,6 @@ public class GOAGuidanceSystem extends SubsystemBase {
 
     return out;
   }
-  public static double GetAvoidanceVectorX()
-  {
-    return GetAvoidanceVector().x;
-  }
-  public static double GetAvoidanceVectorY()
-  {
-    return GetAvoidanceVector().y;
-  }
 
   public static Vector2D GetDriveVector(double x, double y)
   {
@@ -76,14 +68,6 @@ public class GOAGuidanceSystem extends SubsystemBase {
     Vector2D toTargetVector = new Vector2D(toTargetStrength*Math.sin(toTargetAngle), toTargetStrength*Math.cos(toTargetAngle));
     Vector2D driveVector = new Vector2D(toTargetVector.x+avoid.x, toTargetVector.y+avoid.y);
     return Functions.ClampVector(driveVector, 1);
-  }
-  public static double GetDriveVectorX(double x, double y)
-  {
-    return GetDriveVector(x, y).x;
-  }
-  public static double GetDriveVectorY(double x, double y)
-  {
-    return GetDriveVector(x, y).y;
   }
 
   public static double GetProtectionAngle()
