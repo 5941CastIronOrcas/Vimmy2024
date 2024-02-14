@@ -53,10 +53,7 @@ public class NoteDetector extends SubsystemBase {
       noteYaw = camera.getLatestResult().getBestTarget().getYaw();
     }
 
-    SmartDashboard.putBoolean("HasNote 1", noteVisible);
-    SmartDashboard.putNumber("Note Pitch", notePitch);
-    SmartDashboard.putNumber("Note Yaw", noteYaw);
-
+   
 
     
   }
