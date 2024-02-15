@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
+import frc.robot.Functions;
 
 public class SonarModule {
     static AnalogInput LocalSonic;
@@ -25,7 +26,7 @@ public class SonarModule {
     
     public double GetObstacleDistance() {
         // "data outside of or belonging to the wall" - not clear how to do that
-        return Math.min(Math.max(LastReeding, Constants.SonicMaxValue), Constants.SonicMinValue);
+        return Functions.Clamp(LastReeding, Constants.SonicMinValue, Constants.SonicMaxValue);
     }
     // the return is in degrees
     public double GetObstacleAngle() {return LocalServo.getAngle();}
