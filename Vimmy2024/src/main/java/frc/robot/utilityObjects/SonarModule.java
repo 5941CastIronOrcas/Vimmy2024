@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
 import frc.robot.Functions;
+import frc.robot.subsystems.PositionEstimator;
 
 public class SonarModule {
     static AnalogInput LocalSonic;
@@ -32,8 +33,14 @@ public class SonarModule {
     public double GetObstacleAngle() {return LocalServo.getAngle() + Rotation;}
     
     public Vector2D GetObstaclePosition() {
+        double XsensorRelative = Math.cos(GetObstacleAngle()) * GetObstacleDistance();
+        double YsensorRelative = Math.sin(GetObstacleAngle()) * GetObstacleDistance();
         
-        return new Vector2D(XfieldRelative, YfieldRelative);
+        double XrobotRelative = XsensorRelative + Xoffset;
+        double YrobotRelative = YsensorRelative + YsensorRelative;
+        //Vector2D fieldRelative = Functions.Rotate(new Vector2D(XrobotRelative, YrobotRelative), PositionEstimator.rob);
+        //return new Vector2D(XfieldRelative, YfieldRelative);
+        return new Vector2D(0, 0);
     }
     
     public void UpdateSensorReading() {LastReeding = LocalSonic.getValue()*Constants.voltageScaleFactor*0.125;}
