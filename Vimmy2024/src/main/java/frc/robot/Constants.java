@@ -5,7 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
@@ -87,8 +90,23 @@ public final class Constants {
   public static final double avoidanceExponent = 4;
   public static final double toTargetStrengthTop = 2;
   public static final double toTargetStrengthCap = 5;
-
-
+  //SonarModules
+  public static final Servo servo1 = new Servo(1);
+  public static final Servo servo2 = new Servo(2);
+  public static final Servo servo3 = new Servo(3);
+  public static final Servo servo4 = new Servo(4);
+  public static AnalogInput ultrasonicSensor1 = new AnalogInput(0);
+  public static AnalogInput ultrasonicSensor2 = new AnalogInput(1);
+  public static AnalogInput ultrasonicSensor3 = new AnalogInput(2);
+  public static AnalogInput ultrasonicSensor4 = new AnalogInput(3);
+  public static DigitalOutput ultrasonicPing = new DigitalOutput(0);
+  public static double voltageScaleFactor = 0;
+  //Pan the servos 
+  public static final boolean isSonarModulesEnabled = true; //true - code will process, false - code will not process, servos will not pan
+  public static final double ServoSpeed = 0.15; // changes how fast will the sine wave will go
+  //GarbageDataCollector
+  public static final double SonicMaxValue = 500; // changes the max and min values for value filter
+  public static final double SonicMinValue = 30;
 
   //ARM STUFF:
   //Arm Motor Declarations
