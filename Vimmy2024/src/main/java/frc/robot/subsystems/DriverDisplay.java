@@ -32,6 +32,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry armHasNote = arm.add("Has Note", false).getEntry();
   public static GenericEntry armTarget = arm.add("Arm Target", 0).getEntry();
   public static GenericEntry armThrottle = arm.add("Arm Throttle", 0).getEntry();
+  public static GenericEntry motorPower1 = arm.add("Motor 1 power", 0).getEntry();
+  public static GenericEntry motorPower2 = arm.add("Motor 2 power", 0).getEntry();
 
   //Swerve
   public static ShuffleboardTab swerve = Shuffleboard.getTab("Swerve");
@@ -46,6 +48,8 @@ public class DriverDisplay extends SubsystemBase {
 
   //Climber
   public static ShuffleboardTab climber = Shuffleboard.getTab("Climber");
+
+  public static GenericEntry robotRoll = climber.add("RobotRoll", 0).getEntry();
 
   //GOA
   public static ShuffleboardTab goa = Shuffleboard.getTab("GOA");
@@ -63,7 +67,7 @@ public class DriverDisplay extends SubsystemBase {
     public static GenericEntry robotY = position.add("Robot Y", 0).getEntry();
     public static GenericEntry driverYaw = position.add("DriverYaw", 0).getEntry();
     public static GenericEntry fieldYaw = position.add("FieldYaw", 0).getEntry();
-    public static GenericEntry robotRoll = position.add("RobotRoll", 0).getEntry();
+    public static GenericEntry altAxis = position.add("AltAxisCoord Test", 0).getEntry();
 
 
   public DriverDisplay() {}
@@ -75,6 +79,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
     DriverDisplay.arduinoRecall.setDouble(ArduinoCommunication.RecallOneValue((byte) 0x2e));
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
+    DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
+    DriverDisplay.motorPower2.setDouble(Constants.armMotor1.getOutputCurrent());
 
     //swerve
     DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.anglePos);
@@ -89,7 +95,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.showNote.setBoolean(NoteDetector.noteVisible);
 
 
-
+    //climber
+    DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
 
 
     //goa
@@ -107,7 +114,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
+    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.25*Math.PI));
 
    
     
