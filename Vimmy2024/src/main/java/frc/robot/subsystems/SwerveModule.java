@@ -47,10 +47,6 @@ public class SwerveModule {
         //double currentSpeed = throttleMotor.getEncoder().getVelocity();
         angleMotor.set(Functions.Clamp(aMult*Functions.DeltaAngleDeg(angle, anglePos) * (Constants.modulePMult), -1,1));
        // throttleMotor.set(throttleMotor.get()+((compensationSpeed-currentSpeed)*0.00001));
-        //DriverDisplay.throttleMotorPower.setDouble(throttleMotor.get());
-        //DriverDisplay.throttleMotorRpm.setDouble(currentSpeed);
-        //DriverDisplay.targetSpeed.setDouble(compensationSpeed);
-        //DriverDisplay.targetVelocity.setDouble((compensationSpeed-currentSpeed)*0.00001);
         throttleMotor.set(throttle * tMult);
         
     }
