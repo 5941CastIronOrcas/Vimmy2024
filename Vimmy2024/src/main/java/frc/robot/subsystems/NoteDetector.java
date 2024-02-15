@@ -54,9 +54,6 @@ public class NoteDetector extends SubsystemBase {
     }
 
    
-    DriverDisplay.showNoteYaw.setDouble(noteYaw);
-   DriverDisplay.showNotePitch.setDouble(notePitch);
-   DriverDisplay.showNote.setBoolean(noteVisible);
     
   }
 

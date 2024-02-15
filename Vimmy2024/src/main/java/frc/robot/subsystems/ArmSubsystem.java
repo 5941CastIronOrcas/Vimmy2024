@@ -20,12 +20,9 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     armAngle = armEncoder.getPosition() * 360;
-    DriverDisplay.armAngle.setDouble(armAngle);
     dist = PositionEstimator.distToSpeaker();
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    DriverDisplay.arduinoRecall.setDouble(recalledValue);
     hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
-    DriverDisplay.armHasNote.setBoolean(hasNote);
     // this is an old version for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {

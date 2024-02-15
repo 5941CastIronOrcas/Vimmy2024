@@ -180,10 +180,7 @@ public class PositionEstimator extends SubsystemBase {
     if (camCheck() && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
     }
-    DriverDisplay.isPresent1.setBoolean(camCheck());
-    DriverDisplay.isPresent2.setBoolean(camCheck2());
-    DriverDisplay.latency.setDouble(camera1.getLatestResult().getLatencyMillis());
-    DriverDisplay.speed.setDouble(Functions.Pythagorean(velocity.x, velocity.y));
+
   }
 
   // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() / 20.0];

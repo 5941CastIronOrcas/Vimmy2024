@@ -61,16 +61,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
     isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
-    SmartDashboard.putNumber("Robot X", PositionEstimator.robotPosition.getX());
-    SmartDashboard.putNumber("Robot Y", PositionEstimator.robotPosition.getY());
-    SmartDashboard.putNumber("DriverYaw", PositionEstimator.robotYawDriverRelative);
-    SmartDashboard.putNumber("FieldYaw", Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    SmartDashboard.putNumber("RobotRoll", Constants.gyro.getRoll().getValueAsDouble());
-    SmartDashboard.putNumber("AltAxisCoord Test" , Functions.AltAxisCoord(3, 2, 0.5*Math.PI));
-    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
-    SmartDashboard.putNumber("AvoidanceX", nono.x);
-    SmartDashboard.putNumber("AvoidanceY", nono.y);
-    SmartDashboard.putBoolean("robotLimp", robotLimp);
+    
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
