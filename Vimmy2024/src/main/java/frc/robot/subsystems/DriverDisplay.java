@@ -70,7 +70,32 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //Arm
+    DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
+    DriverDisplay.arduinoRecall.setDouble(ArduinoCommunication.RecallOneValue((byte) 0x2e));
+    DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
+
+
+    //Note Detector
+    DriverDisplay.showNoteYaw.setDouble(NoteDetector.noteYaw);
+    DriverDisplay.showNotePitch.setDouble(NoteDetector.notePitch);
+    DriverDisplay.showNote.setBoolean(NoteDetector.noteVisible);
+
+
+
+
+
+    //goa
+    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
+    DriverDisplay.avoidanceX.setDouble(nono.x);
+    DriverDisplay.avoidanceY.setDouble(nono.y);
+  
+
     //position estimator
+    DriverDisplay.isPresent1.setBoolean(PositionEstimator.camCheck());
+    DriverDisplay.isPresent2.setBoolean(PositionEstimator.camCheck2());
+    DriverDisplay.latency.setDouble(PositionEstimator.camera1.getLatestResult().getLatencyMillis());
+    DriverDisplay.speed.setDouble(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y));
     DriverDisplay.robotX.setDouble(PositionEstimator.robotPosition.getX());
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
@@ -78,11 +103,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
     DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.5*Math.PI));
 
-    //goa
-    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
-    DriverDisplay.avoidanceX.setDouble(nono.x);
-    DriverDisplay.avoidanceY.setDouble(nono.y);
-  
+   
     
   
 
