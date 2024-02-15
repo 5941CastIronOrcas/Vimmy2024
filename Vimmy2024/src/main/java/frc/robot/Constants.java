@@ -107,6 +107,7 @@ public final class Constants {
   //GarbageDataCollector
   public static final double SonicMaxValue = 500; // changes the max and min values for value filter
   public static final double SonicMinValue = 30;
+  public static final double servoFinalMult = 180 / 210;
 
   //ARM STUFF:
   //Arm Motor Declarations
