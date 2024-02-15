@@ -45,12 +45,12 @@ public class DriverDisplay extends SubsystemBase {
 
 
 
-  //Aipriltags
-  public static ShuffleboardTab aipriltags = Shuffleboard.getTab("Aipriltags");
-    public static GenericEntry isPresent1 = aipriltags.add("Is Present 1", false).getEntry();
-    public static GenericEntry isPresent2 = aipriltags.add("Is Present 2", false).getEntry();
-    public static GenericEntry latency = aipriltags.add("Latency", 0).getEntry();
-    public static GenericEntry speed = aipriltags.add("Speed", 0).getEntry();
+  //Apriltags
+  public static ShuffleboardTab apriltags = Shuffleboard.getTab("Apriltags");
+    public static GenericEntry isPresent1 = apriltags.add("Is Present 1", false).getEntry();
+    public static GenericEntry isPresent2 = apriltags.add("Is Present 2", false).getEntry();
+    public static GenericEntry latency = apriltags.add("Latency", 0).getEntry();
+    public static GenericEntry speed = apriltags.add("Speed", 0).getEntry();
 
 
   public DriverDisplay() {}
