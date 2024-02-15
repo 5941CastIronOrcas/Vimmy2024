@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   public static Boolean isBlueAlliance = false;
   public static double tempDemoAngle = 0; //remove later
   public static boolean robotLimp = true;
-  public static boolean limpButtonOld = Constants.limpRobotButton.get();
+  //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;
 
@@ -61,8 +61,6 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
     isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
-    SmartDashboard.putNumber("RotateVector Test X", Functions.Rotate(new Vector2D(3, 2), 30).x);
-    SmartDashboard.putNumber("RotateVector Test Y", Functions.Rotate(new Vector2D(3, 2), 30).y);
     
     
   }
@@ -71,15 +69,15 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {}
 
-  @Override
-  public void disabledPeriodic() {
+  //@Override
+  /*public void disabledPeriodic() {
     if(!limpButtonOld && Constants.limpRobotButton.get())
     {
       robotLimp = !robotLimp;
       Functions.setRobotLimp(robotLimp);
     }
     limpButtonOld = Constants.limpRobotButton.get();
-  }
+  }*/
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override

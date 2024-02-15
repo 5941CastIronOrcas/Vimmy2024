@@ -64,7 +64,6 @@ public class DriverDisplay extends SubsystemBase {
     public static GenericEntry driverYaw = position.add("DriverYaw", 0).getEntry();
     public static GenericEntry fieldYaw = position.add("FieldYaw", 0).getEntry();
     public static GenericEntry robotRoll = position.add("RobotRoll", 0).getEntry();
-    public static GenericEntry altAxis = position.add("AltAxisCoord Test", 0).getEntry();
 
 
   public DriverDisplay() {}
@@ -109,7 +108,6 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
     DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
-    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.25*Math.PI));
 
    
     

@@ -34,7 +34,7 @@ public final class Constants {
   public static final double controllerDeadZone = 0.1;
 
   //Misc
-  public static final DigitalInput limpRobotButton = new DigitalInput(0);
+  //public static final DigitalInput limpRobotButton = new DigitalInput(0);
 
 
   //SWERVE STUFF:
