@@ -61,6 +61,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
     isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
+    SmartDashboard.putNumber("RotateVector Test X", Functions.Rotate(new Vector2D(3, 2), 30).x);
+    SmartDashboard.putNumber("RotateVector Test Y", Functions.Rotate(new Vector2D(3, 2), 30).y);
     
     
   }
