@@ -35,11 +35,13 @@ public class DriverDisplay extends SubsystemBase {
 
   //Swerve
   public static ShuffleboardTab swerve = Shuffleboard.getTab("Swerve");
+  public static GenericEntry frAngle = swerve.add("Fr Module", 0).getEntry();
+  public static GenericEntry flAngle = swerve.add("Fl Module", 0).getEntry();
+  public static GenericEntry brAngle = swerve.add("Br module", 0).getEntry();
+  public static GenericEntry blAngle = swerve.add("Bl Module", 0).getEntry();
   
-  public static GenericEntry throttleMotorPower = swerve.add("Throttle motor power", 0).getEntry();
-  public static GenericEntry throttleMotorRpm = swerve.add("Throttle motor rpm", 0).getEntry();
-  public static GenericEntry targetSpeed = swerve.add("Target speed", 0).getEntry();
-  public static GenericEntry targetVelocity = swerve.add("Target velocity", 0).getEntry();
+
+  
   
 
   //Climber
@@ -75,6 +77,12 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.arduinoRecall.setDouble(ArduinoCommunication.RecallOneValue((byte) 0x2e));
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
 
+    //swerve
+    DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.anglePos);
+    DriverDisplay.flAngle.setDouble(SwerveSubsystem.flModule.anglePos);
+    DriverDisplay.brAngle.setDouble(SwerveSubsystem.brModule.anglePos);
+    DriverDisplay.blAngle.setDouble(SwerveSubsystem.blModule.anglePos);
+
 
     //Note Detector
     DriverDisplay.showNoteYaw.setDouble(NoteDetector.noteYaw);
@@ -101,7 +109,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
     DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
-    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.5*Math.PI));
+    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.25*Math.PI));
 
    
     
