@@ -8,7 +8,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Functions;
+import frc.robot.Robot;
+import frc.robot.utilityObjects.Vector2D;
 
 
 
@@ -42,15 +47,22 @@ public class DriverDisplay extends SubsystemBase {
 
   //GOA
   public static ShuffleboardTab goa = Shuffleboard.getTab("GOA");
+  public static GenericEntry avoidanceX = goa.add("AvoidanceX", 0).getEntry();
+  public static GenericEntry avoidanceY = goa.add("AvoidanceY", 0).getEntry();
 
 
-
-  //Aipriltags
-  public static ShuffleboardTab aipriltags = Shuffleboard.getTab("Aipriltags");
-    public static GenericEntry isPresent1 = aipriltags.add("Is Present 1", false).getEntry();
-    public static GenericEntry isPresent2 = aipriltags.add("Is Present 2", false).getEntry();
-    public static GenericEntry latency = aipriltags.add("Latency", 0).getEntry();
-    public static GenericEntry speed = aipriltags.add("Speed", 0).getEntry();
+  //position estimator
+  public static ShuffleboardTab position = Shuffleboard.getTab("Position Estimator");
+    public static GenericEntry isPresent1 = position.add("Is Present 1", false).getEntry();
+    public static GenericEntry isPresent2 = position.add("Is Present 2", false).getEntry();
+    public static GenericEntry speed = position.add("speed", 0).getEntry();
+    public static GenericEntry latency = position.add("Latency", 0).getEntry();
+    public static GenericEntry robotX = position.add("Robot X", 0).getEntry();
+    public static GenericEntry robotY = position.add("Robot Y", 0).getEntry();
+    public static GenericEntry driverYaw = position.add("DriverYaw", 0).getEntry();
+    public static GenericEntry fieldYaw = position.add("FieldYaw", 0).getEntry();
+    public static GenericEntry robotRoll = position.add("RobotRoll", 0).getEntry();
+    public static GenericEntry altAxis = position.add("AltAxisCoord Test", 0).getEntry();
 
 
   public DriverDisplay() {}
@@ -58,7 +70,20 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
-   
+    //position estimator
+    DriverDisplay.robotX.setDouble(PositionEstimator.robotPosition.getX());
+    DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
+    DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
+    DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
+    DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
+    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.5*Math.PI));
+
+    //goa
+    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
+    DriverDisplay.avoidanceX.setDouble(nono.x);
+    DriverDisplay.avoidanceY.setDouble(nono.y);
+  
+    
   
 
   }
