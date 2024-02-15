@@ -17,7 +17,7 @@ public class SonarModule {
     public SonarModule(AnalogInput SonicInpt, Servo ServoInpt, double RotationInpt, double XoffsetInpt, double YoffsetInpt) {
         LocalSonic = SonicInpt;
         LocalServo = ServoInpt;
-        Rotation = RotationInpt;
+        Rotation = RotationInpt; //The robot-relative angle that the sensor is facing whem the servo is at 0 degrees (rotated to the max counterclockwise)
         Xoffset = XoffsetInpt;
         Yoffset = YoffsetInpt;
     }
@@ -27,18 +27,12 @@ public class SonarModule {
     public double GetObstacleDistance() {
         // "data outside of or belonging to the wall" - not clear how to do that
         return Functions.Clamp(LastReeding, Constants.SonicMinValue, Constants.SonicMaxValue);
-    }
+    }// max counter clockvise is 0 
     // the return is in degrees
-    public double GetObstacleAngle() {return LocalServo.getAngle();}
-
+    public double GetObstacleAngle() {return LocalServo.getAngle() + Rotation;}
+    
     public Vector2D GetObstaclePosition() {
-        double fieldRealtiveRotation = Rotation + GetObstacleAngle(); //the rotation is the rotation of whole robot
-                
-        double XrelativeToCenter = 0;
-        double YrealtiveToCenter = 0;
-        //servos move different than 180 it's 210 ish
-        double XfieldRelative = 0;
-        double YfieldRelative = 0;
+        
         return new Vector2D(XfieldRelative, YfieldRelative);
     }
     

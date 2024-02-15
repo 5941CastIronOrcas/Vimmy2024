@@ -107,8 +107,7 @@ public final class Constants {
   //GarbageDataCollector
   public static final double SonicMaxValue = 500; // changes the max and min values for value filter
   public static final double SonicMinValue = 30;
-  public static final double servoFinalMult = 180 / 210;
-
+  public static final double servoFinalMult = 180.0 / 210.0;
   //ARM STUFF:
   //Arm Motor Declarations
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
