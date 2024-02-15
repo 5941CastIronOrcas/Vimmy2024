@@ -46,7 +46,7 @@ public class Functions {
         }
         return max;
     }
-    public Vector2D Rotate(Vector2D VectorInpt, double AInpt) { return new Vector2D(Pythagorean(VectorInpt.x, VectorInpt.y) * Math.cos(Math.toRadians(AInpt) - Math.atan2(VectorInpt.y, VectorInpt.x)), Pythagorean(VectorInpt.y, VectorInpt.x) * Math.sin(Math.toRadians(-AInpt)+Math.atan2(VectorInpt.y, VectorInpt.x))); } 
+    public static Vector2D Rotate(Vector2D VectorInpt, double AInpt) { return new Vector2D(Pythagorean(VectorInpt.x, VectorInpt.y) * Math.cos(Math.toRadians(AInpt) - Math.atan2(VectorInpt.y, VectorInpt.x)), Pythagorean(VectorInpt.y, VectorInpt.x) * Math.sin(Math.toRadians(-AInpt)+Math.atan2(VectorInpt.y, VectorInpt.x))); } 
     public static double DriverToFieldAngle(double angle)
     {
         if(Robot.isRedAlliance)

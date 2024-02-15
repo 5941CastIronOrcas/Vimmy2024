@@ -33,14 +33,15 @@ public class SonarModule {
     public double GetObstacleAngle() {return LocalServo.getAngle() + Rotation;}
     
     public Vector2D GetObstaclePosition() {
+        
         double XsensorRelative = Math.cos(GetObstacleAngle()) * GetObstacleDistance();
         double YsensorRelative = Math.sin(GetObstacleAngle()) * GetObstacleDistance();
         
         double XrobotRelative = XsensorRelative + Xoffset;
         double YrobotRelative = YsensorRelative + YsensorRelative;
-        //Vector2D fieldRelative = Functions.Rotate(new Vector2D(XrobotRelative, YrobotRelative), PositionEstimator.rob);
-        //return new Vector2D(XfieldRelative, YfieldRelative);
-        return new Vector2D(0, 0);
+        Vector2D AlmostFieldRelative = Functions.Rotate(new Vector2D(XrobotRelative, YrobotRelative), PositionEstimator.robotPosition.getRotation().getDegrees());
+        Vector2D FieldRelative = new Vector2D(AlmostFieldRelative.x + PositionEstimator.robotPosition.getX(), AlmostFieldRelative.y + PositionEstimator.robotPosition.getY());
+        return FieldRelative;
     }
     
     public void UpdateSensorReading() {LastReeding = LocalSonic.getValue()*Constants.voltageScaleFactor*0.125;}
