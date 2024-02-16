@@ -95,10 +95,18 @@ public final class Constants {
   public static final Servo servo2 = new Servo(2);
   public static final Servo servo3 = new Servo(3);
   public static final Servo servo4 = new Servo(4);
+  public static final Servo servo5 = new Servo(5);
+  public static final Servo servo6 = new Servo(6);
+  public static final Servo servo7 = new Servo(7);
+  public static final Servo servo8 = new Servo(8);
   public static AnalogInput ultrasonicSensor1 = new AnalogInput(0);
   public static AnalogInput ultrasonicSensor2 = new AnalogInput(1);
   public static AnalogInput ultrasonicSensor3 = new AnalogInput(2);
   public static AnalogInput ultrasonicSensor4 = new AnalogInput(3);
+  public static AnalogInput ultrasonicSensor5 = new AnalogInput(4);
+  public static AnalogInput ultrasonicSensor6 = new AnalogInput(5);
+  public static AnalogInput ultrasonicSensor7 = new AnalogInput(6);
+  public static AnalogInput ultrasonicSensor8 = new AnalogInput(7);
   public static DigitalOutput ultrasonicPing = new DigitalOutput(0);
   public static double voltageScaleFactor = 0;
   //Pan the servos 

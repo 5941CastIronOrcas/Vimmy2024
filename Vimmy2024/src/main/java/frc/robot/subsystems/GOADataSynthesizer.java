@@ -23,6 +23,10 @@ public class GOADataSynthesizer extends SubsystemBase {
     SonarModules.add(new SonarModule(Constants.ultrasonicSensor2, Constants.servo2, 0, 0, 0));
     SonarModules.add(new SonarModule(Constants.ultrasonicSensor3, Constants.servo3, 0, 0, 0));
     SonarModules.add(new SonarModule(Constants.ultrasonicSensor4, Constants.servo4, 0, 0, 0));
+    SonarModules.add(new SonarModule(Constants.ultrasonicSensor5, Constants.servo4, 0, 0, 0));
+    SonarModules.add(new SonarModule(Constants.ultrasonicSensor6, Constants.servo4, 0, 0, 0));
+    SonarModules.add(new SonarModule(Constants.ultrasonicSensor7, Constants.servo4, 0, 0, 0));
+    SonarModules.add(new SonarModule(Constants.ultrasonicSensor8, Constants.servo4, 0, 0, 0));
     //Red subwoofer
     staticObstacles.add(new Obstacle(16.54-0.918718, 6.068568, true, Constants.subwooferAvoidanceMult));
     staticObstacles.add(new Obstacle(16.54-0, 6.53796, true, Constants.subwooferAvoidanceMult));
