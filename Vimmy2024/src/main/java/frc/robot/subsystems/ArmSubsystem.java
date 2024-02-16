@@ -49,6 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   
   public static void rotateArm(double t) {
+    t = Functions.Clamp(t, -Functions.Clamp(0.25*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.25*(armAngle-Constants.maxArmAngle)), 0, 1));
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
     Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
     DriverDisplay.armThrottle.setDouble(t);
