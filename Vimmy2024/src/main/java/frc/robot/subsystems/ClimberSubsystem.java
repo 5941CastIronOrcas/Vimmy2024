@@ -10,6 +10,8 @@ import frc.robot.Constants;
 import frc.robot.Functions;
 
 public class ClimberSubsystem extends SubsystemBase {
+  public static double lClimberAngle;
+  public static double rClimberAngle;
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {}
 
@@ -17,6 +19,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     if (Constants.lClimberSwitch.get()) Constants.climberMotorL.getEncoder().setPosition(0.0);
     if (Constants.rClimberSwitch.get()) Constants.climberMotorR.getEncoder().setPosition(0.0);
+    lClimberAngle = Constants.climberMotorL.getEncoder().getPosition();
+    rClimberAngle = Constants.climberMotorR.getEncoder().getPosition();
   }
 
   @Override
@@ -25,13 +29,13 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
-    Constants.climberMotorL.set(Functions.Clamp(in+difference/2.0, 
+    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0), 
       Constants.lClimberSwitch.get()?0:-1, 
-      Constants.climberMotorL.getEncoder().getPosition()>=Constants.climberMaxHeight?0:1)
+      lClimberAngle>=Constants.climberMaxHeight?0:1)
       *(Constants.climberMotorLInvert?-1:1));
-    Constants.climberMotorR.set(Functions.Clamp(in-difference/2.0, 
+    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0), 
       Constants.rClimberSwitch.get()?0:-1, 
-      Constants.climberMotorL.getEncoder().getPosition()>=Constants.climberMaxHeight?0:1)
+      rClimberAngle>=Constants.climberMaxHeight?0:1)
       *(Constants.climberMotorRInvert?-1:1));
   }
 
