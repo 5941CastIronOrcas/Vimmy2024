@@ -52,7 +52,11 @@ public class GOADataSynthesizer extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    for (int i = 0; i < allObstacles.size(); i++) {
+      allObstacles.get(i).timeSinceFound++; //update the counter
+      if (allObstacles.get(i).timeSinceFound >= Constants.maxObstacleLife * 50) allObstacles.remove(i--); //remove if time is exceed limits
+    }
+
   }
 
   @Override

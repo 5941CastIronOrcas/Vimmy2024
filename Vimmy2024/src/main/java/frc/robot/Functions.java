@@ -56,6 +56,8 @@ public class Functions {
         return angle;
     }
 
+    public static boolean InRangeOf(double number, double referenceNumber, double rangeOf) { return (referenceNumber + rangeOf > number && referenceNumber - rangeOf < number); }
+
     public static double FieldToDriverAngle(double angle)
     {
         if(Robot.isRedAlliance)
