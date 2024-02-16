@@ -27,7 +27,7 @@ public class DriverDisplay extends SubsystemBase {
  
   //Arm
   public static ShuffleboardTab arm = Shuffleboard.getTab("Arm");
-  public static GenericEntry armAngle = arm.add("Arm Note", 0).getEntry();
+  public static GenericEntry armAngle = arm.add("Arm Angle", 0).getEntry();
   public static GenericEntry arduinoRecall = arm.add("Arduino Recall", 0).getEntry();
   public static GenericEntry armHasNote = arm.add("Has Note", false).getEntry();
   public static GenericEntry armTarget = arm.add("Arm Target", 0).getEntry();
