@@ -63,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static void SpinShooter(double input)
   {
     Constants.shooterMotor1.set(input);
-    Constants.shooterMotor2.set(-input);
+    Constants.shooterMotor2.set(input);
   }
   public static void Intake(double input)
   {
@@ -96,9 +96,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    double d = Math.pow(Constants.launchSpeed,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*Constants.launchSpeed*Constants.launchSpeed));
+    double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
+    double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
-      return (-Math.toDegrees(Math.atan2((Constants.launchSpeed*Constants.launchSpeed-d),(g*dist)))+Constants.armAngleOffset+90);
+      return (-Math.toDegrees(Math.atan2((s*s-d),(g*dist)))+Constants.armAngleOffset+90);
     }
     return 0.0;
   }
