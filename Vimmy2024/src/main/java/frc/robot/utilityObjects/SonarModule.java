@@ -24,7 +24,7 @@ public class SonarModule {
     }
 
     public void SetServoAngle(double ServoAngleToSet) {LocalServo.set(ServoAngleToSet * Constants.servoFinalMult);} 
-    
+    public void SetServoAngleDegrees(double ServoAngleToSet) {LocalServo.set(ServoAngleToSet / 360);}
     public double GetObstacleDistance() {
         // "data outside of or belonging to the wall" - not clear how to do that
         return Functions.Clamp(LastReeding, Constants.SonicMinValue, Constants.SonicMaxValue);
