@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
+import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,7 +20,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    armAngle = armEncoder.getPosition() * 360;
+    armAngle = -(Constants.armJointEncoder.get() * 360)+211.8;
     dist = PositionEstimator.distToSpeaker();
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
     hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
