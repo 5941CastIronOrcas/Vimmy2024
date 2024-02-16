@@ -24,7 +24,7 @@ public class SonarModule {
     }
 
     public void SetServoAngle(double ServoAngleToSet) {LocalServo.set(ServoAngleToSet * Constants.servoFinalMult);} 
-    public void SetServoAngleDegrees(double ServoAngleToSet) {LocalServo.set(ServoAngleToSet / 360);}
+    public void SetServoAngleDegrees(double ServoAngleToSet) {LocalServo.set(ServoAngleToSet / 360.0 * Constants.servoFinalMult);} 
     public double GetObstacleDistance() {
         // "data outside of or belonging to the wall" - not clear how to do that
         return Functions.Clamp(LastReeding, Constants.SonicMinValue, Constants.SonicMaxValue);
@@ -34,11 +34,11 @@ public class SonarModule {
     
     public Vector2D GetObstaclePosition() {
         
-        double XsensorRelative = Math.cos(GetObstacleAngle()) * GetObstacleDistance();
-        double YsensorRelative = Math.sin(GetObstacleAngle()) * GetObstacleDistance();
+        double XsensorRelative = Math.sin(GetObstacleAngle()) * GetObstacleDistance();
+        double YsensorRelative = Math.cos(GetObstacleAngle()) * GetObstacleDistance();
         
         double XrobotRelative = XsensorRelative + Xoffset;
-        double YrobotRelative = YsensorRelative + YsensorRelative;
+        double YrobotRelative = YsensorRelative + Yoffset;
         Vector2D AlmostFieldRelative = Functions.Rotate(new Vector2D(XrobotRelative, YrobotRelative), PositionEstimator.robotPosition.getRotation().getDegrees());
         Vector2D FieldRelative = new Vector2D(AlmostFieldRelative.x + PositionEstimator.robotPosition.getX(), AlmostFieldRelative.y + PositionEstimator.robotPosition.getY());
         return FieldRelative;

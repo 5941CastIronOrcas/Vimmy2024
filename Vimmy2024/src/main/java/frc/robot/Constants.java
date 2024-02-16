@@ -16,7 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
-
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.utilityObjects.Vector2D;
 
 /**
@@ -35,7 +35,6 @@ public final class Constants {
 
   //Misc
   //public static final DigitalInput limpRobotButton = new DigitalInput(0);
-
 
   //SWERVE STUFF:
   //Gyro
@@ -125,12 +124,14 @@ public final class Constants {
   //Arm Motor Declarations
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
   public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless);
-  public static final Boolean armMotor1Invert = false;
-  public static final Boolean armMotor2Invert = true;
+  public static final Boolean armMotor1Invert = true;
+  public static final Boolean armMotor2Invert = false;
   public static final CANSparkMax intakeMotor = new CANSparkMax(30, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor1 = new CANSparkMax(31, MotorType.kBrushless);
   public static final CANSparkMax shooterMotor2 = new CANSparkMax(32, MotorType.kBrushless);
   //Arm Sensor Declarations
+  public static DutyCycleEncoder armJointEncoder = new DutyCycleEncoder(1);
+
   //public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
   //Arm Control Constants
   public static final double armMotorPMult = 1.0/90.0;
