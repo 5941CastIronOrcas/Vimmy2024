@@ -155,8 +155,8 @@ public final class Constants {
   //Climber Motor Declarations
   public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);
   public static final CANSparkMax climberMotorR = new CANSparkMax(34, MotorType.kBrushless);
-  public static final DigitalInput lClimberSwitch = new DigitalInput(8);
-  public static final DigitalInput rClimberSwitch = new DigitalInput(9);
+  public static final DigitalInput lClimberSwitch = new DigitalInput(2);
+  public static final DigitalInput rClimberSwitch = new DigitalInput(3);
   public static final Boolean climberMotorLInvert = false;
   public static final Boolean climberMotorRInvert = false;
   //Climber Control Constants
