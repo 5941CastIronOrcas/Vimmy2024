@@ -53,6 +53,8 @@ public class DriverDisplay extends SubsystemBase {
   public static ShuffleboardTab climber = Shuffleboard.getTab("Climber");
   public static GenericEntry lClimberAngle = climber.add("Left Climber Position", 0).getEntry();
   public static GenericEntry rClimberAngle = climber.add("Right Climber Position", 0).getEntry(); 
+  public static GenericEntry lClimberSwitch = climber.add("lClimberSwitch", false).getEntry();
+  public static GenericEntry rClimberSwitch = climber.add("rClimberSwitch", false).getEntry();
   public static GenericEntry robotRoll = climber.add("RobotRoll", 0).getEntry();
 
   //GOA
@@ -104,6 +106,8 @@ public class DriverDisplay extends SubsystemBase {
     //climber
     DriverDisplay.lClimberAngle.setDouble(ClimberSubsystem.lClimberAngle);
     DriverDisplay.rClimberAngle.setDouble(ClimberSubsystem.rClimberAngle);
+    DriverDisplay.lClimberSwitch.setBoolean(Constants.lClimberSwitch.get());
+    DriverDisplay.rClimberSwitch.setBoolean(Constants.rClimberSwitch.get());
     DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
 
 
