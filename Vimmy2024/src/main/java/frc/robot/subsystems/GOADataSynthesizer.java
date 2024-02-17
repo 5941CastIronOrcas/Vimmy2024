@@ -32,7 +32,7 @@ public class GOADataSynthesizer extends SubsystemBase {
     ,new Obstacle(3.0734, 4.105, true, Constants.stageAvoidanceMult, 0)
     ,new Obstacle(5.770626, 2.547726, true, Constants.stageAvoidanceMult, 0)
     ,new Obstacle(5.770626, 5.662274, true, Constants.stageAvoidanceMult, 0)
-};
+  };
   public static ArrayList<Obstacle> allObstacles = new ArrayList<Obstacle>();
   public static SonarModule[] SonarModules = new SonarModule[] {
      new SonarModule(Constants.ultrasonicSensor1, Constants.servo1, 0, 0, 0)
@@ -42,12 +42,16 @@ public class GOADataSynthesizer extends SubsystemBase {
     ,new SonarModule(Constants.ultrasonicSensor5, Constants.servo4, 0, 0, 0)
     ,new SonarModule(Constants.ultrasonicSensor6, Constants.servo4, 0, 0, 0)
     ,new SonarModule(Constants.ultrasonicSensor7, Constants.servo4, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor8, Constants.servo4, 0, 0, 0)
-
-  };
+    ,new SonarModule(Constants.ultrasonicSensor8, Constants.servo4, 0, 0, 0)};
+   // i don't know what's the error here
+   
   public GOADataSynthesizer() {
     //Red subwoofer
-    
+    for(int i = 0; i < 1; i++)
+    {
+      
+    }
+ 
   }
 
   @Override
