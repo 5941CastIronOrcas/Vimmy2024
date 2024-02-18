@@ -7,10 +7,12 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArduinoCommunication;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.GOAGuidanceSystem;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -116,6 +118,8 @@ public class Robot extends TimedRobot {
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
     double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone)) * speed;
+    double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
+    double RSX2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
 
     if (Constants.controller1.getRightBumperPressed()) {
@@ -157,7 +161,10 @@ public class Robot extends TimedRobot {
       ArmSubsystem.SpinIntake(0);
     }
     ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
+
+    ClimberSubsystem.moveClimbers(RSY2, RSX2);
   }
+
 
   @Override
   public void testInit() {
