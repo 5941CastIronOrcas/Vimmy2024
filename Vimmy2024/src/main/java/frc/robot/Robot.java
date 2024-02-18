@@ -111,14 +111,14 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() { 
     double speed = 1-(0.75*Constants.controller1.getLeftTriggerAxis());
     double LSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftX(), Constants.controllerDeadZone)) * speed;
     double LSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
     double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone)) * speed;
-    double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
+    double RSY2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
     double RSX2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
 
@@ -163,6 +163,7 @@ public class Robot extends TimedRobot {
     ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
 
     ClimberSubsystem.moveClimbers(RSY2, RSX2);
+    
   }
 
 

@@ -155,15 +155,15 @@ public final class Constants {
   //Climber Motor Declarations
   public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);
   public static final CANSparkMax climberMotorR = new CANSparkMax(34, MotorType.kBrushless);
-  public static final DigitalInput lClimberSwitch = new DigitalInput(2);
-  public static final DigitalInput rClimberSwitch = new DigitalInput(3);
+  public static  DigitalInput lClimberSwitch = new DigitalInput(7);
+  public static  DigitalInput rClimberSwitch = new DigitalInput(3);
   public static final Boolean climberMotorLInvert = false;
   public static final Boolean climberMotorRInvert = false;
   //Climber Control Constants
   public static final double climberBalancePMult = 0.01;
   public static final double climberBalanceDMult = 0.01;
   public static final double climberMaxSpeed = 1;
-  public static final double climberMaxHeight = 2;
+  public static final double climberMaxHeight = 999;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);

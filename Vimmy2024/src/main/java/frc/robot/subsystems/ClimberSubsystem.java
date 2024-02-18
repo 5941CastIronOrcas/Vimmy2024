@@ -29,6 +29,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
+    SmartDashboard.putBoolean("switch", Constants.lClimberSwitch.get());
     Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0), 
       Constants.lClimberSwitch.get()?0:-1, 
       lClimberAngle>=Constants.climberMaxHeight?0:1)
