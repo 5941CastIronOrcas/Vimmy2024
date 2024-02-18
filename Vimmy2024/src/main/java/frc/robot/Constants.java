@@ -149,7 +149,7 @@ public final class Constants {
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
   // theshold for sonic sensor
-  public static final double hasNoteTreshold = 10;
+  public static final double hasNoteTreshold = 20;
 
   //CLIMBER STUFF
   //Climber Motor Declarations
