@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
       PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());
       tempDemoAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
     }
-    //SwerveSubsystem.Drive(LSX, LSY, RSX);
+    SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
     //SwerveSubsystem.DriveFieldOriented(LSX, LSY, RSX);
     if(Constants.controller1.getAButton())
