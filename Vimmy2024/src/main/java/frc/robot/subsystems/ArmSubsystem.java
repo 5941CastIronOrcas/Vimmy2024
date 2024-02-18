@@ -23,8 +23,8 @@ public class ArmSubsystem extends SubsystemBase {
     armAngle = -(Constants.armJointEncoder.get() * 360)+211.8;
     dist = PositionEstimator.distToSpeaker();
     double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    hasNote = (recalledValue <= -1 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
-    // this is an old version for limit switches 
+    hasNote = (recalledValue < 0 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
+    // this is an old version of code for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
       if (!Constants.noteDetectionSwitches[i].get())
@@ -33,7 +33,6 @@ public class ArmSubsystem extends SubsystemBase {
       }
     }
     */
-    // This method will be called once per scheduler run
   }
 
   @Override
