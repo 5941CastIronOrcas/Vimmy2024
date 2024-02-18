@@ -163,6 +163,7 @@ public class Robot extends TimedRobot {
     ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
 
     ClimberSubsystem.moveClimbers(RSY2, RSX2);
+    SmartDashboard.putBoolean("test DIO", Constants.tesDigitalInputHUH.get());
     
   }
 
