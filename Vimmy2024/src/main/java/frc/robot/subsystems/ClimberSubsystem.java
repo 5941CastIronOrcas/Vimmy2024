@@ -17,8 +17,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (Constants.lClimberSwitch.get()) Constants.climberMotorL.getEncoder().setPosition(0.0);
-    if (Constants.rClimberSwitch.get()) Constants.climberMotorR.getEncoder().setPosition(0.0);
+    if (!Constants.lClimberSwitch.get()) Constants.climberMotorL.getEncoder().setPosition(0.0);
+    if (!Constants.rClimberSwitch.get()) Constants.climberMotorR.getEncoder().setPosition(0.0);
     lClimberAngle = Constants.climberMotorL.getEncoder().getPosition();
     rClimberAngle = Constants.climberMotorR.getEncoder().getPosition();
   }
@@ -29,15 +29,8 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
-    SmartDashboard.putBoolean("switch", Constants.lClimberSwitch.get());
-    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0), 
-      Constants.lClimberSwitch.get()?0:-1, 
-      lClimberAngle>=Constants.climberMaxHeight?0:1)
-      *(Constants.climberMotorLInvert?-1:1));
-    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0), 
-      Constants.rClimberSwitch.get()?0:-1, 
-      rClimberAngle>=Constants.climberMaxHeight?0:1)
-      *(Constants.climberMotorRInvert?-1:1));
+    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0), lClimberAngle>=Constants.climberMaxHeight?0:-1, (!Constants.lClimberSwitch.get()) || lClimberAngle <= 0?0:1) *(Constants.climberMotorLInvert?-1:1));
+    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0), rClimberAngle>=Constants.climberMaxHeight?0:-1, (!Constants.rClimberSwitch.get()) || rClimberAngle <= 0?0:1) *(Constants.climberMotorRInvert?-1:1));
   }
 
   public static void autoBalance(double speed) {
