@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     ArduinoCommunication.Wrap();
+    Constants.climberMotorL.getEncoder().setPosition(Constants.climberMaxHeight);
+    Constants.climberMotorR.getEncoder().setPosition(Constants.climberMaxHeight);
      
   }
 
@@ -118,8 +120,8 @@ public class Robot extends TimedRobot {
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
     double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone)) * speed;
-    double RSY2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
-    double RSX2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone)) * speed;
+    double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
+    double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
 
     if (Constants.controller1.getRightBumperPressed()) {

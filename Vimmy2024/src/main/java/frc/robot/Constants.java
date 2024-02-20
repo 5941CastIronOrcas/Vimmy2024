@@ -121,7 +121,7 @@ public final class Constants {
 
 
   //ARM STUFF:
-  
+
   //Arm Motor Declarations
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
   public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless);
@@ -165,7 +165,7 @@ public final class Constants {
   public static final double climberBalancePMult = 0.01;
   public static final double climberBalanceDMult = 0.01;
   public static final double climberMaxSpeed = 1;
-  public static final double climberMaxHeight = 999;
+  public static final double climberMaxHeight = 95;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);

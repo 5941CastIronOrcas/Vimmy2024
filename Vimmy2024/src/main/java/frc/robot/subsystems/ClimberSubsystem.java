@@ -13,7 +13,10 @@ public class ClimberSubsystem extends SubsystemBase {
   public static double lClimberAngle;
   public static double rClimberAngle;
   /** Creates a new ExampleSubsystem. */
-  public ClimberSubsystem() {}
+  public ClimberSubsystem() {
+    Constants.climberMotorL.getEncoder().setPosition(Constants.climberMaxHeight);
+    Constants.climberMotorR.getEncoder().setPosition(Constants.climberMaxHeight);
+  }
 
   @Override
   public void periodic() {
@@ -29,8 +32,8 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
-    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0), lClimberAngle>=Constants.climberMaxHeight?0:-1, (!Constants.lClimberSwitch.get()) || lClimberAngle <= 0?0:1) *(Constants.climberMotorLInvert?-1:1));
-    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0), rClimberAngle>=Constants.climberMaxHeight?0:-1, (!Constants.rClimberSwitch.get()) || rClimberAngle <= 0?0:1) *(Constants.climberMotorRInvert?-1:1));
+    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0)*(Constants.climberMotorLInvert?-1:1), (!Constants.lClimberSwitch.get()?0:-1) , lClimberAngle>=Constants.climberMaxHeight?0:1));
+    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0)*(Constants.climberMotorRInvert?-1:1), (!Constants.rClimberSwitch.get()?0:-1) , rClimberAngle>=Constants.climberMaxHeight?0:1));
   }
 
   public static void autoBalance(double speed) {
