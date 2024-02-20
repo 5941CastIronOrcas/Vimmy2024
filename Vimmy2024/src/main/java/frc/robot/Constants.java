@@ -121,6 +121,7 @@ public final class Constants {
 
 
   //ARM STUFF:
+  
   //Arm Motor Declarations
   public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
   public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless);

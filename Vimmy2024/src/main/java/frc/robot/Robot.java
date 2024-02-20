@@ -155,6 +155,8 @@ public class Robot extends TimedRobot {
     else if(Constants.controller2.getBButton())
     {
       ArmSubsystem.SpinIntake(-0.25);
+    } else if (Constants.controller2.getAButton()) {
+      ArmSubsystem.Intake(1);
     }
     else
     {

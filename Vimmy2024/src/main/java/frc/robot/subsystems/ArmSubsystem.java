@@ -63,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static void SpinShooter(double input)
   {
     Constants.shooterMotor1.set(input);
-    Constants.shooterMotor2.set(input);
+    Constants.shooterMotor2.set(-input);
   }
   public static void Intake(double input)
   {
@@ -117,5 +117,6 @@ public class ArmSubsystem extends SubsystemBase {
       SpinIntake(1);
     }
   }
+
 
 }
