@@ -119,20 +119,20 @@ public class Robot extends TimedRobot {
     double LSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
-    double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone)) * speed;
-    double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone)) * speed;
-    double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone)) * speed;
+    double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone));
+    double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone));
+    double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone));
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
 
     if (Constants.controller1.getRightBumperPressed()) {
-      Constants.gyro.setYaw(0);
+      Constants.gyro.setYaw(180);
     }
     if(Constants.controller1.getYButtonPressed())
     {
       PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());
       tempDemoAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
     }
-    SwerveSubsystem.Drive(LSX, LSY, RSX);
+    //SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
     //SwerveSubsystem.DriveFieldOriented(LSX, LSY, RSX);
     if(Constants.controller1.getAButton())
@@ -143,28 +143,46 @@ public class Robot extends TimedRobot {
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, GOAGuidanceSystem.GetProtectionAngle(), speed);
     }
+    else if(Constants.controller1.getBButton())
+    {
+      SwerveSubsystem.CollectNote(LSX, LSY, speed);
+    }
     else
     {
-      SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle,Functions.Pythagorean(RSX, RSY));
+      SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle+180,Functions.Pythagorean(RSX, RSY));
     }
 
-    ArmSubsystem.rotateArm(LSY2);
-    
-    if(Constants.controller2.getXButton())
+    if(Constants.controller1.getBButton())
     {
-      ArmSubsystem.SpinIntake(0.75);
-    }
-    else if(Constants.controller2.getBButton())
-    {
-      ArmSubsystem.SpinIntake(-0.25);
-    } else if (Constants.controller2.getAButton()) {
-      ArmSubsystem.Intake(0.35);
+      ArmSubsystem.IntakeRing();
     }
     else
     {
-      ArmSubsystem.SpinIntake(0);
+      if(Constants.controller2.getYButton())
+      {
+        ArmSubsystem.DepositAmp();
+      }
+      else
+      {
+        ArmSubsystem.rotateArm(LSY2);
+        ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
+      }
+      
+      if(Constants.controller2.getXButton())
+      {
+        ArmSubsystem.SpinIntake(0.75);
+      }
+      else if(Constants.controller2.getBButton())
+      {
+        ArmSubsystem.SpinIntake(-0.25);
+      } else if (Constants.controller2.getAButton()) {
+        ArmSubsystem.IntakeRing();
+      }
+      else
+      {
+        ArmSubsystem.SpinIntake(0);
+      }
     }
-    ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
 
     ClimberSubsystem.moveClimbers(RSY2, RSX2);
     

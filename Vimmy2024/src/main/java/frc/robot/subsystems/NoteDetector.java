@@ -49,8 +49,15 @@ public class NoteDetector extends SubsystemBase {
   
     if(noteVisible)
     {
-      notePitch = camera.getLatestResult().getBestTarget().getPitch() + ArmSubsystem.armAngle;
+      try
+      {
+        notePitch = camera.getLatestResult().getBestTarget().getPitch() + ArmSubsystem.armAngle;
       noteYaw = camera.getLatestResult().getBestTarget().getYaw();
+      }
+      catch (Exception e)
+      {
+
+      }
     }
     else
     {

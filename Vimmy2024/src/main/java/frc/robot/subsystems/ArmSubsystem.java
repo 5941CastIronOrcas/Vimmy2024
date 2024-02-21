@@ -16,14 +16,15 @@ public class ArmSubsystem extends SubsystemBase {
   public static double dist = 0;
   public static double g = Constants.gravity;
   public static boolean hasNote = false;
+  public static double recalledValue;
   public ArmSubsystem() {}
 
   @Override
   public void periodic() {
     armAngle = -(Constants.armJointEncoder.get() * 360)+211.8;
     dist = PositionEstimator.distToSpeaker();
-    double recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    hasNote = (recalledValue < 0 ? 999999 : recalledValue) < Constants.hasNoteTreshold;
+    recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
+    hasNote = recalledValue < Constants.hasNoteTreshold;
     // this is an old version of code for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
@@ -83,16 +84,16 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() {
-    SpinShooter(0.2);
+    SpinShooter(0.1);
     moveArmTo(Constants.ampDepositAngle);
-    if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
+    /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {
       SpinIntake(1);
     }
     else 
     {
       SpinIntake(0);
-    }
+    }*/
   }
 
   public static double GetSpeakerAngle() {

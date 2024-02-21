@@ -34,9 +34,19 @@ public class ArduinoCommunication {
         if (Constants.arduino.getBytesReceived() > 0) {
             //System.out.println("Handling comminication");
             String readed = Constants.arduino.readString();
-            //System.out.println("Recieved date succesfull. Data: " + readed);
+            String filtered = "";
+            for (int i = 0, p = 0; i < readed.length() ; i++) {
+                if (readed.charAt(i) =='.') {
+                    p++;
+                }
+                if (p > 1) {
+                    break;
+                }
+                filtered = filtered + readed.charAt(i);
+            }
+            //System.out.println("Recieved date succesfull. Data: " + filtered);
             try {
-                finalValue = Double.valueOf(readed);
+                finalValue = Double.valueOf(filtered);
             } catch (Exception e) {
                 System.out.println(" \u001b[31;1m.The communication is out of sync!!!");
             }

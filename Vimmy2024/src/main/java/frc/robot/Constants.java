@@ -135,10 +135,10 @@ public final class Constants {
 
   //public static final DigitalInput[] noteDetectionSwitches = new DigitalInput[]{new DigitalInput(0)};
   //Arm Control Constants
-  public static final double armMotorPMult = 1.0/90.0;
+  public static final double armMotorPMult = 1.0/10.0;
   public static final double armMotorDMult = 0.0;
   public static final double armMotorGravMult = 0.0; //how much the arm PID compensates for gravity
-  public static final double maxArmSpeed = 0.3; //Max speed the arm PID is allowed to output to the arm motor
+  public static final double maxArmSpeed = 1.0; //Max speed the arm PID is allowed to output to the arm motor
   public static final double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
   public static final double armAngleOffset = 0;
   public static final double minArmAngle = 0;
@@ -150,7 +150,7 @@ public final class Constants {
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
   // theshold for sonic sensor
-  public static final double hasNoteTreshold = 20;
+  public static final double hasNoteTreshold = 10;
 
   //CLIMBER STUFF
   //Climber Motor Declarations
