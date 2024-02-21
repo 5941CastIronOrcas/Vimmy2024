@@ -63,8 +63,8 @@ public final class Constants {
   public static final double swerveWheelCircumference = 0.096774 * Math.PI; // in m
   public static final double modulePMult = 0.01;
   public static final double maxThrottleChange = 2.0; //the maximum amount the wheel throttle of each module is allowed to change per frame (max 2.0)
-  public static final double swerveMaxAccel = 0.3; //the max amount swerve is allowed to accelerate, measured in percent per frame (max 2.0)
-  public static final double swerveMaxAccelExtended = 0.15; //the max amount swerve is allowed to accelerate when the arm is fully extended
+  public static final double swerveMaxAccel = 2.0; //the max amount swerve is allowed to accelerate, measured in percent per frame (max 2.0)
+  public static final double swerveMaxAccelExtended = 0.6; //the max amount swerve is allowed to accelerate when the arm is fully extended
   //Swerve Drive Turning Constants
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
   public static final double swerveAutoTurnPMult = 0.006;

@@ -94,7 +94,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public static void Drive(double x, double y, double rotate) {
     double currentMaxAccel = Constants.swerveMaxAccel;
     //uncomment the below line to enable adaptive acceleration limiter
-    //currentMaxAccel = Constants.swerveMaxAccelExtended + (Math.cos(ArmSubsystem.armAngle)*(Constants.swerveMaxAccel-Constants.swerveMaxAccelExtended));
+    currentMaxAccel = Constants.swerveMaxAccelExtended + (Math.cos(ArmSubsystem.armAngle)*(Constants.swerveMaxAccel-Constants.swerveMaxAccelExtended));
     xOut += Functions.Clamp(x-xOut, -currentMaxAccel, currentMaxAccel);
     yOut += Functions.Clamp(y-yOut, -currentMaxAccel, currentMaxAccel);
     double flx =  xOut + (Constants.turnMult * rotate);
