@@ -88,7 +88,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.arduinoRecall.setDouble(ArmSubsystem.recalledValue);
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
     DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
-    DriverDisplay.motorPower2.setDouble(Constants.armMotor1.getOutputCurrent());
+    DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
 
     //swerve
     DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.anglePos);
