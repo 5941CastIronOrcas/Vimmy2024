@@ -23,8 +23,14 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = -(Constants.armJointEncoder.get() * 360)+211.8;
     dist = PositionEstimator.distToSpeaker();
-    recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    hasNote = recalledValue < Constants.hasNoteTreshold;
+    hasNote = false;    
+    for (int i = 0; i < 10; i++) {
+      recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
+      if (recalledValue < Constants.hasNoteTreshold) {
+        hasNote = true;
+        i = 10;
+      }
+    }
     // this is an old version of code for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
