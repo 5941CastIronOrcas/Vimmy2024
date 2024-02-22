@@ -18,15 +18,15 @@ public class ArmSubsystem extends SubsystemBase {
   public static boolean hasNote = false;
   public static double recalledValue;
   public ArmSubsystem() {}
-
+  public static int failedFrames = 0;
   @Override
   public void periodic() {
     armAngle = -(Constants.armJointEncoder.get() * 360)+212.2;
     dist = PositionEstimator.distToSpeaker();
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    if (!(recalledValue < 0)) hasNote = recalledValue < Constants.hasNoteTreshold;
-
+    if (recalledValue < Constants.hasNoteTreshold) failedFrames++;
+    if (failedFrames >= 10) hasNote = false;
     //this code is not working
     /* 
     hasNote = false;    
