@@ -126,6 +126,9 @@ public class SwerveSubsystem extends SubsystemBase {
     frModule.Drive(frAngle, frThrottleOut);
     blModule.Drive(blAngle, blThrottleOut);
     brModule.Drive(brAngle, brThrottleOut);
+    DriverDisplay.driveX.setDouble(x);
+    DriverDisplay.driveY.setDouble(y);
+    DriverDisplay.driveRotate.setDouble(rotate);
   }
   
 }
