@@ -25,8 +25,13 @@ public class ArmSubsystem extends SubsystemBase {
     dist = PositionEstimator.distToSpeaker();
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
+<<<<<<< HEAD
     if (recalledValue < Constants.hasNoteTreshold) failedFrames++;
     if (failedFrames >= 10) hasNote = false;
+=======
+    hasNote = recalledValue < Constants.hasNoteTreshold;
+    if (recalledValue < 0) hasNote = true;
+>>>>>>> c04cdc1a635705b1573667556643f0ede6d863d7
     //this code is not working
     /* 
     hasNote = false;    
