@@ -72,23 +72,25 @@ public final class Constants {
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
   public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
   public static final double swerveAngleVariation = 1.0;
-  //Swerve Drive Constants
+  //Swerve Drive To Constants
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
+  //Swerve Collect Ring Constants
+  public static final double swerveCollectNotePMult = 1.0;
   
   
   //GOA CONSTANTS:
   //Object-Specific Avoidance Mults
-  public static final double subwooferAvoidanceMult = 1;
-  public static final double stageAvoidanceMult = 1;
+  public static final double subwooferAvoidanceMult = 1.0;
+  public static final double stageAvoidanceMult = 1.0;
   //General Settings:
-  public static final double avoidanceMult = 2;
-  public static final double VelocityAvoidanceMult = 4;
-  public static final double GOAIgnoreRange = 5;
-  public static final double avoidanceExponent = 4;
-  public static final double toTargetStrengthTop = 2;
-  public static final double toTargetStrengthCap = 5;
+  public static final double avoidanceMult = 2.0;
+  public static final double VelocityAvoidanceMult = 4.0;
+  public static final double GOAIgnoreRange = 5.0;
+  public static final double avoidanceExponent = 4.0;
+  public static final double toTargetStrengthTop = 2.0;
+  public static final double toTargetStrengthCap = 5.0;
   //SonarModules
   public static final Servo servo1 = new Servo(1);
   public static final Servo servo2 = new Servo(2);

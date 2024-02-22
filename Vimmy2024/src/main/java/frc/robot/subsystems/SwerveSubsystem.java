@@ -87,9 +87,13 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public static void CollectNote(double XOffset, double YOffset, double speedLimit) {
-    if (NoteDetector.noteVisible) {
+    if (NoteDetector.noteVisible && !ArmSubsystem.hasNote) {
       double a = PositionEstimator.robotYawDriverRelative + NoteDetector.noteYaw;
-      DriveDriverOrientedAtAngle(-Math.cos(Math.toRadians(-a+90)), -Math.sin(Math.toRadians(-a+90)), a, speedLimit);
+      double x = -Math.cos(Math.toRadians(-a+90)) * NoteDetector.noteDist + XOffset;
+      double y = -Math.sin(Math.toRadians(-a+90)) * NoteDetector.noteDist + YOffset;
+      DriveDriverOrientedAtAngle(Functions.Clamp(x * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), 
+        Functions.Clamp(y * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), 
+        a, speedLimit);
     }
   }
   
@@ -128,6 +132,9 @@ public class SwerveSubsystem extends SubsystemBase {
     frModule.Drive(frAngle, frThrottleOut);
     blModule.Drive(blAngle, blThrottleOut);
     brModule.Drive(brAngle, brThrottleOut);
+    DriverDisplay.driveX.setDouble(x);
+    DriverDisplay.driveY.setDouble(y);
+    DriverDisplay.driveRotate.setDouble(rotate);
   }
   
 }
