@@ -17,6 +17,7 @@ public class NoteDetector extends SubsystemBase {
   public static boolean noteVisible = false;
   public static double notePitch = 0;
   public static double noteYaw = 0;
+  public static double noteDist = 0;
   
 
   public NoteDetector() {}
@@ -65,8 +66,7 @@ public class NoteDetector extends SubsystemBase {
       noteYaw = 0;
     }
 
-   
-    
+    noteDist = Math.tan(noteYaw - Constants.cameraAngle) * Constants.cameraHeight;
   }
 
   

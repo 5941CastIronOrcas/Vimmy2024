@@ -21,8 +21,14 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    armAngle = -(Constants.armJointEncoder.get() * 360)+211.8;
+    armAngle = -(Constants.armJointEncoder.get() * 360)+212.2;
     dist = PositionEstimator.distToSpeaker();
+
+    recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
+    if (!(recalledValue < 0)) hasNote = recalledValue < Constants.hasNoteTreshold;
+
+    //this code is not working
+    /* 
     hasNote = false;    
     for (int i = 0; i < 10; i++) {
       recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
@@ -31,6 +37,7 @@ public class ArmSubsystem extends SubsystemBase {
         i = 10;
       }
     }
+    */
     // this is an old version of code for limit switches 
     /*
     for (int i = 0; i < Constants.noteDetectionSwitches.length ; i++) {
@@ -56,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   
   public static void rotateArm(double t) {
-    t = Functions.Clamp(t, -Functions.Clamp(0.25*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.25*(armAngle-Constants.maxArmAngle)), 0, 1));
+    t = Functions.Clamp(t, -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1));
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
     Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
     DriverDisplay.armThrottle.setDouble(t);

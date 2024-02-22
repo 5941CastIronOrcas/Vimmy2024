@@ -171,6 +171,8 @@ public final class Constants {
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
   public static final double speakerHeight = 2.05;
+  public static final double cameraHeight = 0.022; //in meters
+  public static final double cameraAngle = -15;
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera";
   public static final String apriltagCamera2Name = "USB2.0_PC_CAMERA";
