@@ -32,11 +32,16 @@ public class PositionEstimator extends SubsystemBase {
 
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
-  public static Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
+  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0, -0.032, 0.034), new Rotation3d(0,0,0));
+  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0, 0.032, 0.034), new Rotation3d(0,0,0));
+
+
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
   public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
 
-  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
+  public static PhotonPoseEstimator photonPoseEstimator1 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
+  public static PhotonPoseEstimator photonPoseEstimator2 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera2, robotToCam2);
+
   public static Vector2D[] deltaBuffer = new Vector2D[50];
   public static double latency = 0;
 
@@ -44,7 +49,7 @@ public class PositionEstimator extends SubsystemBase {
   public static double sumY = 0;
 
 
-  public static Boolean camCheck() {
+  public static Boolean camCheck1() {
     var result = camera1.getLatestResult();
 
     return result.hasTargets();
@@ -74,7 +79,7 @@ public class PositionEstimator extends SubsystemBase {
 
   public static Pose2d getEstimatedGlobalPose() {
     //var emptyTarget = new PhotonTrackedTarget();
-    if (!camCheck()) {
+    if (!camCheck1() && !camCheck2()) {
       return previousPosition;
     }
     
@@ -82,16 +87,40 @@ public class PositionEstimator extends SubsystemBase {
       return photonPoseEstimator.update().orElse(null).estimatedPose.toPose2d();
     }*/
     
-    
-    try {
-      if (photonPoseEstimator.update().isPresent()) {
-        return photonPoseEstimator.update().get().estimatedPose.toPose2d();
+    if (camCheck1() && !camCheck2()) {
+      try {
+        if (photonPoseEstimator1.update().isPresent()) {
+          return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
+        }
+      }
+      catch(Exception e) {
+        System.out.println("Caught Error: " + e);
+      }
+
+    }
+    else if (camCheck2() && !camCheck1()) {
+      try {
+        if (photonPoseEstimator2.update().isPresent()) {
+          return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
+        }
+      }
+      catch(Exception e) {
+        System.out.println("Caught Error: " + e);
       }
     }
-    catch(Exception e) {
-      System.out.println("Caught Error: " + e);
-    }
     
+    else if (camCheck1() && camCheck2()) {
+      try {
+        if (photonPoseEstimator1.update().isPresent() && photonPoseEstimator2.update().isPresent()) {
+          Pose2d combinedPose = photonPoseEstimator1.update().get().estimatedPose.toPose2d().interpolate(photonPoseEstimator2.update().get().estimatedPose.toPose2d(), 0.5);
+          return combinedPose;
+        }
+      }
+      catch(Exception e) {
+        System.out.println("Caught Error: " + e);
+      }
+    }
+
     return previousPosition;
   }
 
@@ -150,13 +179,13 @@ public class PositionEstimator extends SubsystemBase {
     
     
 
-    if (camCheck()) {
+    if (camCheck1() || camCheck2()) {
       if (getEstimatedGlobalPose() != null) {
         globalPose = getEstimatedGlobalPose();
         latency = camera1.getLatestResult().getLatencyMillis();
       }
     }
-    if (camCheck()) {
+    if (camCheck1() || camCheck2()) {
       if (robotPosition != globalPose && isValid(robotPosition, globalPose)) {
         // apriltags present and information updated
 
@@ -177,7 +206,7 @@ public class PositionEstimator extends SubsystemBase {
       // no apriltags detected
       robotPosition  = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
     }
-    if (camCheck() && getEstimatedGlobalPose() != null) {
+    if (camCheck1() || camCheck2() && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
     }
 
