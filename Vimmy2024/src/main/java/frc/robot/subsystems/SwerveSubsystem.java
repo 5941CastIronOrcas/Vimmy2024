@@ -91,7 +91,9 @@ public class SwerveSubsystem extends SubsystemBase {
       double a = PositionEstimator.robotYawDriverRelative + NoteDetector.noteYaw;
       double x = -Math.cos(Math.toRadians(-a+90)) * NoteDetector.noteDist + XOffset;
       double y = -Math.sin(Math.toRadians(-a+90)) * NoteDetector.noteDist + YOffset;
-      DriveDriverOrientedAtAngle(Functions.Clamp(x * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), Functions.Clamp(y * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), a, speedLimit);
+      DriveDriverOrientedAtAngle(Functions.Clamp(x * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), 
+        Functions.Clamp(y * Constants.swerveCollectNotePMult, -speedLimit, speedLimit), 
+        a, speedLimit);
     }
   }
   
