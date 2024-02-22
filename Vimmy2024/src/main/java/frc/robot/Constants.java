@@ -117,7 +117,7 @@ public final class Constants {
   public static final double servoFinalMult = 180.0 / 210.0;
 
   //GOA data tune
-  public static final double maxObstacleLife = 0.25;
+  public static final double maxObstacleLifeFrames = 15;
 
 
   //ARM STUFF:

@@ -33,7 +33,7 @@ public class GOADataSynthesizer extends SubsystemBase {
     ,new Obstacle(3.0734, 4.105, true, Constants.stageAvoidanceMult, 0)
     ,new Obstacle(5.770626, 2.547726, true, Constants.stageAvoidanceMult, 0)
     ,new Obstacle(5.770626, 5.662274, true, Constants.stageAvoidanceMult, 0)};
-  public static Obstacle[] allObstacles = new Obstacle[(int)(Constants.maxObstacleLife * 50 * 8 + staticObstacles.length)];
+  //public static Obstacle[] allObstacles = new Obstacle[Constants.maxObstacleLifeFrames * 8];
   public static SonarModule[] SonarModules = new SonarModule[] {
      new SonarModule(Constants.ultrasonicSensor1, Constants.servo1, 0, 0, 0)
     ,new SonarModule(Constants.ultrasonicSensor2, Constants.servo2, 0, 0, 0)
@@ -48,7 +48,7 @@ public class GOADataSynthesizer extends SubsystemBase {
 
    
   public GOADataSynthesizer() {
-    for (int i = 0; i < staticObstacles.length; i++) allObstacles[i] = new Obstacle(0, i, false, i, i); // merge the static into all
+   // for (int i = 0; i < staticObstacles.length; i++) allObstacles[i] = new Obstacle(0, i, false, i, i); // merge the static into all
     
   }
 
