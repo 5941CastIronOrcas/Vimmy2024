@@ -156,6 +156,11 @@ public class Robot extends TimedRobot {
     {
       ArmSubsystem.IntakeRing();
     }
+    else if(Constants.controller1.getLeftBumper())
+    {
+      ArmSubsystem.PrepShooter(1);
+      ArmSubsystem.ShootSpeaker();
+    }
     else
     {
       if(Constants.controller2.getYButton())
