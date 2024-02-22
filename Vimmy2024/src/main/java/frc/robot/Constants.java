@@ -119,7 +119,8 @@ public final class Constants {
   public static final double servoFinalMult = 180.0 / 210.0;
 
   //GOA data tune
-  public static final double maxObstacleLife = 0.25;
+  public static final short maxObstacleLifeFrames = 15;
+  public static final short GOAFrameRate = 5;
 
 
   //ARM STUFF:
@@ -176,8 +177,8 @@ public final class Constants {
   public static final double cameraHeight = 0.022; //in meters
   public static final double cameraAngle = -15;
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
-  public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera";
-  public static final String apriltagCamera2Name = "USB2.0_PC_CAMERA";
+  public static final String apriltagCamera1Name = "Arducam_OV9782_USB_Camera 1";
+  public static final String apriltagCamera2Name = "Arducam_OV9782_USB_Camera 2";
   public static final String noteDetectionCameraName = "HD_Web_Camera";
   public static final int framerate = 50;
 
