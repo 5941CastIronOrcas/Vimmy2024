@@ -153,7 +153,7 @@ public class DriverDisplay extends SubsystemBase {
   
 
     //position estimator
-    DriverDisplay.isPresent1.setBoolean(PositionEstimator.camCheck());
+    DriverDisplay.isPresent1.setBoolean(PositionEstimator.camCheck1());
     DriverDisplay.isPresent2.setBoolean(PositionEstimator.camCheck2());
     DriverDisplay.latency.setDouble(PositionEstimator.camera1.getLatestResult().getLatencyMillis());
     DriverDisplay.speed.setDouble(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y));
