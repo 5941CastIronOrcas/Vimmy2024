@@ -16,7 +16,6 @@ public class GOADataSynthesizer extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public static short currentFrame = 0;
   public static int upTimeFrames = 0;
-  public static short ignoranceID = 0;
   public static short PointerCluster = 0;
   public static Obstacle[] staticObstacles = new Obstacle[] {
      new Obstacle(16.54-0.918718, 6.068568, true, Constants.subwooferAvoidanceMult)
@@ -36,25 +35,25 @@ public class GOADataSynthesizer extends SubsystemBase {
     ,new Obstacle(3.0734, 4.105, true, Constants.stageAvoidanceMult)
     ,new Obstacle(5.770626, 2.547726, true, Constants.stageAvoidanceMult)
     ,new Obstacle(5.770626, 5.662274, true, Constants.stageAvoidanceMult)};
-    ignoranceID = staticObstacles.length;
+    public static short ignoranceID = (short)staticObstacles.length;
   public static Obstacle[] allObstacles = new Obstacle[(int) (Constants.maxObstacleLifeFrames / Constants.GOAFrameRate) * 8 + ignoranceID];
   public static SonarModule[] SonarModules = new SonarModule[] {
-     new SonarModule(Constants.ultrasonicSensor1, Constants.servo1, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor2, Constants.servo2, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor3, Constants.servo3, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor4, Constants.servo4, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor5, Constants.servo4, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor6, Constants.servo4, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor7, Constants.servo4, 0, 0, 0)
-    ,new SonarModule(Constants.ultrasonicSensor8, Constants.servo4, 0, 0, 0)};
+    new SonarModule(Constants.ultrasonicSensor1, Constants.servo1, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor2, Constants.servo2, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor3, Constants.servo3, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor4, Constants.servo4, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor5, Constants.servo5, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor6, Constants.servo6, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor7, Constants.servo7, 0, 0, 0),
+    new SonarModule(Constants.ultrasonicSensor8, Constants.servo8, 0, 0, 0)};
   
-    for (int i = 0; i < ignoranceID; i++) allObstacles[i] = staticObstacles[i]; // merge the static into all
+    
 
     Vector2D[] tempSensorReturn = new Vector2D[8];
 
    
   public GOADataSynthesizer() {
-
+    for (int i = 0; i < ignoranceID; i++) allObstacles[i] = staticObstacles[i]; // merge the static into all
   }
 
   @Override
@@ -63,10 +62,12 @@ public class GOADataSynthesizer extends SubsystemBase {
     if (currentFrame >= Constants.GOAFrameRate) {
     //update the one frame cluster data
     for (int i = 0; i < 8; i++) {
-      allObstacles[i] = new Obstacle(SonarModules[PointerCluster * 8 + ignoranceID + i].GetObstaclePosition().x, SonarModules[PointerCluster + ignoranceID--].GetObstaclePosition().y, false, 1);
+      Vector2D tempReading = SonarModules[i].GetObstaclePosition();
+      allObstacles[PointerCluster * 8 + ignoranceID + i] = new Obstacle (tempReading.x, tempReading.y, false, 1);
     }
     PointerCluster = (short) (PointerCluster++ % (Constants.maxObstacleLifeFrames / Constants.GOAFrameRate));
     }
+    currentFrame = (short) (currentFrame++ % Constants.GOAFrameRate);
   }
 
   @Override
