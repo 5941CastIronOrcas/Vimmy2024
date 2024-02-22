@@ -24,7 +24,7 @@ public class DriverDisplay extends SubsystemBase {
   
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
-  public static GenericEntry showNote = noteDetector.add("HasNote 1",false).getEntry();
+  public static GenericEntry showNote = noteDetector.add("Note Visible",false).getEntry();
   public static GenericEntry showNotePitch = noteDetector.add("Note Pitch", 0).getEntry();
   public static GenericEntry showNoteYaw = noteDetector.add("Note Yaw", 0).getEntry();
  
@@ -37,25 +37,41 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry armThrottle = arm.add("Arm Throttle", 0).getEntry();
   public static GenericEntry motorPower1 = arm.add("Motor 1 power", 0).getEntry();
   public static GenericEntry motorPower2 = arm.add("Motor 2 power", 0).getEntry();
+  public static GenericEntry motor1Rpm = arm.add("Motor 1 Rpm", 0).getEntry();
+  public static GenericEntry motor2Rpm = arm.add("Motor 2 Rpm", 0).getEntry();
+
 
   //Swerve
   public static ShuffleboardTab swerve = Shuffleboard.getTab("Swerve");
-  public static GenericEntry frAngle = swerve.add("Fr Module", 0).getEntry();
-  public static GenericEntry flAngle = swerve.add("Fl Module", 0).getEntry();
-  public static GenericEntry brAngle = swerve.add("Br module", 0).getEntry();
-  public static GenericEntry blAngle = swerve.add("Bl Module", 0).getEntry();
-  
+  public static GenericEntry frAngle = swerve.add("Fr Angle", 0).getEntry();
+  public static GenericEntry flAngle = swerve.add("Fl Angle", 0).getEntry();
+  public static GenericEntry brAngle = swerve.add("Br Angle", 0).getEntry();
+  public static GenericEntry blAngle = swerve.add("Bl Angle", 0).getEntry();
+  public static GenericEntry frVelocity = swerve.add("Fr Velocity", 0).getEntry();
+  public static GenericEntry flVelocity = swerve.add("Fl Velocity", 0).getEntry();
+  public static GenericEntry brVelocity = swerve.add("Br Velocity", 0).getEntry();
+  public static GenericEntry blVelocity = swerve.add("Bl Velocity", 0).getEntry();
+  public static GenericEntry driveX = swerve.add("driveX", 0).getEntry();
+  public static GenericEntry driveY = swerve.add("driveY", 0).getEntry();
+  public static GenericEntry driveRotate = swerve.add("driveSpin", 0).getEntry();
+  public static GenericEntry totalDriveAmps = swerve.add("Total Amps", 0).getEntry();
 
-  
-  
+
+
+
 
   //Climber
   public static ShuffleboardTab climber = Shuffleboard.getTab("Climber");
-  public static GenericEntry lClimberAngle = climber.add("Left Climber Position", 0).getEntry();
-  public static GenericEntry rClimberAngle = climber.add("Right Climber Position", 0).getEntry(); 
-  public static GenericEntry lClimberSwitch = climber.add("lClimberSwitch", false).getEntry();
-  public static GenericEntry rClimberSwitch = climber.add("rClimberSwitch", false).getEntry();
+  public static GenericEntry lClimberAngle = climber.add("LPosition", 0).getEntry();
+  public static GenericEntry rClimberAngle = climber.add("RPosition", 0).getEntry(); 
+  public static GenericEntry lClimberSwitch = climber.add("LSwitch", false).getEntry();
+  public static GenericEntry rClimberSwitch = climber.add("RSwitch", false).getEntry();
   public static GenericEntry robotRoll = climber.add("RobotRoll", 0).getEntry();
+  public static GenericEntry climberR = climber.add("ClimberR Input", 0).getEntry();
+  public static GenericEntry climberL = climber.add("ClimberL Input", 0).getEntry();
+
+
+
 
   //GOA
   public static ShuffleboardTab goa = Shuffleboard.getTab("GOA");
@@ -73,7 +89,7 @@ public class DriverDisplay extends SubsystemBase {
     public static GenericEntry robotY = position.add("Robot Y", 0).getEntry();
     public static GenericEntry driverYaw = position.add("DriverYaw", 0).getEntry();
     public static GenericEntry fieldYaw = position.add("FieldYaw", 0).getEntry();
-    public static GenericEntry altAxis = position.add("AltAxisCoord Test", 0).getEntry();
+    
 
 
   public DriverDisplay() {
@@ -89,13 +105,26 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
     DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
     DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
+    DriverDisplay.motor1Rpm.setDouble(Constants.armMotor1.getEncoder().getVelocity());
+    DriverDisplay.motor2Rpm.setDouble(Constants.armMotor2.getEncoder().getVelocity());
+    
+    
+
+
 
     //swerve
     DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.anglePos);
     DriverDisplay.flAngle.setDouble(SwerveSubsystem.flModule.anglePos);
     DriverDisplay.brAngle.setDouble(SwerveSubsystem.brModule.anglePos);
     DriverDisplay.blAngle.setDouble(SwerveSubsystem.blModule.anglePos);
+    DriverDisplay.frVelocity.setDouble(SwerveSubsystem.frModule.velocity);
+    DriverDisplay.flVelocity.setDouble(SwerveSubsystem.flModule.velocity);
+    DriverDisplay.brVelocity.setDouble(SwerveSubsystem.brModule.velocity);
+    DriverDisplay.blVelocity.setDouble(SwerveSubsystem.blModule.velocity);
+    DriverDisplay.totalDriveAmps.setDouble(Constants.fraMotor.getOutputCurrent() + Constants.flaMotor.getOutputCurrent() + Constants.braMotor.getOutputCurrent() + Constants.blaMotor.getOutputCurrent());
 
+   
+    
 
     //Note Detector
     DriverDisplay.showNoteYaw.setDouble(NoteDetector.noteYaw);
@@ -109,6 +138,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.lClimberSwitch.setBoolean(Constants.lClimberSwitch.get());
     DriverDisplay.rClimberSwitch.setBoolean(Constants.rClimberSwitch.get());
     DriverDisplay.robotRoll.setDouble(Constants.gyro.getRoll().getValueAsDouble());
+    DriverDisplay.climberR.setDouble(Constants.climberMotorR.get());
+    DriverDisplay.climberL.setDouble(Constants.climberMotorL.get());
 
 
     //goa
@@ -130,7 +161,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    DriverDisplay.altAxis.setDouble(Functions.AltAxisCoord(3, 2, 0.25*Math.PI));
+    
 
    
     
