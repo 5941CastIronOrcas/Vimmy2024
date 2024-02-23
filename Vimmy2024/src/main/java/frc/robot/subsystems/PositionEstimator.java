@@ -48,6 +48,8 @@ public class PositionEstimator extends SubsystemBase {
   public static double sumX = 0;
   public static double sumY = 0;
 
+  public static Pose2d combinedPose;
+
 
   public static Boolean camCheck1() {
     var result = camera1.getLatestResult();
@@ -79,8 +81,29 @@ public class PositionEstimator extends SubsystemBase {
 
   public static Pose2d getEstimatedGlobalPose() {
     //var emptyTarget = new PhotonTrackedTarget();
-    if (!camCheck1() && !camCheck2()) {
-      return previousPosition;
+    if (camCheck1()) {
+      try {
+        if (photonPoseEstimator1.update().isPresent()) {
+          System.out.println("Returned position 1");
+          return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
+        }
+      }
+      catch(Exception e) {
+        System.out.println("Caught Error: " + e);
+      } 
+    }
+    if (camCheck1() && camCheck2()) {
+      try {
+        if (photonPoseEstimator1.update().isPresent() && photonPoseEstimator2.update().isPresent()) {
+          System.out.println("Entered try statement successfully");
+          combinedPose = photonPoseEstimator1.update().get().estimatedPose.toPose2d().interpolate(photonPoseEstimator2.update().get().estimatedPose.toPose2d(), 0.5);
+          System.out.println("Returned combined pose");
+          return combinedPose;
+        }
+      }
+      catch(Exception e) {
+        System.out.println("Caught Error: " + e);
+      }
     }
     
     /*if (photonPoseEstimator.update().isPresent()) {
@@ -90,6 +113,7 @@ public class PositionEstimator extends SubsystemBase {
     if (camCheck1() && !camCheck2()) {
       try {
         if (photonPoseEstimator1.update().isPresent()) {
+          System.out.println("Returned position 1");
           return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
         }
       }
@@ -101,6 +125,7 @@ public class PositionEstimator extends SubsystemBase {
     else if (camCheck2() && !camCheck1()) {
       try {
         if (photonPoseEstimator2.update().isPresent()) {
+          System.out.println("Returned position 2");
           return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
         }
       }
@@ -108,17 +133,9 @@ public class PositionEstimator extends SubsystemBase {
         System.out.println("Caught Error: " + e);
       }
     }
-    
-    else if (camCheck1() && camCheck2()) {
-      try {
-        if (photonPoseEstimator1.update().isPresent() && photonPoseEstimator2.update().isPresent()) {
-          Pose2d combinedPose = photonPoseEstimator1.update().get().estimatedPose.toPose2d().interpolate(photonPoseEstimator2.update().get().estimatedPose.toPose2d(), 0.5);
-          return combinedPose;
-        }
-      }
-      catch(Exception e) {
-        System.out.println("Caught Error: " + e);
-      }
+    else if (!camCheck1() && !camCheck2()) {
+      System.out.println("Returned previous position");
+      return previousPosition;
     }
 
     return previousPosition;
@@ -168,10 +185,10 @@ public class PositionEstimator extends SubsystemBase {
        + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
         / 4.0);
 
-    for (int i = Constants.framerate - 1; i > 0; i--) {
-      deltaBuffer[i] = deltaBuffer[i - 1];
-    }
-    deltaBuffer[Constants.framerate - 1] = velocity;
+    // for (int i = Constants.framerate - 1; i > 0; i--) {
+    //   deltaBuffer[i] = deltaBuffer[i - 1];
+    // }
+    // deltaBuffer[Constants.framerate - 1] = velocity;
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
@@ -189,11 +206,12 @@ public class PositionEstimator extends SubsystemBase {
       if (robotPosition != globalPose && isValid(robotPosition, globalPose)) {
         // apriltags present and information updated
 
-        // robotPosition = globalPose;
-        for (int i = 0; i < (latency / 20); i++) {
-          sumX += deltaBuffer[i].x;
-          sumY += deltaBuffer[i].y;
-        }
+        // for (int i = 0; i < (latency / 20); i++) {
+        //   if (deltaBuffer[i] != null) {
+        //     sumX += deltaBuffer[i].x;
+        //     sumY += deltaBuffer[i].y;
+        //   }
+        // }
 
         robotPosition = new Pose2d(globalPose.getX() + sumX, globalPose.getY() + sumY, globalPose.getRotation());
       }
@@ -206,10 +224,9 @@ public class PositionEstimator extends SubsystemBase {
       // no apriltags detected
       robotPosition  = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
     }
-    if (camCheck1() || camCheck2() && getEstimatedGlobalPose() != null) {
+    if ((camCheck1() || camCheck2()) && getEstimatedGlobalPose() != null) {
       robotPosition = getEstimatedGlobalPose();
     }
-
   }
 
   // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() / 20.0];
