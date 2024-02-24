@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -18,8 +19,11 @@ import frc.robot.Functions;
 import frc.robot.Robot;
 import frc.robot.utilityObjects.Vector2D;
 
+import java.util.Optional;
+
 import org.photonvision.*;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class PositionEstimator extends SubsystemBase {
@@ -32,11 +36,14 @@ public class PositionEstimator extends SubsystemBase {
 
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
-  public static Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
+  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,20,0));
+  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, 0.2794, 0.4572), new Rotation3d(0,20,0));
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
   public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
+  public static PhotonPipelineResult result1 = camera1.getLatestResult();
+  public static PhotonPipelineResult result2 = camera2.getLatestResult();
 
-  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam);
+  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
   public static double latency = 0;
 
@@ -45,22 +52,20 @@ public class PositionEstimator extends SubsystemBase {
 
 
   public static Boolean camCheck1() {
-    var result = camera1.getLatestResult();
-
-    return result.hasTargets();
+    //var result = camera1.getLatestResult();
+    return result1.hasTargets();
   }
 
   public static Boolean camCheck2() {
-    var result = camera2.getLatestResult();
-
-    return result.hasTargets();
+    //var result2 = camera2.getLatestResult();
+    return result2.hasTargets();
   }
 
   public static PhotonTrackedTarget obtainTargets() {
-    var result = camera1.getLatestResult();
+;
     //Sends back the most clear target and its data
-    if (result.hasTargets()) {
-      return result.getBestTarget();
+    if (result1.hasTargets()) {
+      return result1.getBestTarget();
     }
     else {
       return new PhotonTrackedTarget(0, 0, 0, 0, 0, null, null, 0, null, null);
@@ -80,13 +85,11 @@ public class PositionEstimator extends SubsystemBase {
     
     /*if (photonPoseEstimator.update().isPresent()) {
       return photonPoseEstimator.update().orElse(null).estimatedPose.toPose2d();
-    }*/
+    } */
     
-    
+     
     try {
-      if (photonPoseEstimator.update().isPresent()) {
-        return photonPoseEstimator.update().get().estimatedPose.toPose2d();
-      }
+      return photonPoseEstimator.update().get().estimatedPose.toPose2d();
     }
     catch(Exception e) {
       System.out.println("Caught Error: " + e);
@@ -127,17 +130,19 @@ public class PositionEstimator extends SubsystemBase {
       robotPosition = new Pose2d(robotPosition.getX(), robotPosition.getY(), new Rotation2d(Math.toRadians(Functions.DeltaAngleDeg(0, robotYawDriverRelative))));
     }
      velocity.x = ((
-         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
-       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
+         (Math.sin(Math.toRadians(SwerveSubsystem.frModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.GetVelocity())
+       + (Math.sin(Math.toRadians(SwerveSubsystem.flModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.GetVelocity())
+       + (Math.sin(Math.toRadians(SwerveSubsystem.brModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.GetVelocity())
+       + (Math.sin(Math.toRadians(SwerveSubsystem.blModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.GetVelocity()))
         / 4.0);
     velocity.y = ((
-         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.velocity)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.velocity)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.velocity)
-       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.anglePos + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.velocity))
+         (Math.cos(Math.toRadians(SwerveSubsystem.frModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.frModule.GetVelocity())
+       + (Math.cos(Math.toRadians(SwerveSubsystem.flModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.flModule.GetVelocity())
+       + (Math.cos(Math.toRadians(SwerveSubsystem.brModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.brModule.GetVelocity())
+       + (Math.cos(Math.toRadians(SwerveSubsystem.blModule.GetAngle() + robotPosition.getRotation().getDegrees())) * SwerveSubsystem.blModule.GetVelocity()))
         / 4.0);
+    result1 = camera1.getLatestResult();
+    result2 = camera2.getLatestResult();
 
     for (int i = Constants.framerate - 1; i > 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];
@@ -151,13 +156,10 @@ public class PositionEstimator extends SubsystemBase {
     
 
     if (camCheck1()) {
-      if (getEstimatedGlobalPose() != null) {
-        globalPose = getEstimatedGlobalPose();
-        latency = camera1.getLatestResult().getLatencyMillis();
-      }
+      globalPose = getEstimatedGlobalPose();
     }
     if (camCheck1()) {
-      if (robotPosition != globalPose && isValid(robotPosition, globalPose)) {
+      if (robotPosition != globalPose) {
         // apriltags present and information updated
 
         robotPosition = globalPose;
@@ -169,7 +171,7 @@ public class PositionEstimator extends SubsystemBase {
           }
         }*/
 
-        robotPosition = new Pose2d(globalPose.getX() + sumX, globalPose.getY() + sumY, globalPose.getRotation());
+        //robotPosition = new Pose2d(globalPose.getX() + sumX, globalPose.getY() + sumY, globalPose.getRotation());
       }
       else {
       // apriltags present, information not updated
@@ -180,10 +182,37 @@ public class PositionEstimator extends SubsystemBase {
       // no apriltags detected
       robotPosition  = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
     }
-    if (camCheck1() && getEstimatedGlobalPose() != null) {
-      robotPosition = getEstimatedGlobalPose();
-    }
+    // if (camCheck1() && getEstimatedGlobalPose() != null) {
+    //   robotPosition = getEstimatedGlobalPose();
+    // }
+//     double RawVisionX = -1;
+//     double RawVisionY = -1;
+//     try {
+//       System.out.println("I'm trying I promise");
+//       Optional<EstimatedRobotPose> erpo = photonPoseEstimator.update();
+//       System.out.println("Found this shit");
+//       if (!erpo.isEmpty()) {
+//         EstimatedRobotPose erp = erpo.get();
+//         System.out.println("Found erp");
+//         Pose3d er = erp.estimatedPose;
+//         System.out.println("Found er");
+//         RawVisionX = er.getX();
+//         System.out.println("got x");
+//         RawVisionY = er.getY();
+//         System.out.println("got y");
+//       }
+      
+// //      RawVisionX = photonPoseEstimator.update().get().estimatedPose.getX(); 
+// //      RawVisionY = photonPoseEstimator.update().get().estimatedPose.getY();
+//     } catch (Exception e) {
+//       System.out.println("exception found @ 197");
+//       System.out.println(e);
+//     }
+//     SmartDashboard.putNumber("RawVisionX", RawVisionX);
+//     SmartDashboard.putNumber("RawVisionY", RawVisionY);
 
+
+    
   }
 
   // truespeed = deltaBuffer[camera1.getLatestResult().getLatencyMillis() / 20.0];

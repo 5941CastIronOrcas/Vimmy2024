@@ -113,14 +113,14 @@ public class DriverDisplay extends SubsystemBase {
 
 
     //swerve
-    DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.anglePos);
-    DriverDisplay.flAngle.setDouble(SwerveSubsystem.flModule.anglePos);
-    DriverDisplay.brAngle.setDouble(SwerveSubsystem.brModule.anglePos);
-    DriverDisplay.blAngle.setDouble(SwerveSubsystem.blModule.anglePos);
-    DriverDisplay.frVelocity.setDouble(SwerveSubsystem.frModule.velocity);
-    DriverDisplay.flVelocity.setDouble(SwerveSubsystem.flModule.velocity);
-    DriverDisplay.brVelocity.setDouble(SwerveSubsystem.brModule.velocity);
-    DriverDisplay.blVelocity.setDouble(SwerveSubsystem.blModule.velocity);
+    DriverDisplay.frAngle.setDouble(SwerveSubsystem.frModule.GetAngle());
+    DriverDisplay.flAngle.setDouble(SwerveSubsystem.flModule.GetAngle());
+    DriverDisplay.brAngle.setDouble(SwerveSubsystem.brModule.GetAngle());
+    DriverDisplay.blAngle.setDouble(SwerveSubsystem.blModule.GetAngle());
+    DriverDisplay.frVelocity.setDouble(SwerveSubsystem.frModule.GetVelocity());
+    DriverDisplay.flVelocity.setDouble(SwerveSubsystem.flModule.GetVelocity());
+    DriverDisplay.brVelocity.setDouble(SwerveSubsystem.brModule.GetVelocity());
+    DriverDisplay.blVelocity.setDouble(SwerveSubsystem.blModule.GetVelocity());
     DriverDisplay.totalDriveAmps.setDouble(Constants.fraMotor.getOutputCurrent() + Constants.flaMotor.getOutputCurrent() + Constants.braMotor.getOutputCurrent() + Constants.blaMotor.getOutputCurrent());
 
    
@@ -149,7 +149,10 @@ public class DriverDisplay extends SubsystemBase {
     Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY(), new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - Math.PI));
     for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++)
     {
-      m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x, GOADataSynthesizer.allObstacles[i].y, new Rotation2d(0)));
+      if(GOADataSynthesizer.allObstacles[i] != null)
+      {
+        m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x, GOADataSynthesizer.allObstacles[i].y, new Rotation2d(0)));
+      }
     }
     m_field.setRobotPose(positionPose2d);
     

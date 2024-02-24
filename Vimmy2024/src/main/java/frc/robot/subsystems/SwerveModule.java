@@ -16,7 +16,7 @@ public class SwerveModule {
     private float aMult;
     private float tMult;
     public double anglePos;
-    public double velocity;
+    //public double velocity;
     public double defaultAngle;
     public SwerveModule (CANSparkMax angleMotorIN, CANSparkMax throttleMotorIN, CANcoder encoderIN, boolean aMotorInvert, boolean tMotorInvert, double dAngle) {
         
@@ -28,11 +28,20 @@ public class SwerveModule {
         defaultAngle = dAngle;
         
     }
+    public double GetVelocity()
+    {
+        return tMult * Functions.DeadZone(((throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60.0) * Constants.swerveDriveRatio * Constants.swerveWheelCircumference, 0.00001);
+    }
+    public double GetAngle()
+    {
+        return Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
+    }
     public void Drive(double angle, double speed) {
         double throttle = speed;
         //anglePos = encoder.getAbsolutePosition().getValueAsDouble() * 360;
+        
         anglePos = Functions.DeltaAngleDeg(0, encoder.getPosition().getValueAsDouble() * 360);
-        velocity = tMult * Functions.DeadZone(((throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60.0) * Constants.swerveDriveRatio * Constants.swerveWheelCircumference, 0.00001);
+        //velocity = tMult * Functions.DeadZone(((throttleMotor.getEncoder().getVelocity() + (encoder.getVelocity().getValueAsDouble()*(27.0 / 17.0)*(1.0/3.0)*60))/60.0) * Constants.swerveDriveRatio * Constants.swerveWheelCircumference, 0.00001);
 
         if(Math.abs(speed) < 0.001) {
             //angle = anglePos;
