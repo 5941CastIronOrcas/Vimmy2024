@@ -110,7 +110,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    return (-Math.toDegrees(Math.atan2(Constants.speakerHeight,dist))+Constants.armAngleOffset);
+    return (-Math.toDegrees(Math.atan2(Constants.speakerHeight,dist))+Constants.armAngleOffset)+20;
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
@@ -127,7 +127,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static void ShootSpeaker() {
     boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    boolean correctRobotAngle = (Math.abs(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()) - PositionEstimator.robotPosition.getRotation().getRadians()) < Math.toRadians(Constants.swerveAngleVariation));
+    boolean correctRobotAngle = SwerveSubsystem.angleToSpeaker - PositionEstimator.robotPosition.getRotation().getDegrees() < Constants.swerveAngleVariation;
     if (shooterFast && correctArmAngle && correctRobotAngle) {
       SpinIntake(1);
     }

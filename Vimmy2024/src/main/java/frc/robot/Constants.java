@@ -147,7 +147,7 @@ public final class Constants {
   public static final double minArmAngle = 0;
   public static final double maxArmAngle = 90;
   //Intake / Shooter Control Constants
-  public static final double minShootRpm = 5500; //the minimum RPM the shooter needs to be at to shoot
+  public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 90.0; //the angle the arm should be at to do the amp
   public static final double launchSpeed = 10.0;
@@ -174,8 +174,8 @@ public final class Constants {
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
   public static final double speakerHeight = 2.05;
-  public static final double cameraHeight = 0.022; //in meters
-  public static final double cameraAngle = -15;
+  public static final double cameraHeight = 0.022; //in meters for note detector
+  public static final double cameraAngle = -15; //for note detector
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9782_USB_Camera 1";
   public static final String apriltagCamera2Name = "Arducam_OV9782_USB_Camera 2";

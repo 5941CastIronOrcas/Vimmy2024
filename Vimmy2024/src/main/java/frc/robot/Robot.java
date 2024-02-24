@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
     {
       ArmSubsystem.PrepShooter(1);
       ArmSubsystem.ShootSpeaker();
+      SwerveSubsystem.FaceSpeaker(0, 0, speed);
     }
     else
     {
