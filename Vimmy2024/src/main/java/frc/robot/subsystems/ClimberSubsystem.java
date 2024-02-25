@@ -32,12 +32,17 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public static void moveClimbers(double in, double difference) {
-    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0)*(Constants.climberMotorLInvert?-1:1), (!Constants.lClimberSwitch.get()?0:-1) , lClimberAngle>=Constants.climberMaxHeight?0:1));
-    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0)*(Constants.climberMotorRInvert?-1:1), (!Constants.rClimberSwitch.get()?0:-1) , rClimberAngle>=Constants.climberMaxHeight?0:1));
+    Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0)*(Constants.climberMotorLInvert?-1:1), 
+    !Constants.lClimberSwitch.get()?0: Functions.Clamp((-(Constants.climberReductionMult))*lClimberAngle-Constants.climberMaxHitSpeed, 0, -1), 
+    lClimberAngle>=Constants.climberMaxHeight?0:1));
+
+    Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0)*(Constants.climberMotorRInvert?-1:1), 
+    !Constants.rClimberSwitch.get()?0:Functions.Clamp((-(Constants.climberReductionMult))*lClimberAngle-Constants.climberMaxHitSpeed, 0, -1), 
+    rClimberAngle>=Constants.climberMaxHeight?0:1));
   }
 
   public static void autoBalance(double speed) {
     moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult*(-Constants.gyro.getRoll().getValueAsDouble())), 
-    -Constants.climberMaxSpeed, Constants.climberMaxSpeed));
+    -1, 1));
   }
 }

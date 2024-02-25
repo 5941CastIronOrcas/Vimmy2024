@@ -170,7 +170,10 @@ public final class Constants {
   //Climber Control Constants
   public static final double climberBalancePMult = 0.01;
   public static final double climberBalanceDMult = 0.01;
-  public static final double climberMaxSpeed = 1;
+  public static final double climberMaxHitSpeed = 0.5;
+  public static final double climberSlowDownStart = 10;
+  public static final double climberReductionMult = (1-climberMaxHitSpeed) / climberSlowDownStart;
+  //public static final double climberMaxSpeed = 1;
   public static final double climberMaxHeight = 95;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
