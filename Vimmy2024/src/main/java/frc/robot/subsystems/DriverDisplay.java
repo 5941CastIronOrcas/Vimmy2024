@@ -143,7 +143,7 @@ public class DriverDisplay extends SubsystemBase {
 
 
     //goa
-    Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
+    /*Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
     DriverDisplay.avoidanceX.setDouble(nono.x);
     DriverDisplay.avoidanceY.setDouble(nono.y);
     Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY(), new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - Math.PI));
@@ -154,7 +154,7 @@ public class DriverDisplay extends SubsystemBase {
         m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x, GOADataSynthesizer.allObstacles[i].y, new Rotation2d(0)));
       }
     }
-    m_field.setRobotPose(positionPose2d);
+    m_field.setRobotPose(positionPose2d);*/  //GOA disabled for now
     
     
     
