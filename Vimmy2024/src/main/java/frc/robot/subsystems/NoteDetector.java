@@ -67,7 +67,7 @@ public class NoteDetector extends SubsystemBase {
       noteYaw = 0;
     }
 
-    noteDist = Math.tan(notePitch - Constants.cameraAngle) * Constants.cameraHeight;
+    noteDist = Constants.cameraHeight/Math.tan(Math.toRadians(-(notePitch + Constants.cameraAngle)));
   }
 
   
