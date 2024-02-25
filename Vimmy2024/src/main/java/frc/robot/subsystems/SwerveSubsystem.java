@@ -99,7 +99,7 @@ public class SwerveSubsystem extends SubsystemBase {
     double a = PositionEstimator.robotYawDriverRelative + NoteDetector.noteYaw;
     double x = 0;
     double y = 0;
-    if(NoteDetector.noteVisible && !ArmSubsystem.hasNote)
+    if(NoteDetector.noteVisible && !ArmSubsystem.hasNote && Math.abs(a-PositionEstimator.robotYawDriverRelative) < 10)
     {
       double goSpeed = Constants.swerveCollectNotePMult * NoteDetector.noteDist;
       x = goSpeed * -Math.cos(Math.toRadians(-a+90));
