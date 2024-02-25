@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
+import frc.robot.utilityObjects.Vector2D;
 
 import java.lang.Math;
 
@@ -86,6 +87,11 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
     DriveFieldOrientedAtAngle(x, y, PositionEstimator.angleToSpeaker(), turnLimit);
+  }
+  public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
+  {
+    Vector2D target = Robot.isRedAlliance?Constants.redAmpDepositPosition:Constants.blueAmpDepositPosition;
+    DriveTo(target.x, target.y, 0, speedLimit, turnLimit, XOffset, YOffset);
   }
 
   public static void CollectNote(double XOffset, double YOffset, double speedLimit) {

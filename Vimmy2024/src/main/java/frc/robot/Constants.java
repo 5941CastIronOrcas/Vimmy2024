@@ -179,6 +179,8 @@ public final class Constants {
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
+  public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 7.74);
+  public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 7.74);
   public static final double speakerHeight = 2.05;
   public static final double cameraHeight = 0.022; //in meters for note detector
   public static final double cameraAngle = -15; //for note detector
