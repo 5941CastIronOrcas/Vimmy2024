@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
-  public static double tempDemoAngle = 0; //remove later
   public static boolean robotLimp = true;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
@@ -127,36 +126,33 @@ public class Robot extends TimedRobot {
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(180);
     }
-    if(Constants.controller1.getYButtonPressed())
-    {
-      PositionEstimator.robotPosition = new Pose2d(0,0,PositionEstimator.robotPosition.getRotation());
-      tempDemoAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
-    }
     //SwerveSubsystem.Drive(LSX, LSY, RSX);
     //SwerveSubsystem.DriveDriverOriented(LSX, LSY, RSX);
     //SwerveSubsystem.DriveFieldOriented(LSX, LSY, RSX);
-    if(Constants.controller1.getAButton())
-    {
-      SwerveSubsystem.DriveTo(0, 0, tempDemoAngle, speed, speed, LSX, LSY);
-    }
-    else if(Constants.controller1.getBButton())
+
+    //Swerve
+    if(Constants.controller1.getBButton())
     {
       SwerveSubsystem.CollectNote(LSX, LSY, speed);
+    }
+    else if(Constants.controller1.getXButton())
+    {
+      SwerveSubsystem.FaceSpeaker(0, 0, speed);
     }
     else
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle+180,Functions.Pythagorean(RSX, RSY));
     }
 
+    //Arm
     if(Constants.controller1.getBButton())
     {
       ArmSubsystem.IntakeRing();
     }
-    else if(Constants.controller1.getLeftBumper())
+    else if(Constants.controller1.getXButton())
     {
       ArmSubsystem.PrepShooter(1);
       ArmSubsystem.ShootSpeaker();
-      SwerveSubsystem.FaceSpeaker(0, 0, speed);
     }
     else
     {
