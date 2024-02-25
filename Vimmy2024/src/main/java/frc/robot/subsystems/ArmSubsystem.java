@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static double g = Constants.gravity;
   public static boolean hasNote = false;
   public static double recalledValue;
+  int noNoteFrames = 0;
   public ArmSubsystem() {}
 
   @Override
@@ -25,7 +26,21 @@ public class ArmSubsystem extends SubsystemBase {
     dist = PositionEstimator.distToSpeaker();
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    if (!(recalledValue < 0)) hasNote = recalledValue < Constants.hasNoteTreshold;
+    if (!(recalledValue < 0))
+    {
+      if(recalledValue < Constants.hasNoteTreshold)
+      {
+        hasNote = true;
+      }
+      else
+      {
+        noNoteFrames++;
+      }
+      if(noNoteFrames>10)
+      {
+        hasNote = false;
+      }
+    }
 
     //this code is not working
     /* 
