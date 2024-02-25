@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,20 +19,18 @@ public class NoteDetector extends SubsystemBase {
   public static double notePitch = 0;
   public static double noteYaw = 0;
   public static double noteDist = 0;
+  public static PhotonPipelineResult result = camera.getLatestResult();
+  public static PhotonTrackedTarget target = result.getBestTarget();
   
 
   public NoteDetector() {}
 
   public static Boolean camCheck() {
-    var result = camera.getLatestResult();
-
     return result.hasTargets();
   }
   
  
-  public static PhotonTrackedTarget obtainTargets() {
-    var result = camera.getLatestResult();
-      //Sends back the most clear target and its data
+  public static PhotonTrackedTarget obtainTarget() {
       return result.getBestTarget();
 
   }
@@ -39,6 +38,8 @@ public class NoteDetector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    result = camera.getLatestResult();
+    target = obtainTarget();
     if(camCheck() && ArmSubsystem.armAngle < 40)
     {
       noteVisible = true;
@@ -52,8 +53,8 @@ public class NoteDetector extends SubsystemBase {
     {
       try
       {
-        notePitch = camera.getLatestResult().getBestTarget().getPitch() + ArmSubsystem.armAngle;
-      noteYaw = camera.getLatestResult().getBestTarget().getYaw();
+        notePitch = target.getPitch() + ArmSubsystem.armAngle;
+        noteYaw = target.getYaw();
       }
       catch (Exception e)
       {
@@ -66,7 +67,7 @@ public class NoteDetector extends SubsystemBase {
       noteYaw = 0;
     }
 
-    noteDist = Math.tan(noteYaw - Constants.cameraAngle) * Constants.cameraHeight;
+    noteDist = Math.tan(notePitch - Constants.cameraAngle) * Constants.cameraHeight;
   }
 
   
