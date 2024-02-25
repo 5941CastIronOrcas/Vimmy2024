@@ -21,7 +21,6 @@ public class SwerveSubsystem extends SubsystemBase {
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
   public static double brThrottleOut = 0;
-  public static double angleToSpeaker = 0;
   public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,Constants.fltInvert,45);
   public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,Constants.frtInvert,-45);
   public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,Constants.bltInvert,-45);
@@ -30,7 +29,6 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    angleToSpeaker = 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()));
   }
 
   @Override
@@ -83,7 +81,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
-    DriveFieldOrientedAtAngle(x, y, angleToSpeaker, turnLimit);
+    DriveFieldOrientedAtAngle(x, y, PositionEstimator.angleToSpeaker(), turnLimit);
   }
 
   public static void CollectNote(double XOffset, double YOffset, double speedLimit) {

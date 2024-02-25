@@ -150,6 +150,9 @@ public final class Constants {
   public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 90.0; //the angle the arm should be at to do the amp
+  public static final double trapShootAngle = 30;
+  public static final double trapShootSpeed = 0.5;
+  public static final double trapMinRPM = 2000;
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
   // theshold for sonic sensor

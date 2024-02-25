@@ -132,8 +132,19 @@ public class ArmSubsystem extends SubsystemBase {
   public static void ShootSpeaker() {
     boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    boolean correctRobotAngle = SwerveSubsystem.angleToSpeaker - PositionEstimator.robotPosition.getRotation().getDegrees() < Constants.swerveAngleVariation;
+    boolean correctRobotAngle = PositionEstimator.angleToSpeaker() - PositionEstimator.robotPosition.getRotation().getDegrees() < Constants.swerveAngleVariation;
     if (shooterFast && correctArmAngle && correctRobotAngle) {
+      SpinIntake(1);
+    }
+  }
+
+  public static void ShootTrap()
+  {
+    SpinShooter(Constants.trapShootSpeed);
+    moveArmTo(Constants.trapShootAngle);
+    boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.trapMinRPM);
+    boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
+    if (shooterFast && correctArmAngle && PositionEstimator.alignedTrap()) {
       SpinIntake(1);
     }
   }

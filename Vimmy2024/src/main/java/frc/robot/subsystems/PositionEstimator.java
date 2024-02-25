@@ -113,6 +113,14 @@ public class PositionEstimator extends SubsystemBase {
   public static double distToSpeaker() {
     return Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
   }
+  public static double angleToSpeaker()
+  {
+    return 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()));
+  }
+  public static boolean alignedTrap()
+  {
+    return true;
+  }
   
   @Override
   public void periodic() {
