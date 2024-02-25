@@ -152,10 +152,10 @@ public class PositionEstimator extends SubsystemBase {
     result1 = camera1.getLatestResult();
     result2 = camera2.getLatestResult();
 
-    for (int i = Constants.framerate - 1; i > 0; i--) {
+    for (int i = 49; i > 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];
     }
-    deltaBuffer[Constants.framerate - 1] = velocity;
+    deltaBuffer[49] = velocity;
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;

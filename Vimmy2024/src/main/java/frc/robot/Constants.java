@@ -183,7 +183,6 @@ public final class Constants {
   public static final String apriltagCamera1Name = "Arducam_OV9782_USB_Camera 1";
   public static final String apriltagCamera2Name = "Arducam_OV9782_USB_Camera 2";
   public static final String noteDetectionCameraName = "HD_Web_Camera";
-  public static final int framerate = 50;
 
   //Arduino Communication:
   public static SerialPort arduino;
