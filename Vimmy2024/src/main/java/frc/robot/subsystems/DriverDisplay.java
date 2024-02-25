@@ -55,6 +55,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry driveY = swerve.add("driveY", 0).getEntry();
   public static GenericEntry driveRotate = swerve.add("driveSpin", 0).getEntry();
   public static GenericEntry totalDriveAmps = swerve.add("Total Amps", 0).getEntry();
+  public static GenericEntry atTargetPosition = swerve.add("atTargetPos", false).getEntry();
+  public static GenericEntry atTargetAngle = swerve.add("atTargetAngle", false).getEntry();
 
 
 
@@ -122,6 +124,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.brVelocity.setDouble(SwerveSubsystem.brModule.GetVelocity());
     DriverDisplay.blVelocity.setDouble(SwerveSubsystem.blModule.GetVelocity());
     DriverDisplay.totalDriveAmps.setDouble(Constants.fraMotor.getOutputCurrent() + Constants.flaMotor.getOutputCurrent() + Constants.braMotor.getOutputCurrent() + Constants.blaMotor.getOutputCurrent());
+    DriverDisplay.atTargetPosition.setBoolean(SwerveSubsystem.atTargetPosition);
+    DriverDisplay.atTargetAngle.setBoolean(SwerveSubsystem.atTargetAngle);
 
    
     

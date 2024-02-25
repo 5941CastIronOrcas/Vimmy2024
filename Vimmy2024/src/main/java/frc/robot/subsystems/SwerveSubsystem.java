@@ -25,6 +25,8 @@ public class SwerveSubsystem extends SubsystemBase {
   public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,Constants.frtInvert,-45);
   public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,Constants.bltInvert,-45);
   public static SwerveModule brModule = new SwerveModule(Constants.braMotor,Constants.brtMotor,Constants.brEncoder,true,Constants.frtInvert,45);
+  public static boolean atTargetPosition = false;
+  public static boolean atTargetAngle = false;
   public SwerveSubsystem() {}
 
   @Override
@@ -47,6 +49,7 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);*/
     double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
     double pComponent = Constants.swerveDriveToPMult*Functions.DeadZone(Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY()), Constants.swerveDriveToDeadZone);
+    atTargetPosition = pComponent < 0.001;
     double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y);
     double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
     double xComponent = output * Math.sin(angleToTarget);
@@ -71,13 +74,14 @@ public class SwerveSubsystem extends SubsystemBase {
   public static void DriveDriverOrientedAtAngle(double LSX, double LSY, double angle, double turnLimit)
   {
     turnLimit = Functions.Clamp(turnLimit, 0, 1);
-
-    DriveDriverOriented(LSX, LSY, 
-    Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(
+    double t = Functions.Clamp(-Constants.swerveAutoTurnPMult*Functions.DeadZone(
       Functions.DeltaAngleDeg(angle, PositionEstimator.robotYawDriverRelative), 
       Constants.swerveAutoTurnDeadZone)-Constants.swerveAutoTurnDMult*PositionEstimator.robotYawRate, 
       -Constants.swerveAutoTurnMaxSpeed*turnLimit, 
-      Constants.swerveAutoTurnMaxSpeed*turnLimit));
+      Constants.swerveAutoTurnMaxSpeed*turnLimit);
+    atTargetAngle = Math.abs(t) < 0.001;
+
+    DriveDriverOriented(LSX, LSY, t);
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
