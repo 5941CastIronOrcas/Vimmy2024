@@ -36,8 +36,8 @@ public class PositionEstimator extends SubsystemBase {
 
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
-  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,20,0));
-  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, 0.2794, 0.4572), new Rotation3d(0,20,0));
+  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0.0254, 0.2794, 0.4572), new Rotation3d(0,20,0));
+  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,20,0));
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
   public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
   public static PhotonPipelineResult result1 = camera1.getLatestResult();
