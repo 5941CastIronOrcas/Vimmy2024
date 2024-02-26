@@ -24,7 +24,7 @@ public class DriverDisplay extends SubsystemBase {
   
   //Auto Selectors and Whatnot
   public static ShuffleboardTab AutoStuff = Shuffleboard.getTab("Autonomous");
-  public static GenericEntry AutoSequence = AutoStuff.add("Select Your Auto Here", Constants.defaultAutoSequence).getEntry();
+  public static GenericEntry AutoSequence = AutoStuff.add("Select Your Auto Here", "N/A").getEntry();
   public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
   public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
 
@@ -111,7 +111,22 @@ public class DriverDisplay extends SubsystemBase {
   public void periodic() {
 
     //Auto
-    DriverDisplay.AutoSequenceDisplay.setInteger(Robot.selectedAutoSequence);
+    String selectedAutoName = "ERROR IN DISPLAYING";
+    switch (Robot.selectedAutoSequence) {
+      case 0:
+        selectedAutoName = "NO AUTO";
+      case 1:
+        selectedAutoName = "Retract Climbers";
+      case 2:
+        selectedAutoName = "Retract Climbers, Drive Out";      
+      case 3:
+        selectedAutoName = "Retract Climbers, Shoot, Drive Out";      
+      case 4:
+        selectedAutoName = "Retract Climbers, Shoot, Collect Nearest";      
+      case 5:
+        selectedAutoName = "Retract Climbers, Shoot, Collect Nearest, Shoot";
+    }
+    DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
 
     //Arm
