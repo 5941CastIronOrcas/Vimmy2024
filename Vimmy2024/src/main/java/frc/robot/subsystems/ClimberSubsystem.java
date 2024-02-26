@@ -33,11 +33,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public static void moveClimbers(double in, double difference) {
     Constants.climberMotorL.set(Functions.Clamp(in+(difference/2.0)*(Constants.climberMotorLInvert?-1:1), 
-    !Constants.lClimberSwitch.get()?0: Functions.Clamp((-(Constants.climberReductionMult))*lClimberAngle-Constants.climberMaxHitSpeed, 0, -1), 
+    !Constants.lClimberSwitch.get()?0: Functions.Clamp(Constants.climberReductionMult*(lClimberAngle-Constants.climberSmoothingEnd)-Constants.climberMaxHitSpeed, -1, -Constants.climberMaxHitSpeed), 
     lClimberAngle>=Constants.climberMaxHeight?0:1));
 
     Constants.climberMotorR.set(Functions.Clamp(in-(difference/2.0)*(Constants.climberMotorRInvert?-1:1), 
-    !Constants.rClimberSwitch.get()?0:Functions.Clamp((-(Constants.climberReductionMult))*lClimberAngle-Constants.climberMaxHitSpeed, 0, -1), 
+    !Constants.rClimberSwitch.get()?0:Functions.Clamp(Constants.climberReductionMult*(lClimberAngle-Constants.climberSmoothingEnd)-Constants.climberMaxHitSpeed, -1, -Constants.climberMaxHitSpeed), 
     rClimberAngle>=Constants.climberMaxHeight?0:1));
   }
 

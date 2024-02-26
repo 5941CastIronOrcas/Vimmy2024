@@ -171,8 +171,9 @@ public final class Constants {
   public static final double climberBalancePMult = 0.01;
   public static final double climberBalanceDMult = 0.01;
   public static final double climberMaxHitSpeed = 0.5;
-  public static final double climberSlowDownStart = 10;
-  public static final double climberReductionMult = (1-climberMaxHitSpeed) / climberSlowDownStart;
+  public static final double climberSmoothingStart = 20;
+  public static final double climberSmoothingEnd = 10;
+  public static final double climberReductionMult = (climberMaxHitSpeed-1) / (climberSmoothingStart-climberSmoothingEnd);
   //public static final double climberMaxSpeed = 1;
   public static final double climberMaxHeight = 95;
 
