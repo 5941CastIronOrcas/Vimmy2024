@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     ArduinoCommunication.Wrap();
     Constants.climberMotorL.getEncoder().setPosition(Constants.climberMaxHeight);
     Constants.climberMotorR.getEncoder().setPosition(Constants.climberMaxHeight);
+    Constants.gyro.setYaw(180);
      
   }
 

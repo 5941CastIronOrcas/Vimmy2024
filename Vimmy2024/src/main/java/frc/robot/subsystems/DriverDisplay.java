@@ -27,6 +27,7 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry showNote = noteDetector.add("Note Visible",false).getEntry();
   public static GenericEntry showNotePitch = noteDetector.add("Note Pitch", 0).getEntry();
   public static GenericEntry showNoteYaw = noteDetector.add("Note Yaw", 0).getEntry();
+  public static GenericEntry noteDistance = noteDetector.add("Note Distance", 0).getEntry();
  
   //Arm
   public static ShuffleboardTab arm = Shuffleboard.getTab("Arm");
@@ -135,6 +136,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.showNoteYaw.setDouble(NoteDetector.noteYaw);
     DriverDisplay.showNotePitch.setDouble(NoteDetector.notePitch);
     DriverDisplay.showNote.setBoolean(NoteDetector.noteVisible);
+    DriverDisplay.noteDistance.setDouble(NoteDetector.noteDist);
 
 
     //climber
