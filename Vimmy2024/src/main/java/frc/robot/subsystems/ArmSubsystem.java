@@ -119,7 +119,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    return (-Math.toDegrees(Math.atan2(Constants.speakerHeight,dist))+Constants.armAngleOffset)+15;
+    double a = -4.87356607*Math.pow(10, 15);
+    double b = 16.604623863;
+    double c = -11.3487133839;
+    double d = 43.1365385842;
+    return a*Math.pow(dist + b, c)+d;
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
