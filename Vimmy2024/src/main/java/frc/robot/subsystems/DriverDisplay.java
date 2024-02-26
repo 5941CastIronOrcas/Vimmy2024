@@ -35,10 +35,11 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry armHasNote = arm.add("Has Note", false).getEntry();
   public static GenericEntry armTarget = arm.add("Arm Target", 0).getEntry();
   public static GenericEntry armThrottle = arm.add("Arm Throttle", 0).getEntry();
-  public static GenericEntry motorPower1 = arm.add("Motor 1 power", 0).getEntry();
-  public static GenericEntry motorPower2 = arm.add("Motor 2 power", 0).getEntry();
+  public static GenericEntry motorPower1 = arm.add("ArmMotor1 Amps", 0).getEntry();
+  public static GenericEntry motorPower2 = arm.add("ArmMotor2 Amps", 0).getEntry();
   public static GenericEntry motor1Rpm = arm.add("Shooter 1 Rpm", 0).getEntry();
   public static GenericEntry motor2Rpm = arm.add("Shooter 2 Rpm", 0).getEntry();
+  public static GenericEntry range = arm.add("Range", 0).getEntry();
 
 
   //Swerve
@@ -109,7 +110,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
     DriverDisplay.motor1Rpm.setDouble(Constants.shooterMotor1.getEncoder().getVelocity());
     DriverDisplay.motor2Rpm.setDouble(Constants.shooterMotor2.getEncoder().getVelocity());
-    
+    DriverDisplay.range.setDouble(PositionEstimator.distToSpeaker());
     
 
 

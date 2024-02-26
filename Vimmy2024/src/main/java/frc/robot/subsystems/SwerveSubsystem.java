@@ -86,7 +86,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
-    DriveFieldOrientedAtAngle(x, y, PositionEstimator.angleToSpeaker(), turnLimit);
+    DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(PositionEstimator.angleToSpeaker()), turnLimit);
   }
   public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
   {

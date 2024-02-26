@@ -27,7 +27,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
     if (!(recalledValue < 0)) {
-      if(recalledValue < Constants.hasNoteTreshold) hasNote = true;
+      if(recalledValue < Constants.hasNoteTreshold) 
+      {
+        hasNote = true;
+        noNoteFrames = 0;
+      }
       else noNoteFrames++;
       if(noNoteFrames>10) hasNote = false;
     }
@@ -90,7 +94,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void IntakeRing() {
     moveArmTo(Constants.intakeAngle);
-    Intake(1);
+    Intake(0.5);
   }
   // public static void ShootAtAngle(double a) {
   //   SpinShooter(1);
@@ -102,7 +106,7 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() {
-    SpinShooter(0.1);
+    SpinShooter(0.3);
     moveArmTo(Constants.ampDepositAngle);
     /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {
@@ -115,7 +119,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    return (-Math.toDegrees(Math.atan2(Constants.speakerHeight,dist))+Constants.armAngleOffset)+20;
+    return (-Math.toDegrees(Math.atan2(Constants.speakerHeight,dist))+Constants.armAngleOffset)+15;
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
@@ -130,9 +134,9 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void ShootSpeaker() {
-    boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm);
+    boolean shooterFast = (Constants.shooterMotor2.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetPosition && SwerveSubsystem.atTargetAngle) {
+    if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
     }
   }

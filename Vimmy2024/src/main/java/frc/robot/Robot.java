@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
     }
     else if(Constants.controller1.getXButton())
     {
-      SwerveSubsystem.FaceSpeaker(0, 0, speed);
+      SwerveSubsystem.FaceSpeaker(LSX, LSY, speed);
     }
     else if(Constants.controller1.getYButton())
     {

@@ -67,17 +67,17 @@ public final class Constants {
   public static final double swerveMaxAccelExtended = 0.6; //the max amount swerve is allowed to accelerate when the arm is fully extended
   //Swerve Drive Turning Constants
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
-  public static final double swerveAutoTurnPMult = 0.006;
-  public static final double swerveAutoTurnDMult = 0.00035;
+  public static final double swerveAutoTurnPMult = 0.007;
+  public static final double swerveAutoTurnDMult = 0.0004;
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
-  public static final double swerveAutoTurnDeadZone = 0.5; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
+  public static final double swerveAutoTurnDeadZone = 2.0; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
   public static final double swerveAngleVariation = 1.0; //swerve has to be within this many degrees of the right direction for the shooter to shoot
   //Swerve Drive To Constants
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
   //Swerve Collect Ring Constants
-  public static final double swerveCollectNotePMult = 0.5;
+  public static final double swerveCollectNotePMult = 1;
   
   
   //GOA CONSTANTS:
@@ -147,7 +147,7 @@ public final class Constants {
   public static final double minArmAngle = 0;
   public static final double maxArmAngle = 90;
   //Intake / Shooter Control Constants
-  public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
+  public static final double minShootRpm = 5100; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 90.0; //the angle the arm should be at to do the amp
   public static final double trapShootAngle = 30;
@@ -179,8 +179,8 @@ public final class Constants {
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
-  public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 7.74);
-  public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 7.74);
+  public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
+  public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 8.24);
   public static final double speakerHeight = 2.05;
   public static final double cameraHeight = 0.022; //in meters for note detector
   public static final double cameraAngle = -15; //for note detector
