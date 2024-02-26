@@ -218,58 +218,29 @@ public class Robot extends TimedRobot {
     switch(selectedAutoSequence)
     {
       case 0:
-        autoSequence0();
+        AutoSequences.autoSequence0();
         break;
       case 1:
-        autoSequence1();
+        AutoSequences.autoSequence1();
         break;
       case 2:
-        autoSequence2();
+        AutoSequences.autoSequence2();
         break;
       case 3:
-        autoSequence3();
+        AutoSequences.autoSequence3();
         break;
       case 4:
-        autoSequence4();
+        AutoSequences.autoSequence4();
         break;
       case 5:
-        autoSequence5();
+        AutoSequences.autoSequence5();
         break;
       case 6:
-      autoSequence6();
+        AutoSequences.autoSequence6();
         break;
       default:
-        autoSequence0();
+        AutoSequences.autoSequence0();
         break;
     }
-  }
-  public static void autoSequence0()
-  {
-    
-  }
-  public static void autoSequence1()
-  {
-    
-  }
-  public static void autoSequence2()
-  {
-    
-  }
-  public static void autoSequence3()
-  {
-    
-  }
-  public static void autoSequence4()
-  {
-    
-  }
-  public static void autoSequence5()
-  {
-    
-  }
-  public static void autoSequence6()
-  {
-    
-  }
-  
+  }  
 }
