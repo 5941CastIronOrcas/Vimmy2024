@@ -115,17 +115,31 @@ public class DriverDisplay extends SubsystemBase {
     switch (Robot.selectedAutoSequence) {
       case 0:
         selectedAutoName = "NO AUTO";
+        break;
       case 1:
         selectedAutoName = "Retract Climbers";
-      case 2:
+        break;
+
+        case 2:
         selectedAutoName = "Retract Climbers, Drive Out";      
-      case 3:
+        break;
+
+        case 3:
         selectedAutoName = "Retract Climbers, Shoot, Drive Out";      
-      case 4:
+        break;
+
+        case 4:
         selectedAutoName = "Retract Climbers, Shoot, Collect Nearest";      
-      case 5:
+        break;
+
+        case 5:
         selectedAutoName = "Retract Climbers, Shoot, Collect Nearest, Shoot";
-    }
+        break;
+
+        default:
+        selectedAutoName = "THE VALUE IS INVALID";
+        break;
+      }
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
 
