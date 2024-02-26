@@ -24,8 +24,8 @@ public class DriverDisplay extends SubsystemBase {
   
   //Auto Selectors and Whatnot
   public static ShuffleboardTab AutoStuff = Shuffleboard.getTab("Autonomous");
-  public static GenericEntry AutoSequence = AutoStuff.add("Auto Sequence", Constants.defaultAutoSequence).getEntry();
-  public static GenericEntry AutoSequenceDisplay = AutoStuff.add("Selected Sequence", Constants.defaultAutoSequence).getEntry();
+  public static GenericEntry AutoSequence = AutoStuff.add("Select Your Auto Here", Constants.defaultAutoSequence).getEntry();
+  public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
   public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
 
   //NoteDetector
