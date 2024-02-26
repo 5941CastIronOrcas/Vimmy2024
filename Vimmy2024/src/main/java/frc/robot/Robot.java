@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArduinoCommunication;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.DriverDisplay;
 import frc.robot.subsystems.GOAGuidanceSystem;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
   public static boolean robotLimp = true;
+  int selectedAutoSequence = Constants.defaultAutoSequence;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;
@@ -65,7 +67,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     isRedAlliance = DriverStation.getAlliance().toString().equals("Optional[Red]");
     isBlueAlliance = DriverStation.getAlliance().toString().equals("Optional[Blue]");
-    
+    selectedAutoSequence = (int)DriverDisplay.AutoSequence.getInteger(Constants.defaultAutoSequence);
     
   }
 
@@ -82,21 +84,6 @@ public class Robot extends TimedRobot {
     }
     limpButtonOld = Constants.limpRobotButton.get();
   }*/
-
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit() {
@@ -209,4 +196,80 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+
+  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  @Override
+  public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+    Constants.gyro.setYaw(180);
+  }
+
+
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() 
+  {
+    switch(selectedAutoSequence)
+    {
+      case 0:
+        autoSequence0();
+        break;
+      case 1:
+        autoSequence1();
+        break;
+      case 2:
+        autoSequence2();
+        break;
+      case 3:
+        autoSequence3();
+        break;
+      case 4:
+        autoSequence4();
+        break;
+      case 5:
+        autoSequence5();
+        break;
+      case 6:
+      autoSequence6();
+        break;
+      default:
+        autoSequence0();
+        break;
+    }
+  }
+  public static void autoSequence0()
+  {
+    
+  }
+  public static void autoSequence1()
+  {
+    
+  }
+  public static void autoSequence2()
+  {
+    
+  }
+  public static void autoSequence3()
+  {
+    
+  }
+  public static void autoSequence4()
+  {
+    
+  }
+  public static void autoSequence5()
+  {
+    
+  }
+  public static void autoSequence6()
+  {
+    
+  }
+  
 }

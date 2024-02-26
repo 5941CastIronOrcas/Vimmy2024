@@ -22,6 +22,10 @@ import frc.robot.utilityObjects.Vector2D;
 
 public class DriverDisplay extends SubsystemBase {
   
+  //Auto Selectors and Whatnot
+  public static ShuffleboardTab AutoStuff = Shuffleboard.getTab("Autonomous");
+  public static GenericEntry AutoSequence = AutoStuff.add("Auto Sequence", Constants.defaultAutoSequence).getEntry();
+
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
   public static GenericEntry showNote = noteDetector.add("Note Visible",false).getEntry();

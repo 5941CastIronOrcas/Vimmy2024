@@ -35,6 +35,7 @@ public final class Constants {
 
   //Misc
   //public static final DigitalInput limpRobotButton = new DigitalInput(0);
+  public static final int defaultAutoSequence = 0;
 
   //SWERVE STUFF:
   //Gyro
