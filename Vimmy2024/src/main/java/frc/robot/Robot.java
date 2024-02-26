@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
   public static boolean robotLimp = true;
-  int selectedAutoSequence = Constants.defaultAutoSequence;
+  public static int selectedAutoSequence = Constants.defaultAutoSequence;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;

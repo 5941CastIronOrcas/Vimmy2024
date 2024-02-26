@@ -25,6 +25,8 @@ public class DriverDisplay extends SubsystemBase {
   //Auto Selectors and Whatnot
   public static ShuffleboardTab AutoStuff = Shuffleboard.getTab("Autonomous");
   public static GenericEntry AutoSequence = AutoStuff.add("Auto Sequence", Constants.defaultAutoSequence).getEntry();
+  public static GenericEntry AutoSequenceDisplay = AutoStuff.add("Selected Sequence", Constants.defaultAutoSequence).getEntry();
+  public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
 
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
@@ -107,6 +109,11 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    //Auto
+    DriverDisplay.AutoSequenceDisplay.setInteger(Robot.selectedAutoSequence);
+    DriverDisplay.rng.setDouble(Math.random());
+
     //Arm
     DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
     DriverDisplay.arduinoRecall.setDouble(ArmSubsystem.recalledValue);
