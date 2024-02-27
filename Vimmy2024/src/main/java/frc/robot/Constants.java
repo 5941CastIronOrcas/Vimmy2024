@@ -37,6 +37,7 @@ public final class Constants {
   //public static final DigitalInput limpRobotButton = new DigitalInput(0);
   public static final int defaultAutoSequence = 0;
 
+  public static double timeSinceStartAtAutoStart = 0;
   //SWERVE STUFF:
   //Gyro
   public static final Pigeon2 gyro = new Pigeon2(54);
