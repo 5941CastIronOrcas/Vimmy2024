@@ -43,7 +43,8 @@ public class PositionEstimator extends SubsystemBase {
   public static PhotonPipelineResult result1 = camera1.getLatestResult();
   public static PhotonPipelineResult result2 = camera2.getLatestResult();
 
-  public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
+  public static PhotonPoseEstimator photonPoseEstimator1 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
+  public static PhotonPoseEstimator photonPoseEstimator2 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
   public static double latency1 = 0;
   public static double latency2 = 0;
@@ -78,7 +79,7 @@ public class PositionEstimator extends SubsystemBase {
 
   }
 
-  public static Pose2d getEstimatedGlobalPose() {
+  public static Pose2d getEstimatedGlobalPose1() {
     //var emptyTarget = new PhotonTrackedTarget();
     if (!camCheck1()) {
       return previousPosition;
@@ -90,7 +91,27 @@ public class PositionEstimator extends SubsystemBase {
     
      
     try {
-      return photonPoseEstimator.update().get().estimatedPose.toPose2d();
+      return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
+    }
+    catch(Exception e) {
+      System.out.println("Caught Error: " + e);
+    }
+    
+    return previousPosition;
+  }
+  public static Pose2d getEstimatedGlobalPose2() {
+    //var emptyTarget = new PhotonTrackedTarget();
+    if (!camCheck2()) {
+      return previousPosition;
+    }
+    
+    /*if (photonPoseEstimator.update().isPresent()) {
+      return photonPoseEstimator.update().orElse(null).estimatedPose.toPose2d();
+    } */
+    
+     
+    try {
+      return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
     }
     catch(Exception e) {
       System.out.println("Caught Error: " + e);
@@ -112,7 +133,8 @@ public class PositionEstimator extends SubsystemBase {
   }*/
 
   public static double distToSpeaker() {
-    return Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
+    double supposed = Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
+    return supposed+0.523776;
   }
   public static double angleToSpeaker()
   {
@@ -157,14 +179,21 @@ public class PositionEstimator extends SubsystemBase {
     deltaBuffer[0] = velocity;
 
     previousPosition = robotPosition;
-    Pose2d globalPose = robotPosition;
+    Pose2d globalPose1 = robotPosition;
+    Pose2d globalPose2 = robotPosition;
+    if(camCheck2())
+    {
+      globalPose2 = getEstimatedGlobalPose2();
+      SmartDashboard.putNumber("X2", globalPose2.getX());
+      SmartDashboard.putNumber("Y2", globalPose2.getY());
+    }
     
     if (camCheck1()) {
-      globalPose = getEstimatedGlobalPose();
-      if (robotPosition != globalPose) {
+      globalPose1 = getEstimatedGlobalPose1();
+      if (robotPosition != globalPose1) {
         // apriltags present and information updated
 
-        robotPosition = globalPose;
+        robotPosition = new Pose2d(globalPose1.getX(), globalPose1.getY(), robotPosition.getRotation());
         /*for (int i = 0; i < (latency / 20); i++) {
           if (deltaBuffer[i] != null)
           {
