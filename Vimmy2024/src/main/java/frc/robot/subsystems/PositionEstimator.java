@@ -192,7 +192,7 @@ public class PositionEstimator extends SubsystemBase {
       globalPose1 = getEstimatedGlobalPose1();
       if (robotPosition != globalPose1) {
         // apriltags present and information updated
-
+        Pose2d combinedPoses = new Pose2d((globalPose1.getX() + globalPose2.getX())/2.0, (globalPose1.getY() + globalPose2.getY())/2.0, robotPosition.getRotation());
         robotPosition = new Pose2d(globalPose1.getX(), globalPose1.getY(), robotPosition.getRotation());
         /*for (int i = 0; i < (latency / 20); i++) {
           if (deltaBuffer[i] != null)
