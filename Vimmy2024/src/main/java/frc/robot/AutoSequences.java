@@ -20,20 +20,25 @@ public class AutoSequences {
   // drive out
   public static void autoSequence2() {
     ClimberSubsystem.moveClimbers(-1, 0);
-    if(isAutoTimeBetween(0.0, 1.0)) SwerveSubsystem.DriveDriverOriented(0, 1, 0);
+    if(isAutoTimeBetween(0.0, 3.0)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
     else killAllTheMotors();
   }
 
   // shoot basic
   public static void autoSequence3() {
-    if (isAutoTimeBetween(1.0, 1.6)) ArmSubsystem.PrepShooter(0.8);                  //TIME NEEDS TO BE CALIBRATED!!!
-    else if (isAutoTimeBetween(1.6, 2)) ArmSubsystem.SpinIntake(0.75);
+    if (isAutoTimeBetween(3.0, 3.6)) {
+        ArmSubsystem.PrepShooter(0.8);
+    } else if (isAutoTimeBetween(3.6, 4)) {
+        ArmSubsystem.SpinIntake(0.75);
+        ArmSubsystem.PrepShooter(0.8);
+        
+    }
     else killAllTheMotors();
   }
 
   //shoot aimbot
   public static void autoSequence4() {
-    if (isAutoTimeBetween(2, 3)) {
+    if (isAutoTimeBetween(4, 6)) {
         ArmSubsystem.PrepShooter(1);
         ArmSubsystem.ShootSpeaker(); 
     } else killAllTheMotors();
