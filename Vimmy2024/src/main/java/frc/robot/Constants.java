@@ -78,7 +78,7 @@ public final class Constants {
   public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
   //Swerve Collect Ring Constants
-  public static final double swerveCollectNotePMult = 1;
+  public static final double swerveCollectNotePMult = 0.5;
   
   
   //GOA CONSTANTS:
@@ -184,8 +184,8 @@ public final class Constants {
   public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
   public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 8.24);
   public static final double speakerHeight = 2.05;
-  public static final double cameraHeight = 0.022; //in meters for note detector
-  public static final double cameraAngle = -15; //for note detector
+  public static final double cameraHeight = 0.22; //in meters for note detector
+  public static final double cameraAngle = -10; //for note detector
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9782_USB_Camera 1";
   public static final String apriltagCamera2Name = "Arducam_OV9782_USB_Camera 2";
