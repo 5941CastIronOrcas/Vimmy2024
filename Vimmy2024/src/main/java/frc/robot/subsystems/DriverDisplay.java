@@ -114,31 +114,52 @@ public class DriverDisplay extends SubsystemBase {
     String selectedAutoName = "ERROR IN DISPLAYING";
     switch (Robot.selectedAutoSequence) {
       case 0:
-        selectedAutoName = "NO AUTO";
-        break;
+          selectedAutoName = "NO AUTO";
+          break;
+
       case 1:
-        selectedAutoName = "Retract Climbers";
-        break;
+          selectedAutoName = "Retract Climbers";
+          break;
 
         case 2:
-        selectedAutoName = "Retract Climbers, Drive Out";      
-        break;
+          selectedAutoName = "Retract Climbers, Drive Out";      
+          break;
 
         case 3:
-        selectedAutoName = "Retract Climbers, Shoot, Drive Out";      
-        break;
+          selectedAutoName = "Retract Climbers, Shoot Basic";      
+          break;
 
         case 4:
-        selectedAutoName = "Retract Climbers, Shoot, Collect Nearest";      
-        break;
+          selectedAutoName = "Retract Climbers, Shoot Aimbot";      
+          break;
 
         case 5:
-        selectedAutoName = "Retract Climbers, Shoot, Collect Nearest, Shoot";
-        break;
+          selectedAutoName = "Retract Climbers, Shoot Basic, Drive Out";
+          break;
+
+        case 6:
+          selectedAutoName = "Retract Climbers, Shoot Aimbot, Drive Out";
+          break;
+        
+        case 7:
+          selectedAutoName = "Retract Climbers, Shoot Basic, Collect Nearest";
+          break;
+        
+        case 8:
+          selectedAutoName = "Retract Climbers, Shoot Aimbot, Collect Nearest";
+          break;
+        
+        case 9:
+          selectedAutoName = "Retract Climbers, Shoot Basic, Collect Nearest, Shoot";
+          break;
+        
+        case 10:
+          selectedAutoName = "Retract Climbers, Shoot Aimbot, Collect Nearest, Shoot";
+          break;
 
         default:
-        selectedAutoName = "THE VALUE IS INVALID";
-        break;
+          selectedAutoName = "THE VALUE IS INVALID";
+          break;
       }
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
