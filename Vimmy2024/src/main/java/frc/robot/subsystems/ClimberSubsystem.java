@@ -14,8 +14,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public static double rClimberAngle;
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
-    Constants.climberMotorL.getEncoder().setPosition(Constants.climberMaxHeight);
-    Constants.climberMotorR.getEncoder().setPosition(Constants.climberMaxHeight);
+    Constants.climberMotorL.getEncoder().setPosition(0);
+    Constants.climberMotorR.getEncoder().setPosition(0);
   }
 
   @Override

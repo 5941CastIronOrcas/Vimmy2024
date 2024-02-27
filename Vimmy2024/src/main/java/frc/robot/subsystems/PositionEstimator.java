@@ -45,7 +45,8 @@ public class PositionEstimator extends SubsystemBase {
 
   public static PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
-  public static double latency = 0;
+  public static double latency1 = 0;
+  public static double latency2 = 0;
 
   public static double sumX = 0;
   public static double sumY = 0;
@@ -98,7 +99,7 @@ public class PositionEstimator extends SubsystemBase {
     return previousPosition;
   }
 
-  public boolean isValid(Pose2d oldPose, Pose2d newPose) {
+  /*public boolean isValid(Pose2d oldPose, Pose2d newPose) {
     double maxMovement = Constants.swerveMaxSpeed * camera1.getLatestResult().getLatencyMillis() * 0.001;
     double currentMovement = Functions.Pythagorean(oldPose.getX() - newPose.getX(), oldPose.getY() - newPose.getY());
 
@@ -108,7 +109,7 @@ public class PositionEstimator extends SubsystemBase {
     else {
       return true;
     }
-  }
+  }*/
 
   public static double distToSpeaker() {
     return Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
@@ -147,22 +148,19 @@ public class PositionEstimator extends SubsystemBase {
         / 4.0);
     result1 = camera1.getLatestResult();
     result2 = camera2.getLatestResult();
+    latency1 = result1.getLatencyMillis();
+    latency2 = result2.getLatencyMillis();
 
     for (int i = 49; i > 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];
     }
-    deltaBuffer[49] = velocity;
+    deltaBuffer[0] = velocity;
 
     previousPosition = robotPosition;
     Pose2d globalPose = robotPosition;
-    latency = camera1.getLatestResult().getLatencyMillis();
     
-    
-
     if (camCheck1()) {
       globalPose = getEstimatedGlobalPose();
-    }
-    if (camCheck1()) {
       if (robotPosition != globalPose) {
         // apriltags present and information updated
 
