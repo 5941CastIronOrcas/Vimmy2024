@@ -1,12 +1,16 @@
 package frc.robot;
 
+import frc.robot.subsystems.ClimberSubsystem;
+
 public class AutoSequences {
-    
+  // kill all the motors
   public static void autoSequence0() {
-    
+
   }
+
+  // retract climbers
   public static void autoSequence1() {
-    
+    ClimberSubsystem.moveClimbers(-1, 0);
   }
   public static void autoSequence2() {
     
