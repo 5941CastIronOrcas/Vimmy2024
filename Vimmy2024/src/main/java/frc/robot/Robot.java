@@ -45,8 +45,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     ArduinoCommunication.Wrap();
-    Constants.climberMotorL.getEncoder().setPosition(Constants.climberMaxHeight);
-    Constants.climberMotorR.getEncoder().setPosition(Constants.climberMaxHeight);
+    Constants.climberMotorL.getEncoder().setPosition(0);
+    Constants.climberMotorR.getEncoder().setPosition(0);
     Constants.gyro.setYaw(180);
      
   }
@@ -145,6 +145,10 @@ public class Robot extends TimedRobot {
     {
       ArmSubsystem.PrepShooter(1);
       ArmSubsystem.ShootSpeaker();
+    }
+    else if(Constants.controller1.getRightTriggerAxis() > 0.5)
+    {
+      ArmSubsystem.IntakeRing();
     }
     else
     {
