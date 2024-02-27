@@ -26,37 +26,51 @@ public class AutoSequences {
 
   // shoot basic
   public static void autoSequence3() {
-    if (isAutoTimeBetween(3.0, 3.6)) {
+    ClimberSubsystem.moveClimbers(-1, 0);
+    if (isAutoTimeBetween(0, 1)) {
         ArmSubsystem.PrepShooter(0.8);
-    } else if (isAutoTimeBetween(3.6, 4)) {
+    } else if (isAutoTimeBetween(1, 4)) {
         ArmSubsystem.SpinIntake(0.75);
         ArmSubsystem.PrepShooter(0.8);
-        
     }
     else killAllTheMotors();
   }
 
   //shoot aimbot
   public static void autoSequence4() {
-    if (isAutoTimeBetween(4, 6)) {
+        ClimberSubsystem.moveClimbers(-1, 0);
+    if (isAutoTimeBetween(0, 2)) {
         ArmSubsystem.PrepShooter(1);
-        ArmSubsystem.ShootSpeaker(); 
+        ArmSubsystem.ShootSpeaker();
     } else killAllTheMotors();
   }
 
   // shoot basic, drive out
   public static void autoSequence5() {
-    
+        ClimberSubsystem.moveClimbers(-1, 0);
+        if (isAutoTimeBetween(0, 3)) {
+            SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
+        } else if (isAutoTimeBetween(3, 5)) {
+            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.ShootSpeaker();
+        } else killAllTheMotors(); 
   }
 
   // shoot aimbot, drive out
   public static void autoSequence6() {
+        ClimberSubsystem.moveClimbers(-1, 0);
+    if (isAutoTimeBetween(0, 3)) {
+        SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
+    } else if (isAutoTimeBetween(3, 6)) {
+        ArmSubsystem.PrepShooter(1);
+        ArmSubsystem.ShootSpeaker();
+    } else killAllTheMotors();
     
   }
 
   // shoot basic, collect nearest
   public static void autoSequence7() {
-    
+        
   }
 
   // shoot aimbot, collect nearest
