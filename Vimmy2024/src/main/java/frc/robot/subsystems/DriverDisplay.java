@@ -174,7 +174,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.motor1Rpm.setDouble(Constants.shooterMotor1.getEncoder().getVelocity());
     DriverDisplay.motor2Rpm.setDouble(Constants.shooterMotor2.getEncoder().getVelocity());
     DriverDisplay.range.setDouble(PositionEstimator.distToSpeaker());
-    DriverDisplay.inShootTotalPower.setDouble(Constants.intakeMotor.getOutputCurrent() + Constants.armMotor1.getOutputCurrent() + Constants.armMotor2.getOutputCurrent());
+    DriverDisplay.inShootTotalPower.setDouble(Constants.intakeMotor.getOutputCurrent() + Constants.shooterMotor1.getOutputCurrent() + Constants.shooterMotor2.getOutputCurrent());
     
 
 
