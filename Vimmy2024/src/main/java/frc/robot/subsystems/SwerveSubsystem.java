@@ -22,6 +22,8 @@ public class SwerveSubsystem extends SubsystemBase {
   public static double frThrottleOut = 0;
   public static double blThrottleOut = 0;
   public static double brThrottleOut = 0;
+  public static double oldAngle = 0;
+  public static double newAngle = 0;
   public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,Constants.fltInvert,45);
   public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,Constants.frtInvert,-45);
   public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,Constants.bltInvert,-45);
@@ -32,6 +34,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    oldAngle = newAngle;
+    newAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
   }
 
   @Override
@@ -86,6 +90,9 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
+    //double aSpeed = (newAngle - oldAngle) * 50;
+    //double a = PositionEstimator.angleToSpeaker() + (aSpeed * (PositionEstimator.distToSpeaker() / Constants.launchSpeed));
+    //DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(a), turnLimit);
     DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(PositionEstimator.angleToSpeaker()), turnLimit);
   }
   public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
