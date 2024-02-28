@@ -13,23 +13,23 @@ public class AutoSequences {
 
   // retract climbers
   public static void autoSequence1() {
-    ClimberSubsystem.moveClimbers(-1, 0);
-    killAllTheMotors();
+    if (isAutoTimeBetween(0, 3)) ClimberSubsystem.moveClimbers(-1, 0);
+    else killAllTheMotors();
   }
 
   // drive out
   public static void autoSequence2() {
     ClimberSubsystem.moveClimbers(-1, 0);
-    if(isAutoTimeBetween(0.0, 3.0)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
+    if(isAutoTimeBetween(0.0, 1.5)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
     else killAllTheMotors();
   }
 
   // shoot basic
   public static void autoSequence3() {
     ClimberSubsystem.moveClimbers(-1, 0);
-    if (isAutoTimeBetween(0, 2)) {
+    if (isAutoTimeBetween(0, 1)) {
         ArmSubsystem.PrepShooter(0.8);
-    } else if (isAutoTimeBetween(2, 3)) {
+    } else if (isAutoTimeBetween(1, 2)) {
         ArmSubsystem.SpinIntake(0.75);
         ArmSubsystem.PrepShooter(0.8);
     }
@@ -42,15 +42,17 @@ public class AutoSequences {
     if (isAutoTimeBetween(0, 2)) {
         ArmSubsystem.PrepShooter(1);
         ArmSubsystem.ShootSpeaker();
+        SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
     } else killAllTheMotors();
   }
 
   // shoot basic, drive out
   public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
-        if (isAutoTimeBetween(0, 3)) {
+        if (isAutoTimeBetween(0, 1.5)) {
             SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-        } else if (isAutoTimeBetween(3, 5)) {
+        } else if (isAutoTimeBetween(1.5, 3.5)) {
+            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.PrepShooter(1);
             ArmSubsystem.ShootSpeaker();
         } else killAllTheMotors(); 
@@ -59,9 +61,10 @@ public class AutoSequences {
   // shoot aimbot, drive out
   public static void autoSequence6() {
         ClimberSubsystem.moveClimbers(-1, 0);
-    if (isAutoTimeBetween(0, 3)) {
+    if (isAutoTimeBetween(0, 1.5)) {
         SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-    } else if (isAutoTimeBetween(3, 6)) {
+    } else if (isAutoTimeBetween(1.5, 4.5)) {
+        SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
         ArmSubsystem.PrepShooter(1);
         ArmSubsystem.ShootSpeaker();
     } else killAllTheMotors();

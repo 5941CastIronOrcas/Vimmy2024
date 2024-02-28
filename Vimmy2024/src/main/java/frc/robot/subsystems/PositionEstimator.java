@@ -44,7 +44,7 @@ public class PositionEstimator extends SubsystemBase {
   public static PhotonPipelineResult result2 = camera2.getLatestResult();
 
   public static PhotonPoseEstimator photonPoseEstimator1 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
-  public static PhotonPoseEstimator photonPoseEstimator2 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
+  public static PhotonPoseEstimator photonPoseEstimator2 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera2, robotToCam2);
   public static Vector2D[] deltaBuffer = new Vector2D[50];
   public static double latency1 = 0;
   public static double latency2 = 0;
@@ -184,16 +184,14 @@ public class PositionEstimator extends SubsystemBase {
     if(camCheck2())
     {
       globalPose2 = getEstimatedGlobalPose2();
-      SmartDashboard.putNumber("X2", globalPose2.getX());
-      SmartDashboard.putNumber("Y2", globalPose2.getY());
     }
-    
     if (camCheck1()) {
       globalPose1 = getEstimatedGlobalPose1();
-      if (robotPosition != globalPose1) {
-        // apriltags present and information updated
-        Pose2d combinedPoses = new Pose2d((globalPose1.getX() + globalPose2.getX())/2.0, (globalPose1.getY() + globalPose2.getY())/2.0, robotPosition.getRotation());
-        robotPosition = new Pose2d(globalPose1.getX(), globalPose1.getY(), robotPosition.getRotation());
+    }
+    if(camCheck1() && camCheck2())
+    {
+      Pose2d combinedPoses = new Pose2d((globalPose1.getX() + globalPose2.getX())/2.0, (globalPose1.getY() + globalPose2.getY())/2.0, robotPosition.getRotation());
+      robotPosition = combinedPoses;
         /*for (int i = 0; i < (latency / 20); i++) {
           if (deltaBuffer[i] != null)
           {
@@ -203,11 +201,14 @@ public class PositionEstimator extends SubsystemBase {
         }*/
 
         //robotPosition = new Pose2d(globalPose.getX() + sumX, globalPose.getY() + sumY, globalPose.getRotation());
-      }
-      else {
-      // apriltags present, information not updated
-      robotPosition = new Pose2d(robotPosition.getX() + velocity.x*0.02, robotPosition.getY() + velocity.y*0.02, robotPosition.getRotation());
-      }
+    }
+    else if(camCheck1())
+    {
+      robotPosition = new Pose2d(globalPose1.getX(), globalPose1.getY(), robotPosition.getRotation());
+    }
+    else if(camCheck2())
+    {
+      robotPosition = new Pose2d(globalPose2.getX(), globalPose2.getY(), robotPosition.getRotation());
     }
     else {
       // no apriltags detected

@@ -70,7 +70,7 @@ public final class Constants {
   //Swerve Drive Turning Constants
   public static final double turnMult = 1.0; //the max speed Swerve is EVER allowed to turn at
   public static final double swerveAutoTurnPMult = 0.007;
-  public static final double swerveAutoTurnDMult = 0.0004;
+  public static final double swerveAutoTurnDMult = 0.0005;
   public static final double swerveAutoTurnMaxSpeed = 1.0; //the max speed Swerve is allowed to turn at when turning itself
   public static final double swerveAutoTurnDeadZone = 2.0; //if swerve is pointing within this many degrees of where it wants to point, it stops rotating.
   public static final double swerveAngleVariation = 1.0; //swerve has to be within this many degrees of the right direction for the shooter to shoot
