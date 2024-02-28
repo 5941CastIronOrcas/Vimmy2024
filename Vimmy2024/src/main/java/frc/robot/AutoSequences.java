@@ -27,9 +27,9 @@ public class AutoSequences {
   // shoot basic
   public static void autoSequence3() {
     ClimberSubsystem.moveClimbers(-1, 0);
-    if (isAutoTimeBetween(0, 1)) {
+    if (isAutoTimeBetween(0, 2)) {
         ArmSubsystem.PrepShooter(0.8);
-    } else if (isAutoTimeBetween(1, 4)) {
+    } else if (isAutoTimeBetween(2, 3)) {
         ArmSubsystem.SpinIntake(0.75);
         ArmSubsystem.PrepShooter(0.8);
     }
