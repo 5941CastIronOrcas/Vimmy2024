@@ -82,11 +82,10 @@ public class AutoSequences {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
-            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
             SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
           }
 
@@ -94,6 +93,8 @@ public class AutoSequences {
           if (hadNote) shotSuccesful = true; 
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
+      } else {
+        killAllTheMotors();
       }
     }
 
@@ -120,6 +121,8 @@ public class AutoSequences {
           if (hadNote) shotSuccesful = true; 
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
+      } else {
+        killAllTheMotors();
       }
     
   }
@@ -131,17 +134,18 @@ public class AutoSequences {
         if (ArmSubsystem.hasNote) {
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
-            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
             SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
           }
 
         } else {
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
+      } else {
+        killAllTheMotors();
       }
   }
 
@@ -164,6 +168,8 @@ public class AutoSequences {
         } else {
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
+      } else {
+        killAllTheMotors();
       }
     
   }
