@@ -74,7 +74,59 @@ public class AutoSequences {
 
   // shoot basic, collect nearest
     public static void autoSequence7() {
-      ClimberSubsystem.moveClimbers(-1, 0);
+    boolean hadNote = false;
+    boolean shotSuccesful = false;
+    ClimberSubsystem.moveClimbers(-1, 0);
+      if (isAutoTimeBetween(0, 14) && !shotSuccesful) {
+        if (ArmSubsystem.hasNote) {
+          hadNote = true;
+          ArmSubsystem.PrepShooter(1);
+          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
+            ArmSubsystem.ShootSpeaker();
+          }
+          else  {
+            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
+            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+          }
+
+        } else {
+          if (hadNote) shotSuccesful = true; 
+          SwerveSubsystem.CollectNote(0, 0, 0.5);
+        }
+      }
+    }
+
+  // shoot aimbot, collect nearest
+  public static void autoSequence8() {
+    boolean hadNote = false;
+    boolean shotSuccesful = false;
+    ClimberSubsystem.moveClimbers(-1, 0);
+      if (isAutoTimeBetween(0, 14) && !shotSuccesful) {
+        if (ArmSubsystem.hasNote) {
+          hadNote = true;
+          ArmSubsystem.PrepShooter(1);
+          SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
+            ArmSubsystem.ShootSpeaker();
+          }
+          else  {
+            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
+            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+          }
+          
+        } else {
+          if (hadNote) shotSuccesful = true; 
+          SwerveSubsystem.CollectNote(0, 0, 0.5);
+        }
+      }
+    
+  }
+
+  // shoot basic, collect nearest, shoot
+  public static void autoSequence9() {
+    ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 14)) {
         if (ArmSubsystem.hasNote) {
           ArmSubsystem.PrepShooter(1);
@@ -91,10 +143,10 @@ public class AutoSequences {
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
       }
-    }
+  }
 
-  // shoot aimbot, collect nearest
-  public static void autoSequence8() {
+  // shoot aimbot, collect nearest, shoot
+  public static void autoSequence10() {
     ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 14)) {
         if (ArmSubsystem.hasNote) {
@@ -113,15 +165,6 @@ public class AutoSequences {
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
       }
-  }
-
-  // shoot basic, collect nearest, shoot
-  public static void autoSequence9() {
-    
-  }
-
-  // shoot aimbot, collect nearest, shoot
-  public static void autoSequence10() {
     
   }
 
