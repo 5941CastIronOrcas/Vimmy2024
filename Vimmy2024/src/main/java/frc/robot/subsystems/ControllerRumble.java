@@ -53,6 +53,10 @@ public class ControllerRumble extends SubsystemBase {
     Constants.controller1.setRumble(RumbleType.kRightRumble, controller1RumbleR);
     Constants.controller2.setRumble(RumbleType.kLeftRumble, controller2RumbleL);
     Constants.controller2.setRumble(RumbleType.kRightRumble, controller2RumbleR);
+    if(ArmSubsystem.hasNote)
+    {
+      RumbleBothControllersBothSides(0.5);
+    }
   }
 
   @Override
