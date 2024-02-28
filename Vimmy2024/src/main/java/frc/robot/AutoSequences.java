@@ -3,51 +3,52 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class AutoSequences {
   // kill all the motors
-  public static void autoSequence0() {
-    killAllTheMotors();
-  }
+    public static void autoSequence0() {
+        killAllTheMotors();
+    }
 
   // retract climbers
-  public static void autoSequence1() {
-    if (isAutoTimeBetween(0, 3)) ClimberSubsystem.moveClimbers(-1, 0);
-    else killAllTheMotors();
-  }
+    public static void autoSequence1() {
+        if (isAutoTimeBetween(0, 3)) ClimberSubsystem.moveClimbers(-1, 0);
+        else killAllTheMotors();
+    }
 
   // drive out
-  public static void autoSequence2() {
-    ClimberSubsystem.moveClimbers(-1, 0);
-    if(isAutoTimeBetween(0.0, 1.5)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-    else killAllTheMotors();
-  }
+    public static void autoSequence2() {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        if(isAutoTimeBetween(0.0, 1.5)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
+        else killAllTheMotors();
+    }
 
   // shoot basic
-  public static void autoSequence3() {
-    ClimberSubsystem.moveClimbers(-1, 0);
-    if (isAutoTimeBetween(0, 1)) {
-        ArmSubsystem.PrepShooter(0.8);
-    } else if (isAutoTimeBetween(1, 2)) {
-        ArmSubsystem.SpinIntake(0.75);
-        ArmSubsystem.PrepShooter(0.8);
+    public static void autoSequence3() {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        if (isAutoTimeBetween(0, 1)) {
+            ArmSubsystem.PrepShooter(0.8);
+        } else if (isAutoTimeBetween(1, 2)) {
+            ArmSubsystem.SpinIntake(0.75);
+            ArmSubsystem.PrepShooter(0.8);
+        }
+        else killAllTheMotors();
     }
-    else killAllTheMotors();
-  }
 
   //shoot aimbot
-  public static void autoSequence4() {
+    public static void autoSequence4() {
         ClimberSubsystem.moveClimbers(-1, 0);
-    if (isAutoTimeBetween(0, 2)) {
-        ArmSubsystem.PrepShooter(1);
-        ArmSubsystem.ShootSpeaker();
-        SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
-    } else killAllTheMotors();
-  }
+        if (isAutoTimeBetween(0, 2)) {
+            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.ShootSpeaker();
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+        } else killAllTheMotors();
+    }
 
   // shoot basic, drive out
-  public static void autoSequence5() {
+    public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
         if (isAutoTimeBetween(0, 1.5)) {
             SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
@@ -56,10 +57,10 @@ public class AutoSequences {
             ArmSubsystem.PrepShooter(1);
             ArmSubsystem.ShootSpeaker();
         } else killAllTheMotors(); 
-  }
+    }
 
   // shoot aimbot, drive out
-  public static void autoSequence6() {
+    public static void autoSequence6() {
         ClimberSubsystem.moveClimbers(-1, 0);
     if (isAutoTimeBetween(0, 1.5)) {
         SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
@@ -69,12 +70,21 @@ public class AutoSequences {
         ArmSubsystem.ShootSpeaker();
     } else killAllTheMotors();
     
-  }
+    }
 
   // shoot basic, collect nearest
-  public static void autoSequence7() {
-        
-  }
+    public static void autoSequence7() {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        if (isAutoTimeBetween(0, 14)) {
+            if (ArmSubsystem.hasNote) {
+                SwerveSubsystem.DriveDriverOriented(0, 0, 0);
+                ArmSubsystem.PrepShooter(1);
+                if (PositionEstimator.distToSpeaker() < 2.0) ArmSubsystem.ShootSpeaker();
+                else SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
+            
+            }
+        }
+    }
 
   // shoot aimbot, collect nearest
   public static void autoSequence8() {
