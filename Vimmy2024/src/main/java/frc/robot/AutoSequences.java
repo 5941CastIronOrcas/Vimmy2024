@@ -75,9 +75,9 @@ public class AutoSequences {
   // shoot basic, collect nearest
     public static void autoSequence7() {
     boolean hadNote = false;
-    boolean shotSuccesful = false;
+    byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14) && !shotSuccesful) {
+      if (isAutoTimeBetween(0, 14) && succesfulShots < 2) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -90,7 +90,8 @@ public class AutoSequences {
           }
 
         } else {
-          if (hadNote) shotSuccesful = true; 
+          if (hadNote) succesfulShots++; 
+          hadNote = false;
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
       } else {
@@ -101,9 +102,9 @@ public class AutoSequences {
   // shoot aimbot, collect nearest
   public static void autoSequence8() {
     boolean hadNote = false;
-    boolean shotSuccesful = false;
+    byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14) && !shotSuccesful) {
+      if (isAutoTimeBetween(0, 14) && succesfulShots < 2) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -118,7 +119,8 @@ public class AutoSequences {
           }
           
         } else {
-          if (hadNote) shotSuccesful = true; 
+          if (hadNote) succesfulShots++; 
+          hadNote = false;
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
       } else {
