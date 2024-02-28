@@ -143,19 +143,19 @@ public class DriverDisplay extends SubsystemBase {
         break;
       
       case 7:
-        selectedAutoName = "Retract Climbers, Shoot Basic, Collect Nearest";
-        break;
-      
-      case 8:
-        selectedAutoName = "Retract Climbers, Shoot Aimbot, Collect Nearest";
-        break;
-      
-      case 9:
         selectedAutoName = "Retract Climbers, Shoot Basic, Collect Nearest, Shoot";
         break;
       
-      case 10:
+      case 8:
         selectedAutoName = "Retract Climbers, Shoot Aimbot, Collect Nearest, Shoot";
+        break;
+      
+      case 9:
+        selectedAutoName = "Retract Climbers, Shoot Basic, Collect and Shoot as Many as Possible";
+        break;
+      
+      case 10:
+        selectedAutoName = "Retract Climbers, Shoot Aimbot, Collect and Shoot as Many as Possible";
         break;
 
       default:
