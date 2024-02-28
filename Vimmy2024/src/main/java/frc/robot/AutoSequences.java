@@ -79,7 +79,7 @@ public class AutoSequences {
             if (ArmSubsystem.hasNote) {
                 SwerveSubsystem.DriveDriverOriented(0, 0, 0);
                 ArmSubsystem.PrepShooter(1);
-                if (PositionEstimator.distToSpeaker() < 2.0) ArmSubsystem.ShootSpeaker();
+                if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) ArmSubsystem.ShootSpeaker();
                 else SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
             
             }

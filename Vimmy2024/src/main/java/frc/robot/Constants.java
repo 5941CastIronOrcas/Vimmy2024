@@ -159,7 +159,8 @@ public final class Constants {
   public static final double gravity = 9.81;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
-
+  // treshold for auto sequences
+  public static final double maxAutoShootingRange = 2.0;
   //CLIMBER STUFF
   //Climber Motor Declarations
   public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);
