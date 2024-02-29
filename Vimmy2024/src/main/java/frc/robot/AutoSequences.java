@@ -8,9 +8,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.utilityObjects.Vector2D;
 
 public class AutoSequences {
-  //general note array
-  public static Vector2D[] notePositionPreset = new Vector2D[Constants.centerNotesPos.length + (Robot.isRedAlliance ? Constants.redNotesPos.length : Constants.blueNotesPos.length)];
-
+  
   // kill all the motors
     public static void autoSequence0() {
         killAllTheMotors();

@@ -30,6 +30,9 @@ public class GOAGuidanceSystem extends SubsystemBase {
   {
     Vector2D robotPosition = new Vector2D(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY());
     ArrayList<Obstacle> relevantObstacles = new ArrayList<Obstacle>();
+    for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++) {
+      relevantObstacles.set(i, GOADataSynthesizer.allObstacles[i]);
+    }
     for(int i = 0; i < relevantObstacles.size(); i++)
     {
       if(Functions.Pythagorean(relevantObstacles.get(i).x-robotPosition.x, relevantObstacles.get(i).y-robotPosition.y) > Constants.GOAIgnoreRange)
