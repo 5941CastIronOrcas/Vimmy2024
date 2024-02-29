@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import java.util.Arrays;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -198,6 +200,7 @@ public final class Constants {
   public static final Vector2D[] blueNotesPos = new Vector2D[] {new Vector2D(2.9464, 4.1057), new Vector2D(2.9464, 5.5535), new Vector2D(2.9464, 7.0013)}; 
   public static final Vector2D[] redNotesPos = new Vector2D[] {new Vector2D(13.6449, 4.1057), new Vector2D(13.6449, 5.5535), new Vector2D(13.6449, 7.0013)};
   public static final Vector2D[] centerNotesPos = new Vector2D[] {new Vector2D(8.2956, 0.7529), new Vector2D(8.2956, 2.4293), new Vector2D(8.2956, 4.1057), new Vector2D(8.2956, 5.7821), new Vector2D(8.2956, 7.4585)};
+  public static final Vector2D[] allNotesPos = {new Vector2D(2.9464, 4.1057), new Vector2D(2.9464, 5.5535), new Vector2D(2.9464, 7.0013), new Vector2D(13.6449, 4.1057), new Vector2D(13.6449, 5.5535), new Vector2D(13.6449, 7.0013), new Vector2D(8.2956, 0.7529), new Vector2D(8.2956, 2.4293), new Vector2D(8.2956, 4.1057), new Vector2D(8.2956, 5.7821), new Vector2D(8.2956, 7.4585)};
   //Arduino Communication:
   public static SerialPort arduino;
   public static boolean isArduinoConnected = false;

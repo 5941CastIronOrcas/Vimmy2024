@@ -138,7 +138,28 @@ public class PositionEstimator extends SubsystemBase {
   }
   public static double angleToSpeaker()
   {
-    return 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - PositionEstimator.robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - PositionEstimator.robotPosition.getX()));
+    return 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - robotPosition.getX()));
+  }
+  public static int nearestAutoNote() {
+    Vector2D[] notes = Constants.allNotesPos;
+    int id = -1;
+    double minDist = 100000;
+    for (int i = 0; i < notes.length; i++) {
+      if (Functions.Pythagorean(notes[i].x - robotPosition.getX(), notes[i].y - robotPosition.getY()) < minDist) {
+        id = i;
+      }
+    }
+    return id;
+  }
+  public static double distToClosestNote() {
+    Vector2D[] notes = Constants.allNotesPos;
+    int n = nearestAutoNote();
+    return Functions.Pythagorean(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY());
+  }
+  public static double angleToClosestNote() {
+    Vector2D[] notes = Constants.allNotesPos;
+    int n = nearestAutoNote();
+    return 90-Math.toDegrees(Math.atan2(notes[n].y - robotPosition.getY(), notes[n].x - robotPosition.getX()));
   }
   
   @Override
