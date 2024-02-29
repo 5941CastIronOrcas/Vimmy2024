@@ -31,7 +31,7 @@ public class GOAGuidanceSystem extends SubsystemBase {
     Vector2D robotPosition = new Vector2D(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY());
     ArrayList<Obstacle> relevantObstacles = new ArrayList<Obstacle>();
     for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++) {
-      relevantObstacles.set(i, GOADataSynthesizer.allObstacles[i]);
+      relevantObstacles.add(GOADataSynthesizer.allObstacles[i]);
     }
     for(int i = 0; i < relevantObstacles.size(); i++)
     {
