@@ -83,9 +83,12 @@ public class AutoSequences {
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             ArmSubsystem.ShootSpeaker();
-          }
-          else  {
-            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+          } else  {
+            if (succesfulShots == 0) {
+              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
+            } else if (succesfulShots == 1) {
+              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            }
           }
 
         } else {
@@ -132,18 +135,27 @@ public class AutoSequences {
 
   // shoot basic, collect nearest, shoot
   public static void autoSequence9() {
+    boolean hadNote = false;
+    byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 14)) {
         if (ArmSubsystem.hasNote) {
+          hadNote = true;
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            if (succesfulShots == 0) {
+              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
+            } else if (succesfulShots == 1) {
+              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            }         
           }
 
         } else {
+          if (hadNote) succesfulShots++; 
+          hadNote = false;
 
           ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
