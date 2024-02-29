@@ -191,8 +191,8 @@ public final class Constants {
   public static final double cameraHeight = 0.22; //in meters for note detector
   public static final double cameraAngle = -10; //for note detector
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
-  public static final String apriltagCamera1Name = "Arducam_OV9782_USB_Camera 1";
-  public static final String apriltagCamera2Name = "Arducam_OV9782_USB_Camera 2";
+  public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera 1";
+  public static final String apriltagCamera2Name = "Arducam_OV9281_USB_Camera 2";
   public static final String noteDetectionCameraName = "HD_Web_Camera";
 
 
