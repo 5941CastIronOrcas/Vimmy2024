@@ -144,6 +144,10 @@ public class ArmSubsystem extends SubsystemBase {
     if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
     }
+    else
+    {
+      SpinIntake(0);
+    }
   }
 
   public static void ShootTrap()

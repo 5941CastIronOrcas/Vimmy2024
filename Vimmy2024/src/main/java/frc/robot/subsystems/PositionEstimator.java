@@ -40,8 +40,8 @@ public class PositionEstimator extends SubsystemBase {
   public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,27,0));
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
   public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
-  public static PhotonPipelineResult result1 = camera1.getLatestResult();
-  public static PhotonPipelineResult result2 = camera2.getLatestResult();
+  public static PhotonPipelineResult result1 = new PhotonPipelineResult();
+  public static PhotonPipelineResult result2 = new PhotonPipelineResult();
 
   public static PhotonPoseEstimator photonPoseEstimator1 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera1, robotToCam1);
   public static PhotonPoseEstimator photonPoseEstimator2 = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera2, robotToCam2);
@@ -134,7 +134,7 @@ public class PositionEstimator extends SubsystemBase {
 
   public static double distToSpeaker() {
     double supposed = Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
-    return supposed+0.523776;
+    return supposed+0.323776;
   }
   public static double angleToSpeaker()
   {
