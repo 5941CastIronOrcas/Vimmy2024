@@ -77,7 +77,7 @@ public class AutoSequences {
     boolean hadNote = false;
     byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14) && succesfulShots < 2) {
+      if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -108,7 +108,7 @@ public class AutoSequences {
     boolean hadNote = false;
     byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14) && succesfulShots < 2) {
+      if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -138,7 +138,7 @@ public class AutoSequences {
     boolean hadNote = false;
     byte succesfulShots = 0;
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14)) {
+      if (isAutoTimeBetween(0, 15)) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -168,7 +168,7 @@ public class AutoSequences {
   // shoot aimbot, collect nearest, shoot
   public static void autoSequence10() {
     ClimberSubsystem.moveClimbers(-1, 0);
-      if (isAutoTimeBetween(0, 14)) {
+      if (isAutoTimeBetween(0, 15)) {
         if (ArmSubsystem.hasNote) {
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
