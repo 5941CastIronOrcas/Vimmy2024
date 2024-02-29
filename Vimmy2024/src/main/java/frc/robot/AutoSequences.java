@@ -85,7 +85,7 @@ public class AutoSequences {
             ArmSubsystem.ShootSpeaker();
           } else  {
             if (succesfulShots == 0) {
-              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
+              SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             } else if (succesfulShots == 1) {
               SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
             }
@@ -147,7 +147,7 @@ public class AutoSequences {
           }
           else  {
             if (succesfulShots == 0) {
-              SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
+              SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             } else if (succesfulShots == 1) {
               SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
             }         
