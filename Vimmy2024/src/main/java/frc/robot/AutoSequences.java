@@ -82,17 +82,19 @@ public class AutoSequences {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
-            SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
           }
 
         } else {
           if (hadNote) succesfulShots++; 
           hadNote = false;
-          SwerveSubsystem.CollectNote(0, 0, 0.5);
+
+          ArmSubsystem.IntakeRing();
+          SwerveSubsystem.CollectNote(0, 0, 0.5);        
         }
       } else {
         killAllTheMotors();
@@ -108,19 +110,21 @@ public class AutoSequences {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
-          SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+          SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
-            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
+            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
           }
           
         } else {
           if (hadNote) succesfulShots++; 
           hadNote = false;
+          
+          ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);
         }
       } else {
@@ -136,15 +140,17 @@ public class AutoSequences {
         if (ArmSubsystem.hasNote) {
           ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
-            SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
           }
 
         } else {
-          SwerveSubsystem.CollectNote(0, 0, 0.5);
+
+          ArmSubsystem.IntakeRing();
+          SwerveSubsystem.CollectNote(0, 0, 0.5);        
         }
       } else {
         killAllTheMotors();
@@ -157,18 +163,20 @@ public class AutoSequences {
       if (isAutoTimeBetween(0, 14)) {
         if (ArmSubsystem.hasNote) {
           ArmSubsystem.PrepShooter(1);
-          SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
+          SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
-            SwerveSubsystem.FaceSpeaker(0, 0.25, 0.25);
-            SwerveSubsystem.DriveTo(Constants.redSpeaker.x, Constants.redSpeaker.y, 0, 0.5, 0, 0, 0);
+            SwerveSubsystem.FaceSpeaker(0, 0, 0.5);
+            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, 0, 0.5, 0, 0, 0);
           }
           
         } else {
-          SwerveSubsystem.CollectNote(0, 0, 0.5);
+
+          ArmSubsystem.IntakeRing();
+          SwerveSubsystem.CollectNote(0, 0, 0.5);        
         }
       } else {
         killAllTheMotors();
