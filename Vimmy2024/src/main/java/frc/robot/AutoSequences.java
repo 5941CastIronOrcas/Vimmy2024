@@ -53,11 +53,15 @@ public class AutoSequences {
   // shoot basic, drive out
     public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
-        if (isAutoTimeBetween(0, 2)) {
+        if (isAutoTimeBetween(0, 2)) ArmSubsystem.PrepShooter(1);
+        else if (isAutoTimeBetween(2, 3)) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.PrepShooter(1);
-            ArmSubsystem.ShootSpeaker();
-        } else if (isAutoTimeBetween(2, 3.5)) {
+            ArmSubsystem.SpinIntake(0.75);
+        } else if (isAutoTimeBetween(3, 4.5)) {
+          ArmSubsystem.SpinIntake(0);
+          ArmSubsystem.SpinShooter(0);
+          ArmSubsystem.rotateArm(0);
             SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
         } else killAllTheMotors(); 
     }
@@ -102,7 +106,8 @@ public class AutoSequences {
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
             Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
-            SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
           }
         }
       } else {
@@ -164,12 +169,13 @@ public class AutoSequences {
           if (hadNote) succesfulShots++; 
           hadNote = false;
 
-          if (NoteDetector.noteVisible) {
+         if (NoteDetector.noteVisible) {
           ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
             Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
-            SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
           }
         }
       } else {
