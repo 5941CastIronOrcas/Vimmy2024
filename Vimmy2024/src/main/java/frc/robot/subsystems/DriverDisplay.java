@@ -47,7 +47,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry motor1Rpm = arm.add("Shooter 1 Rpm", 0).getEntry();
   public static GenericEntry motor2Rpm = arm.add("Shooter 2 Rpm", 0).getEntry();
   public static GenericEntry range = arm.add("Range", 0).getEntry();
-  public static GenericEntry inShootTotalPower = arm.add("Total Power Consumption of Intake and Shooter Motors", 0).getEntry();
+  public static GenericEntry ShootTotalPower = arm.add("Shooter Amps", 0).getEntry();
+  public static GenericEntry IntakeTotalPower = arm.add("Intake Amps", 0).getEntry();
 
 
   //Swerve
@@ -174,7 +175,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.motor1Rpm.setDouble(Constants.shooterMotor1.getEncoder().getVelocity());
     DriverDisplay.motor2Rpm.setDouble(Constants.shooterMotor2.getEncoder().getVelocity());
     DriverDisplay.range.setDouble(PositionEstimator.distToSpeaker());
-    DriverDisplay.inShootTotalPower.setDouble(Constants.intakeMotor.getOutputCurrent() + Constants.shooterMotor1.getOutputCurrent() + Constants.shooterMotor2.getOutputCurrent());
+    DriverDisplay.ShootTotalPower.setDouble(Constants.shooterMotor1.getOutputCurrent() + Constants.shooterMotor2.getOutputCurrent());
+    DriverDisplay.IntakeTotalPower.setDouble(Constants.intakeMotor.getOutputCurrent());
     
 
 
