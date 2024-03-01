@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.NoteDetector;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.utilityObjects.Vector2D;
@@ -96,9 +97,13 @@ public class AutoSequences {
         } else {
           if (hadNote) succesfulShots++; 
           hadNote = false;
-
+          if (NoteDetector.noteVisible) {
           ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
+          } else {
+            Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
+            SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+          }
         }
       } else {
         killAllTheMotors();
@@ -159,8 +164,13 @@ public class AutoSequences {
           if (hadNote) succesfulShots++; 
           hadNote = false;
 
+          if (NoteDetector.noteVisible) {
           ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
+          } else {
+            Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
+            SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+          }
         }
       } else {
         killAllTheMotors();
