@@ -35,7 +35,7 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     oldAngle = newAngle;
-    newAngle = PositionEstimator.robotPosition.getRotation().getDegrees();
+    newAngle = PositionEstimator.angleToSpeaker();
   }
 
   @Override
