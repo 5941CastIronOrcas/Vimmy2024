@@ -139,7 +139,7 @@ public class DriverDisplay extends SubsystemBase {
         break;
 
       case 6:
-        selectedAutoName = "Retract Climbers, Shoot Aimbot, Drive Out";
+        selectedAutoName = "Drive Out, Retract Climbers, Shoot Aimbot";
         break;
       
       case 7:
