@@ -52,16 +52,16 @@ public class AutoSequences {
   // shoot basic, drive out
     public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
-        if (isAutoTimeBetween(0, 1.5)) {
-            SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-        } else if (isAutoTimeBetween(1.5, 3.5)) {
+        if (isAutoTimeBetween(0, 2)) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.PrepShooter(1);
             ArmSubsystem.ShootSpeaker();
+        } else if (isAutoTimeBetween(2, 3.5)) {
+            SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
         } else killAllTheMotors(); 
     }
 
-  // shoot aimbot, drive out
+  // drive out, shoot aimbot
     public static void autoSequence6() {
         ClimberSubsystem.moveClimbers(-1, 0);
     if (isAutoTimeBetween(0, 1.5)) {
