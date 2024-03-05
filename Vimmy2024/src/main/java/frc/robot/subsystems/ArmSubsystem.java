@@ -26,15 +26,15 @@ public class ArmSubsystem extends SubsystemBase {
     dist = PositionEstimator.distToSpeaker();
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
-    if (!(recalledValue < 0)) {
+    //if (!(recalledValue < 0)) {
       if(recalledValue < Constants.hasNoteTreshold) 
       {
         hasNote = true;
         noNoteFrames = 0;
       }
       else noNoteFrames++;
-      if(noNoteFrames>10) hasNote = false;
-    }
+      if(noNoteFrames>40) hasNote = false;
+    //}
 
     //this code is not working
     /* 
@@ -65,14 +65,13 @@ public class ArmSubsystem extends SubsystemBase {
 
   public static void moveArmTo(double a) {
     rotateArm(Functions.Clamp((Constants.armMotorPMult*(a - armAngle)) 
-    +(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))) 
     -(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
      DriverDisplay.armTarget.setDouble(a);
   }
   
   public static void rotateArm(double t) {
-    t = Functions.Clamp(t, -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1));
+    t = Functions.Clamp(t+(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))), -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1));
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
     Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
     DriverDisplay.armThrottle.setDouble(t);
@@ -107,7 +106,7 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() {
-    SpinShooter(0.15);
+    SpinShooter(0.25);
     moveArmTo(Constants.ampDepositAngle);
     /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {
@@ -124,7 +123,7 @@ public class ArmSubsystem extends SubsystemBase {
     double b = 16.604623863;
     double c = -11.3487133839;
     double d = 43.1365385842;
-    return a*Math.pow(dist + b, c)+d;
+    return a*Math.pow(dist + b, c)+d+2; //+5
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
@@ -143,6 +142,17 @@ public class ArmSubsystem extends SubsystemBase {
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
+    }
+  }
+  public static void ShootSpeaker2() {
+    boolean shooterFast = (Constants.shooterMotor2.getEncoder().getVelocity() >= Constants.minShootRpm);
+    boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
+    if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
+      SpinIntake(1);
+    }
+    else
+    {
+      SpinIntake(0);
     }
   }
 

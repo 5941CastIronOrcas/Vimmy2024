@@ -44,7 +44,7 @@ public class AutoSequences {
     public static void autoSequence4() {
         ClimberSubsystem.moveClimbers(-1, 0);
         if (isAutoTimeBetween(0, 2)) {
-            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
             ArmSubsystem.ShootSpeaker();
             SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
         } else killAllTheMotors();
@@ -53,10 +53,10 @@ public class AutoSequences {
   // shoot basic, drive out
     public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
-        if (isAutoTimeBetween(0, 2)) ArmSubsystem.PrepShooter(1);
+        if (isAutoTimeBetween(0, 2)) ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
         else if (isAutoTimeBetween(2, 3)) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
             ArmSubsystem.SpinIntake(0.75);
         } else if (isAutoTimeBetween(3, 4.5)) {
           ArmSubsystem.SpinIntake(0);
@@ -73,7 +73,7 @@ public class AutoSequences {
         SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
     } else if (isAutoTimeBetween(1.5, 4.5)) {
         SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
-        ArmSubsystem.PrepShooter(1);
+        ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
         ArmSubsystem.ShootSpeaker();
     } else killAllTheMotors();
     
@@ -87,14 +87,15 @@ public class AutoSequences {
       if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
         if (ArmSubsystem.hasNote) {
           hadNote = true;
-          ArmSubsystem.PrepShooter(1);
+          ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             ArmSubsystem.ShootSpeaker();
           } else  {
             if (succesfulShots == 0) {
-              SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            } else if (succesfulShots == 1) {
               SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+
+            } else if (succesfulShots == 1) {
+              SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             }
           }
 
@@ -135,9 +136,14 @@ public class AutoSequences {
         } else {
           if (hadNote) succesfulShots++; 
           hadNote = false;
-          
+          if (NoteDetector.noteVisible) {
           ArmSubsystem.IntakeRing();
-          SwerveSubsystem.CollectNote(0, 0, 0.5);
+          SwerveSubsystem.CollectNote(0, 0, 0.5);        
+          } else {
+            Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
+            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
+            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
+          }
         }
       } else {
         killAllTheMotors();
@@ -188,13 +194,14 @@ public class AutoSequences {
     ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 15)) {
         if (ArmSubsystem.hasNote) {
-          ArmSubsystem.PrepShooter(1);
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
-            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            ArmSubsystem.ShootSpeaker();
+            SwerveSubsystem.FaceSpeaker(0, 0, 1);
+            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.ShootSpeaker2();
           }
           else  {
             SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            ArmSubsystem.SpinIntake(0);
           }
           
         } else {

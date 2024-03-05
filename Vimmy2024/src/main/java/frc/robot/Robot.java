@@ -144,7 +144,7 @@ public class Robot extends TimedRobot {
     }
     else if(Constants.controller1.getXButton())
     {
-      ArmSubsystem.PrepShooter(1);
+      ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
       ArmSubsystem.ShootSpeaker();
     }
     else if(Constants.controller1.getRightTriggerAxis() > 0.5)
@@ -156,6 +156,11 @@ public class Robot extends TimedRobot {
       if(Constants.controller2.getYButton())
       {
         ArmSubsystem.DepositAmp();
+      }
+      else if(Constants.controller2.getRightBumper())
+      {
+        ArmSubsystem.moveArmTo(16.1);
+        ArmSubsystem.SpinShooter(1);
       }
       else
       {
@@ -244,6 +249,18 @@ public class Robot extends TimedRobot {
         break;
       case 6:
         AutoSequences.autoSequence6();
+        break;
+      case 7:
+        AutoSequences.autoSequence7();
+        break;
+      case 8:
+        AutoSequences.autoSequence8();
+        break;
+      case 9:
+        AutoSequences.autoSequence9();
+        break;
+      case 10:
+        AutoSequences.autoSequence10();
         break;
       default:
         AutoSequences.autoSequence0();
