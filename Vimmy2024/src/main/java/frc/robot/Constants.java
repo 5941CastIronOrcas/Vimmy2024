@@ -160,6 +160,7 @@ public final class Constants {
   public static final double launchSpeed = 10.0;
   public static final double gravity = 9.81;
   public static final double defaultShooterSpeed = 1.0;
+  public static final double bottomRpmMult = 1.0;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
   // treshold for auto sequences

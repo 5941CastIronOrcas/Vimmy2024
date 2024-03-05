@@ -84,7 +84,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double input)
   {
-    Constants.lowerShooterMotor.set(input);
+    Constants.lowerShooterMotor.set(input*Constants.bottomRpmMult);
     Constants.upperShooterMotor.set(input);
   }
   public static void Intake(double input)
