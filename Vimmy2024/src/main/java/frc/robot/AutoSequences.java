@@ -224,8 +224,8 @@ public class AutoSequences {
     Constants.intakeMotor.stopMotor();
     Constants.climberMotorR.stopMotor();
     Constants.climberMotorL.stopMotor();
-    Constants.shooterMotor1.stopMotor();
-    Constants.shooterMotor2.stopMotor();
+    Constants.lowerShooterMotor.stopMotor();
+    Constants.upperShooterMotor.stopMotor();
     Constants.armMotor1.stopMotor();
     Constants.armMotor2.stopMotor();
     Constants.blaMotor.stopMotor();

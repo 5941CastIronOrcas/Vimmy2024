@@ -135,8 +135,8 @@ public final class Constants {
   public static final Boolean armMotor1Invert = true;
   public static final Boolean armMotor2Invert = false;
   public static final CANSparkMax intakeMotor = new CANSparkMax(30, MotorType.kBrushless);
-  public static final CANSparkMax shooterMotor1 = new CANSparkMax(31, MotorType.kBrushless);
-  public static final CANSparkMax shooterMotor2 = new CANSparkMax(32, MotorType.kBrushless);
+  public static final CANSparkMax lowerShooterMotor = new CANSparkMax(31, MotorType.kBrushless);
+  public static final CANSparkMax upperShooterMotor = new CANSparkMax(32, MotorType.kBrushless);
   //Arm Sensor Declarations
   public static DutyCycleEncoder armJointEncoder = new DutyCycleEncoder(1);
 
@@ -189,8 +189,9 @@ public final class Constants {
   public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
   public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 8.24);
   public static final double speakerHeight = 2.05;
-  public static final double cameraHeight = 0.22; //in meters for note detector
-  public static final double cameraAngle = -10; //for note detector
+  public static final double noteCameraHeight = 0.22; //in meters for note detector
+  public static final double noteCameraForwardOffset = 0.54; // forward distance from robot center to note detector camera in meters
+  public static final double noteCameraAngle = -10; //for note detector
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera 1";
   public static final String apriltagCamera2Name = "Arducam_OV9281_USB_Camera 2";

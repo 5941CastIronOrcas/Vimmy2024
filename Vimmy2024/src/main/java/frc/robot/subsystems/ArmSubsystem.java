@@ -84,8 +84,8 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double input)
   {
-    Constants.shooterMotor1.set(input);
-    Constants.shooterMotor2.set(input);
+    Constants.lowerShooterMotor.set(input);
+    Constants.upperShooterMotor.set(input);
   }
   public static void Intake(double input)
   {
@@ -99,7 +99,7 @@ public class ArmSubsystem extends SubsystemBase {
   // public static void ShootAtAngle(double a) {
   //   SpinShooter(1);
   //   moveArmTo(a);
-  //   if ((Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
+  //   if ((Constants.lowerShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) && Math.abs(a-armAngle) < Constants.armAngleVariation) {
   //     SpinIntake(1);
   //   } else {
   //     SpinIntake(0);
@@ -138,14 +138,14 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void ShootSpeaker() {
-    boolean shooterFast = (Constants.shooterMotor2.getEncoder().getVelocity() >= Constants.minShootRpm);
+    boolean shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
     }
   }
   public static void ShootSpeaker2() {
-    boolean shooterFast = (Constants.shooterMotor2.getEncoder().getVelocity() >= Constants.minShootRpm);
+    boolean shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
     boolean correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
@@ -160,7 +160,7 @@ public class ArmSubsystem extends SubsystemBase {
   {
     SpinShooter(Constants.trapShootSpeed);
     moveArmTo(Constants.trapShootAngle);
-    boolean shooterFast = (Constants.shooterMotor1.getEncoder().getVelocity() >= Constants.trapMinRPM);
+    boolean shooterFast = (Constants.lowerShooterMotor.getEncoder().getVelocity() >= Constants.trapMinRPM);
     boolean correctArmAngle = (Math.abs(Constants.trapShootAngle-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && SwerveSubsystem.atTargetPosition && SwerveSubsystem.atTargetAngle) {
       SpinIntake(1);
