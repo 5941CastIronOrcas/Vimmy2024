@@ -161,7 +161,10 @@ public class PositionEstimator extends SubsystemBase {
     int n = nearestAutoNote();
     return 90-Math.toDegrees(Math.atan2(notes[n].y - robotPosition.getY(), notes[n].x - robotPosition.getX()));
   }
-  
+  public static boolean atSpeakerAngle() {
+    return Math.abs(Functions.DeltaAngleDeg(angleToSpeaker(), robotPosition.getRotation().getDegrees()))<Constants.speakerAngleVariation;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -189,6 +189,7 @@ public final class Constants {
   public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
   public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 8.24);
   public static final double speakerHeight = 2.05;
+  public static final double speakerAngleVariation = 0.05;
   public static final double noteCameraHeight = 0.22; //in meters for note detector
   public static final double noteCameraForwardOffset = 0.54; // forward distance from robot center to note detector camera in meters
   public static final double noteCameraAngle = -10; //for note detector
