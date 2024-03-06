@@ -20,16 +20,18 @@ public class AutoSequences {
         break;
 
       case 1:
-        Constants.gyro.setYaw(-117.063427353);
+        Constants.gyro.setYaw(-120);
         DriverDisplay.AutoSequenceDisplay.setString("Right Subwoofer Side Selected");
         break;
 
       case 2:
-        Constants.gyro.setYaw(117.063427353);
+        Constants.gyro.setYaw(120);
         DriverDisplay.AutoSequenceDisplay.setString("Left Subwoofer Side Selected");
         break;
 
       default:
+      Constants.gyro.setYaw(180);
+      DriverDisplay.AutoSequenceDisplay.setString("INVALID VALUE");
         break;
     }
 
