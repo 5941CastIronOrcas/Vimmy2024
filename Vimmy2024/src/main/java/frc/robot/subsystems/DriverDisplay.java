@@ -56,10 +56,12 @@ public class DriverDisplay extends SubsystemBase {
   //Arm
   public static ShuffleboardTab arm = Shuffleboard.getTab("Arm");
   public static GenericEntry armAngle = arm.add("Arm Angle", 0).getEntry();
+  public static GenericEntry correctArmAngle = arm.add("Arm at correct angle", false).getEntry();
   public static GenericEntry arduinoRecall = arm.add("Arduino Recall", 0).getEntry();
   public static GenericEntry armHasNote = arm.add("Has Note", false).getEntry();
   public static GenericEntry armTarget = arm.add("Arm Target", 0).getEntry();
   public static GenericEntry armThrottle = arm.add("Arm Throttle", 0).getEntry();
+  public static GenericEntry shooterFast = arm.add("Shooter fast", false).getEntry();
   public static GenericEntry motorPower1 = arm.add("ArmMotor1 Amps", 0).getEntry();
   public static GenericEntry motorPower2 = arm.add("ArmMotor2 Amps", 0).getEntry();
   public static GenericEntry motor1Rpm = arm.add("Shooter 1 Rpm", 0).getEntry();
@@ -85,6 +87,7 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry totalDriveAmps = swerve.add("Total Amps", 0).getEntry();
   public static GenericEntry atTargetPosition = swerve.add("atTargetPos", false).getEntry();
   public static GenericEntry atTargetAngle = swerve.add("atTargetAngle", false).getEntry();
+  public static GenericEntry atSpeakerAngle = arm.add("Facing speaker", false).getEntry();
 
 
 
@@ -186,8 +189,10 @@ public class DriverDisplay extends SubsystemBase {
 
     //Arm
     DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
+    DriverDisplay.correctArmAngle.setBoolean(ArmSubsystem.correctArmAngle);
     DriverDisplay.arduinoRecall.setDouble(ArmSubsystem.recalledValue);
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
+    DriverDisplay.shooterFast.setBoolean(ArmSubsystem.shooterFast);
     DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
     DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
     DriverDisplay.motor1Rpm.setDouble(Constants.lowerShooterMotor.getEncoder().getVelocity());
@@ -211,6 +216,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.totalDriveAmps.setDouble(Constants.fraMotor.getOutputCurrent() + Constants.flaMotor.getOutputCurrent() + Constants.braMotor.getOutputCurrent() + Constants.blaMotor.getOutputCurrent());
     DriverDisplay.atTargetPosition.setBoolean(SwerveSubsystem.atTargetPosition);
     DriverDisplay.atTargetAngle.setBoolean(SwerveSubsystem.atTargetAngle);
+    DriverDisplay.atSpeakerAngle.setBoolean(PositionEstimator.atSpeakerAngle());
 
    
     
