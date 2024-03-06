@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.lang.constant.DirectMethodHandleDesc;
+import java.sql.Driver;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -228,10 +231,24 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() 
-  {
-    switch(selectedAutoSequence)
-    {
+  public void autonomousPeriodic() {
+    AutoSequences.notesIncluded[0] = noteIgnoranceGetInpt(DriverDisplay.note0Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[1] = noteIgnoranceGetInpt(DriverDisplay.note1Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[2] = noteIgnoranceGetInpt(DriverDisplay.note2Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[3] = noteIgnoranceGetInpt(DriverDisplay.note3Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[4] = noteIgnoranceGetInpt(DriverDisplay.note4Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[5] = noteIgnoranceGetInpt(DriverDisplay.note5Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[6] = noteIgnoranceGetInpt(DriverDisplay.note6Ignorance.getString("NONE"));
+    AutoSequences.notesIncluded[7] = noteIgnoranceGetInpt(DriverDisplay.note7Ignorance.getString("NONE"));
+    
+    String outputString = "";
+    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? '1' : '0'); 
+    DriverDisplay.note0Ignorance.setString(outputString);
+    
+    
+    for (int i = 0; i < 8; i++)
+    DriverDisplay.noteIgnoranceHEX.setString(outputString);
+        switch(selectedAutoSequence) {
       case 0:
         AutoSequences.autoSequence0();
         break;
@@ -270,4 +287,72 @@ public class Robot extends TimedRobot {
         break;
     }
   }  
+  public static boolean noteIgnoranceGetInpt(String inptStr) {
+    return inptStr.toLowerCase().equals("n") || inptStr.toLowerCase().equals("no") || inptStr.toLowerCase().equals("none") || inptStr.toLowerCase().equals("0");
+  }
+  /*
+  public static String BoolToHexString(boolean[] inptData) {
+    if (inptData[0]) {
+      if (inptData[1]) {
+        if (inptData[2]) {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        } else {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        }
+      } else {
+        if (inptData[2]) {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        } else {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        }
+      }
+    } else {
+      if (inptData[1]) {
+        if (inptData[2]) {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        } else {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        }
+      } else {
+        if (inptData[2]) {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        } else {
+          if (inptData[3]) {
+
+          } else {
+            
+          }
+        }
+      }
+    }
+    return "0x" + ;
+  } */
 }
