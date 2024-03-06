@@ -30,6 +30,8 @@ public class AutoSequences {
         break;
 
       default:
+      Constants.gyro.setYaw(180);
+      DriverDisplay.AutoSequenceDisplay.setString("INVALID VALUE");
         break;
     }
 
