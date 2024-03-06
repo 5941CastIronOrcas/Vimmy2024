@@ -31,6 +31,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
   public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
 
+  public static GenericEntry gyroOrientation = AutoStuff.add("Gyro Start Angle", 0).getEntry(); 
+  public static GenericEntry gyroOrientationDisplay = AutoStuff.add("Gyro Angle Selected", "N/A").getEntry();
 
   // Auto Sequences selector
   public static GenericEntry noteIgnorancePreset = AutoStuff.add("notePatternPreset", "N/A").getEntry();

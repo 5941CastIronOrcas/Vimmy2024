@@ -19,6 +19,7 @@ import frc.robot.Functions;
 import frc.robot.Robot;
 import frc.robot.utilityObjects.Vector2D;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.photonvision.*;
@@ -27,10 +28,11 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class PositionEstimator extends SubsystemBase {
+  public static ArrayList<Vector2D> realNoteList = new ArrayList<>();
   public static double robotYawDriverRelative = 0;
   private static double gyroYawOld = 0;
   public static double robotYawRate = 0;
-  public static Pose2d robotPosition = new Pose2d();  
+  public static Pose2d robotPosition = new Pose2d();
   public static Pose2d previousPosition = new Pose2d();
   public static Vector2D velocity = new Vector2D(0, 0);
 
@@ -48,7 +50,6 @@ public class PositionEstimator extends SubsystemBase {
   public static Vector2D[] deltaBuffer = new Vector2D[50];
   public static double latency1 = 0;
   public static double latency2 = 0;
-
   public static double sumX = 0;
   public static double sumY = 0;
 
@@ -141,7 +142,8 @@ public class PositionEstimator extends SubsystemBase {
     return 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - robotPosition.getX()));
   }
   public static int nearestAutoNote() {
-    Vector2D[] notes = Constants.allNotesPos;
+    Vector2D[] notes = new Vector2D[realNoteList.size()];
+    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int id = -1;
     double minDist = 100000;
     for (int i = 0; i < notes.length; i++) {
@@ -152,17 +154,23 @@ public class PositionEstimator extends SubsystemBase {
     return id;
   }
   public static double distToClosestNote() {
-    Vector2D[] notes = Constants.allNotesPos;
+    Vector2D[] notes = new Vector2D[realNoteList.size()];
+    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
     return Functions.Pythagorean(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY());
   }
   public static double angleToClosestNote() {
-    Vector2D[] notes = Constants.allNotesPos;
+    Vector2D[] notes = new Vector2D[realNoteList.size()];
+    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
     return 90-Math.toDegrees(Math.atan2(notes[n].y - robotPosition.getY(), notes[n].x - robotPosition.getX()));
   }
   public static boolean atSpeakerAngle() {
     return Math.abs(Functions.DeltaAngleDeg(angleToSpeaker(), robotPosition.getRotation().getDegrees()))<Constants.speakerAngleVariation;
+  }
+
+  public static void removeClosestNote() {
+    realNoteList.remove(nearestAutoNote());
   }
 
   @Override

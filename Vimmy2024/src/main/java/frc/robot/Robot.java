@@ -217,6 +217,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    for (int i = 0; i < Constants.allNotesPos.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
     Constants.timeSinceStartAtAutoStart = Timer.getFPGATimestamp();
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -225,7 +226,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    Constants.gyro.setYaw(180);
+    AutoSequences.AutoStart();
   }
 
 
@@ -243,12 +244,9 @@ public class Robot extends TimedRobot {
     
     String outputString = "";
     for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? '1' : '0'); 
-    DriverDisplay.note0Ignorance.setString(outputString);
-    
-    
-    for (int i = 0; i < 8; i++)
-    DriverDisplay.noteIgnoranceHEX.setString(outputString);
-        switch(selectedAutoSequence) {
+    outputString = DriverDisplay.noteIgnorancePreset.getString("NONE");
+    DriverDisplay.noteIgnoranceCheck.setString(outputString);
+    switch(selectedAutoSequence) {
       case 0:
         AutoSequences.autoSequence0();
         break;

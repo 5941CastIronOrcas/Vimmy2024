@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.DriverDisplay;
 import frc.robot.subsystems.NoteDetector;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -10,6 +11,30 @@ import frc.robot.utilityObjects.Vector2D;
 
 public class AutoSequences {
   public static boolean[] notesIncluded = new boolean[8];
+  
+  public static void AutoStart() {
+    switch ((int)DriverDisplay.AutoSequence.getInteger(0)) {
+      case 0:
+        Constants.gyro.setYaw(180);
+        DriverDisplay.AutoSequenceDisplay.setString("0 Angle Selected (Intake Forward)");
+        break;
+
+      case 1:
+        Constants.gyro.setYaw(-117.063427353);
+        DriverDisplay.AutoSequenceDisplay.setString("Right Subwoofer Side Selected");
+        break;
+
+      case 2:
+        Constants.gyro.setYaw(117.063427353);
+        DriverDisplay.AutoSequenceDisplay.setString("Left Subwoofer Side Selected");
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
   // kill all the motors
     public static void autoSequence0() {
         killAllTheMotors();
@@ -176,6 +201,7 @@ public class AutoSequences {
           hadNote = false;
 
          if (NoteDetector.noteVisible) {
+          PositionEstimator.removeClosestNote();
           ArmSubsystem.IntakeRing();
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
