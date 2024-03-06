@@ -40,14 +40,7 @@ public class NoteDetector extends SubsystemBase {
     // This method will be called once per scheduler run
     result = camera.getLatestResult();
     target = obtainTarget();
-    if(camCheck() && ArmSubsystem.armAngle < 40)
-    {
-      noteVisible = true;
-    }
-    else
-    {
-      noteVisible = false;
-    }
+    noteVisible = camCheck() && ArmSubsystem.armAngle < 40;
   
     if(noteVisible)
     {
