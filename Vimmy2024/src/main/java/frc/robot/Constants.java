@@ -151,7 +151,7 @@ public final class Constants {
   public static final double minArmAngle = 0;
   public static final double maxArmAngle = 99;
   //Intake / Shooter Control Constants
-  public static final double minShootRpm = 5100; //the minimum RPM the shooter needs to be at to shoot
+  public static final double minShootRpm = 5200; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 99.0; //the angle the arm should be at to do the amp
   public static final double trapShootAngle = 30;
