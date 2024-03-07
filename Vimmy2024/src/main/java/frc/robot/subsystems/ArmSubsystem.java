@@ -91,7 +91,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double lowIn, double upIn)
   {
-    Constants.lowerShooterMotor.set(lowIn);
+    Constants.lowerShooterMotor.set(lowIn*Constants.bottomRpmMult);
     Constants.upperShooterMotor.set(upIn);
   }
   public static void Intake(double input)
@@ -112,7 +112,7 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() {
-    SpinShooter(0.25);
+    SpinShooter(0.1,0.7);
     moveArmTo(Constants.ampDepositAngle);
     /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {
@@ -122,6 +122,11 @@ public class ArmSubsystem extends SubsystemBase {
     {
       SpinIntake(0);
     }*/
+  }
+  public static void DepositAmpSafety() {
+    SpinShooter(0.1,0.7);
+    if (SwerveSubsystem.atTargetPosition) moveArmTo(Constants.ampDepositAngle);
+    else moveArmTo(85);
   }
 
   public static double GetSpeakerAngle() {
