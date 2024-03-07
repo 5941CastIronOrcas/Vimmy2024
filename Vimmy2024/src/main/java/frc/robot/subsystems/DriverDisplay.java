@@ -5,11 +5,14 @@
 package frc.robot.subsystems;
 
 
+import java.sql.Driver;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,6 +30,23 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry AutoSequence = AutoStuff.add("Select Your Auto Here", 0).getEntry();
   public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
   public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
+
+  public static GenericEntry gyroOrientation = AutoStuff.add("Gyro Start Angle", 0).getEntry(); 
+  public static GenericEntry gyroOrientationDisplay = AutoStuff.add("Gyro Angle Selected", "N/A").getEntry();
+
+  // Auto Sequences selector
+  public static GenericEntry noteIgnorancePreset = AutoStuff.add("notePatternPreset", "N/A").getEntry();
+  public static GenericEntry noteIgnoranceHEX = AutoStuff.add("notePatternHEX", "N/A").getEntry();
+  public static GenericEntry noteIgnoranceCheck = AutoStuff.add("Selected Note Ignorance [0 - ignore, 1 - include]", "N/A").getEntry();
+
+  public static GenericEntry note0Ignorance = AutoStuff.add("note0Included", "N/A").getEntry();
+  public static GenericEntry note1Ignorance = AutoStuff.add("note1Included", "N/A").getEntry();
+  public static GenericEntry note2Ignorance = AutoStuff.add("note2Included", "N/A").getEntry();
+  public static GenericEntry note3Ignorance = AutoStuff.add("note3Included", "N/A").getEntry();
+  public static GenericEntry note4Ignorance = AutoStuff.add("note4Included", "N/A").getEntry();
+  public static GenericEntry note5Ignorance = AutoStuff.add("note5Included", "N/A").getEntry();
+  public static GenericEntry note6Ignorance = AutoStuff.add("note6Included", "N/A").getEntry();
+  public static GenericEntry note7Ignorance = AutoStuff.add("note7Included", "N/A").getEntry();
 
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
