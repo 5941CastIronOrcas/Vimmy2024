@@ -12,20 +12,20 @@ public class AutoSequences {
   
   // kill all the motors
     public static void autoSequence0() {
-        killAllTheMotors();
+        Functions.killAllMotors();
     }
 
   // retract climbers
     public static void autoSequence1() {
         if (isAutoTimeBetween(0, 3)) ClimberSubsystem.moveClimbers(-1, 0);
-        else killAllTheMotors();
+        else Functions.killAllMotors();
     }
 
   // drive out
     public static void autoSequence2() {
         ClimberSubsystem.moveClimbers(-1, 0);
         if(isAutoTimeBetween(0.0, 1.5)) SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-        else killAllTheMotors();
+        else Functions.killAllMotors();
     }
 
   // shoot basic
@@ -37,7 +37,7 @@ public class AutoSequences {
             ArmSubsystem.SpinIntake(0.75);
             ArmSubsystem.PrepShooter(0.8);
         }
-        else killAllTheMotors();
+        else Functions.killAllMotors();
     }
 
   //shoot aimbot
@@ -47,7 +47,7 @@ public class AutoSequences {
             ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
             ArmSubsystem.ShootSpeaker();
             SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
-        } else killAllTheMotors();
+        } else Functions.killAllMotors();
     }
 
   // shoot basic, drive out
@@ -63,7 +63,7 @@ public class AutoSequences {
           ArmSubsystem.SpinShooter(0);
           ArmSubsystem.rotateArm(0);
             SwerveSubsystem.DriveDriverOriented(0, 0.25, 0);
-        } else killAllTheMotors(); 
+        } else Functions.killAllMotors(); 
     }
 
   // drive out, shoot aimbot
@@ -75,7 +75,7 @@ public class AutoSequences {
         SwerveSubsystem.FaceSpeaker(0, 0, 0.25);
         ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
         ArmSubsystem.ShootSpeaker();
-    } else killAllTheMotors();
+    } else Functions.killAllMotors();
     
     }
 
@@ -112,7 +112,7 @@ public class AutoSequences {
           }
         }
       } else {
-        killAllTheMotors();
+        Functions.killAllMotors();
       }
     }
 
@@ -146,7 +146,7 @@ public class AutoSequences {
           }
         }
       } else {
-        killAllTheMotors();
+        Functions.killAllMotors();
       }
     
   }
@@ -185,7 +185,7 @@ public class AutoSequences {
           }
         }
       } else {
-        killAllTheMotors();
+        Functions.killAllMotors();
       }
   }
 
@@ -210,7 +210,7 @@ public class AutoSequences {
           SwerveSubsystem.CollectNote(0, 0, 0.5);        
         }
       } else {
-        killAllTheMotors();
+        Functions.killAllMotors();
       }
     
   }
@@ -220,22 +220,6 @@ public class AutoSequences {
   public static boolean isAutoTimeBetween(double timeMin, double timeMax) {
     return timeMin < Timer.getFPGATimestamp() - Constants.timeSinceStartAtAutoStart && timeMax > Timer.getFPGATimestamp() - Constants.timeSinceStartAtAutoStart ;
   }
-  public static void killAllTheMotors() {
-    Constants.intakeMotor.stopMotor();
-    Constants.climberMotorR.stopMotor();
-    Constants.climberMotorL.stopMotor();
-    Constants.lowerShooterMotor.stopMotor();
-    Constants.upperShooterMotor.stopMotor();
-    Constants.armMotor1.stopMotor();
-    Constants.armMotor2.stopMotor();
-    Constants.blaMotor.stopMotor();
-    Constants.bltMotor.stopMotor();
-    Constants.braMotor.stopMotor();
-    Constants.brtMotor.stopMotor();
-    Constants.flaMotor.stopMotor();
-    Constants.fltMotor.stopMotor();
-    Constants.fraMotor.stopMotor();
-    Constants.frtMotor.stopMotor();
-  }
+  
 }
  

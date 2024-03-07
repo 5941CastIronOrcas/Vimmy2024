@@ -91,4 +91,21 @@ public class Functions {
             
         }
     }
+    public static void killAllMotors() {
+        Constants.intakeMotor.stopMotor();
+        Constants.climberMotorR.stopMotor();
+        Constants.climberMotorL.stopMotor();
+        Constants.lowerShooterMotor.stopMotor();
+        Constants.upperShooterMotor.stopMotor();
+        Constants.armMotor1.stopMotor();
+        Constants.armMotor2.stopMotor();
+        Constants.blaMotor.stopMotor();
+        Constants.bltMotor.stopMotor();
+        Constants.braMotor.stopMotor();
+        Constants.brtMotor.stopMotor();
+        Constants.flaMotor.stopMotor();
+        Constants.fltMotor.stopMotor();
+        Constants.fraMotor.stopMotor();
+        Constants.frtMotor.stopMotor();
+      }
 }
