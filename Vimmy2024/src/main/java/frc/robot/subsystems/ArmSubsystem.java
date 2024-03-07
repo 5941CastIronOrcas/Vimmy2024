@@ -123,6 +123,11 @@ public class ArmSubsystem extends SubsystemBase {
       SpinIntake(0);
     }*/
   }
+  public static void DepositAmpSafety() {
+    SpinShooter(0.1,0.7);
+    if (SwerveSubsystem.atTargetPosition) moveArmTo(Constants.ampDepositAngle);
+    else moveArmTo(85);
+  }
 
   public static double GetSpeakerAngle() {
     double a = -4.87356607*Math.pow(10, 15);
