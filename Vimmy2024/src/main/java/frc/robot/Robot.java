@@ -163,31 +163,41 @@ public class Robot extends TimedRobot {
       {
         ArmSubsystem.DepositAmp();
       }
-      else if(Constants.controller2.getRightBumper())
-      {
-        ArmSubsystem.moveArmTo(16.1);
-        ArmSubsystem.SpinShooter(1);
-      }
       else
       {
-        ArmSubsystem.rotateArm(LSY2);
-        ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis());
+        if(Constants.controller2.getRightBumper())
+        {
+          ArmSubsystem.moveArmTo(16.1);
+        }
+        else
+        {
+          ArmSubsystem.rotateArm(LSY2);
+        }
+        
+        if(Constants.controller2.getRightBumper())
+        {
+          ArmSubsystem.SpinShooter(1);
+        }
+        else
+        {
+          ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis()-Constants.controller2.getLeftTriggerAxis());
+        }
       }
-      
       if(Constants.controller2.getXButton())
-      {
-        ArmSubsystem.SpinIntake(0.5);
-      }
-      else if(Constants.controller2.getBButton())
-      {
-        ArmSubsystem.SpinIntake(-0.25);
-      } else if (Constants.controller2.getAButton()) {
-        ArmSubsystem.Intake(0.5);
-      }
-      else
-      {
-        ArmSubsystem.SpinIntake(0);
-      }
+        {
+          ArmSubsystem.SpinIntake(0.5);
+        }
+        else if(Constants.controller2.getBButton())
+        {
+          ArmSubsystem.SpinIntake(-0.25);
+        } else if (Constants.controller2.getAButton()) {
+          ArmSubsystem.Intake(0.5);
+        }
+        else
+        {
+          ArmSubsystem.SpinIntake(-Constants.controller2.getLeftTriggerAxis());
+        }
+      
     }
 
     ClimberSubsystem.moveClimbers(RSY2, RSX2);
