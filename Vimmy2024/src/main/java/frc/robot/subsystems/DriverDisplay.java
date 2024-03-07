@@ -39,14 +39,7 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry noteIgnoranceHEX = AutoStuff.add("notePatternHEX", "N/A").getEntry();
   public static GenericEntry noteIgnoranceCheck = AutoStuff.add("Selected Note Ignorance [0 - ignore, 1 - include]", "N/A").getEntry();
 
-  public static GenericEntry note0Ignorance = AutoStuff.add("note0Included", "N/A").getEntry();
-  public static GenericEntry note1Ignorance = AutoStuff.add("note1Included", "N/A").getEntry();
-  public static GenericEntry note2Ignorance = AutoStuff.add("note2Included", "N/A").getEntry();
-  public static GenericEntry note3Ignorance = AutoStuff.add("note3Included", "N/A").getEntry();
-  public static GenericEntry note4Ignorance = AutoStuff.add("note4Included", "N/A").getEntry();
-  public static GenericEntry note5Ignorance = AutoStuff.add("note5Included", "N/A").getEntry();
-  public static GenericEntry note6Ignorance = AutoStuff.add("note6Included", "N/A").getEntry();
-  public static GenericEntry note7Ignorance = AutoStuff.add("note7Included", "N/A").getEntry();
+  public static GenericEntry notesIgnorance = AutoStuff.add("note0Included", "N/A").getEntry();
 
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");

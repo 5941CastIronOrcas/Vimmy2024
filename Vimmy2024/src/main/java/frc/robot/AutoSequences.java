@@ -9,7 +9,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.utilityObjects.Vector2D;
 
 public class AutoSequences {
-  
+  public static boolean[] notesIncluded = new boolean[8];
   // kill all the motors
     public static void autoSequence0() {
         Functions.killAllMotors();
