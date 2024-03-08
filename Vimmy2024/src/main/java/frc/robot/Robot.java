@@ -246,14 +246,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("11111111");
-    for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
-
     
-    String outputString = "";
-    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? '1' : '0'); 
-    outputString = DriverDisplay.noteIgnorancePreset.getString("NONE");
-    DriverDisplay.noteIgnoranceCheck.setString(outputString);
     switch(selectedAutoSequence) {
       case 0:
         AutoSequences.autoSequence0();
