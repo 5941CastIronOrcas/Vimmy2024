@@ -250,7 +250,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.climberL.setDouble(Constants.climberMotorL.get());
 
 
-    //goa
+    //GOA
     /*Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
     DriverDisplay.avoidanceX.setDouble(nono.x);
     DriverDisplay.avoidanceY.setDouble(nono.y);
@@ -263,8 +263,8 @@ public class DriverDisplay extends SubsystemBase {
       }
     }
     m_field.setRobotPose(positionPose2d);*/  //GOA disabled for now
-    
-    
+    DriverDisplay.avoidanceX.setDouble(SwerveSubsystem.goaAvoidVector.x);
+    DriverDisplay.avoidanceY.setDouble(SwerveSubsystem.goaAvoidVector.y);    
     
 
     
