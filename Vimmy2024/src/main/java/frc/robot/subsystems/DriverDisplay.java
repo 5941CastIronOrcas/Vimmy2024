@@ -192,8 +192,8 @@ public class DriverDisplay extends SubsystemBase {
       for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
     
     String outputString = "";
-    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? i + ", " : ""); 
-    DriverDisplay.noteIgnoranceCheck.setString("Disabled notes" + outputString);
+    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? "" : (i + 1) + ", "); 
+    DriverDisplay.noteIgnoranceCheck.setString("Disabled notes: " + outputString);
 
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
