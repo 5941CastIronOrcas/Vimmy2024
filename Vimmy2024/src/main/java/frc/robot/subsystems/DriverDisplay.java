@@ -22,7 +22,6 @@ import frc.robot.Robot;
 import frc.robot.utilityObjects.Vector2D;
 
 
-
 public class DriverDisplay extends SubsystemBase {
   
   //Auto Selectors and Whatnot

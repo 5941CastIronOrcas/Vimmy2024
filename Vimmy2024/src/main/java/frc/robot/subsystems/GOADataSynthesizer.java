@@ -54,6 +54,8 @@ public class GOADataSynthesizer extends SubsystemBase {
    
   public GOADataSynthesizer() {
     for (int i = 0; i < ignoranceID; i++) allObstacles[i] = staticObstacles[i]; // merge the static into all
+
+    for (int i = ignoranceID; i < allObstacles.length; i++) allObstacles[i] = new Obstacle(-999, -999, true, 0);
   }
 
   @Override
