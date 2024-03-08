@@ -185,7 +185,7 @@ public class DriverDisplay extends SubsystemBase {
         
     // note choosing
     String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("11111111");
-    for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
+    for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
 
     
     String outputString = "";
