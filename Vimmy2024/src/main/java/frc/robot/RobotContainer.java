@@ -34,8 +34,8 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final NoteDetector noteDetector = new NoteDetector();
-  //private final GOADataSynthesizer dataSynthesizer = new GOADataSynthesizer();
-  //private final GOAGuidanceSystem guidanceSystem = new GOAGuidanceSystem();
+  private final GOADataSynthesizer dataSynthesizer = new GOADataSynthesizer();
+  private final GOAGuidanceSystem guidanceSystem = new GOAGuidanceSystem();
   private final DriverDisplay driverDisplay = new DriverDisplay();
   private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   private final ControllerRumble controllerRumble = new ControllerRumble();
