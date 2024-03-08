@@ -73,9 +73,9 @@ public class GOAGuidanceSystem extends SubsystemBase {
     return Functions.ClampVector(driveVector, 1);
   }
 
-  public static double GetProtectionAngle()
+  /*public static double GetProtectionAngle()
   {
     Vector2D a = GetAvoidanceVector();
     return 180+Math.toDegrees(Math.atan2(a.x, a.y));
-  }
+  }*/
 }
