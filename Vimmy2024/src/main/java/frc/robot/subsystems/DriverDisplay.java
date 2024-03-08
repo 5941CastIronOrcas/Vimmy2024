@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AutoSequences;
 import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
@@ -178,6 +179,25 @@ public class DriverDisplay extends SubsystemBase {
         selectedAutoName = "THE VALUE IS INVALID";
         break;
     }
+
+
+
+        
+    // note choosing
+    String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("11111111");
+    for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
+
+    
+    String outputString = "";
+    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? '1' : '0'); 
+    outputString = DriverDisplay.noteIgnorancePreset.getString("NONE");
+    DriverDisplay.noteIgnoranceCheck.setString(outputString);
+    
+
+
+
+
+    
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
 
