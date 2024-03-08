@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
   public static boolean robotLimp = true;
-  public static short framesNotePresent = 0;
+  public static short framesNoteNotPresent = 0;
   public static int selectedAutoSequence = Constants.defaultAutoSequence;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
@@ -252,15 +252,15 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     
     if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2+Constants.noteCameraForwardOffset && PositionEstimator.distToClosestNote() < 2+Constants.noteCameraForwardOffset && !NoteDetector.noteVisible) {
-      framesNotePresent++;
-      if (framesNotePresent >= 40) {
+      framesNoteNotPresent++;
+      if (framesNoteNotPresent >= 40) {
         PositionEstimator.removeClosestNote();
-        framesNotePresent = 0;
+        framesNoteNotPresent = 0;
       }
     }
     else
     {
-      framesNotePresent = 0;
+      framesNoteNotPresent = 0;
     }
     switch(selectedAutoSequence) {
       case 0:
