@@ -185,8 +185,11 @@ public class DriverDisplay extends SubsystemBase {
         
     // note choosing
     String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("11111111");
-    for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
-
+    try {
+      for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
+    } catch (Exception e) {
+      System.out.println("The thing is weird. The end limit is: " + (noteIgnoranceInpt.length() - 1) + "The input is: "  +noteIgnoranceInpt);
+    }
     
     String outputString = "";
     for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? '1' : '0'); 
