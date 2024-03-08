@@ -113,8 +113,9 @@ public class AutoSequences {
     boolean wasInDriveToNote = false;
     boolean hadNote = false;
     byte succesfulShots = 0;
-    ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
@@ -154,8 +155,10 @@ public class AutoSequences {
     boolean wasInDriveToNote = false;
     boolean hadNote = false;
     byte succesfulShots = 0;
-    ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        ArmSubsystem.SpinShooter(1);
+
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -193,8 +196,9 @@ public class AutoSequences {
     boolean wasInDriveToNote = false;
     boolean hadNote = false;
     byte succesfulShots = 0;
-    ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 15)) {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
@@ -234,8 +238,9 @@ public class AutoSequences {
     boolean wasInDriveToNote = false;
     boolean hadNote = false;
     byte succesfulShots = 0;
-    ClimberSubsystem.moveClimbers(-1, 0);
       if (isAutoTimeBetween(0, 15)) {
+        ClimberSubsystem.moveClimbers(-1, 0);
+        ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
           if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
             SwerveSubsystem.FaceSpeaker(0, 0, 1);
