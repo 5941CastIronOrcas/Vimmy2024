@@ -36,10 +36,10 @@ public class DriverDisplay extends SubsystemBase {
 
   // Auto Sequences selector
   public static GenericEntry noteIgnorancePreset = AutoStuff.add("notePatternPreset", "N/A").getEntry();
-  public static GenericEntry noteIgnoranceHEX = AutoStuff.add("notePatternHEX", "N/A").getEntry();
+  //public static GenericEntry noteIgnoranceHEX = AutoStuff.add("notePatternHEX", "N/A").getEntry();
   public static GenericEntry noteIgnoranceCheck = AutoStuff.add("Selected Note Ignorance [0 - ignore, 1 - include]", "N/A").getEntry();
 
-  public static GenericEntry notesIgnorance = AutoStuff.add("note0Included", "N/A").getEntry();
+  public static GenericEntry notesIgnorance = AutoStuff.add("notesToggleInput", "N/A").getEntry();
 
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
@@ -188,13 +188,12 @@ public class DriverDisplay extends SubsystemBase {
 
     if (noteIgnoranceInpt.length() > 8) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, 7);
     if (noteIgnoranceInpt.length() < 8) for (int i = noteIgnoranceInpt.length(); i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt + "1";
+    for (int i = 0; i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, i) + (noteIgnoranceInpt.charAt(i) == '0' ? '0' : '1') + noteIgnoranceInpt.substring(i, noteIgnoranceInpt.length() - 1);
       for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
-    /*
+    
     String outputString = "";
     for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? "note " + i + ": yes" : "note " + i + ": no"); 
-    outputString = DriverDisplay.noteIgnorancePreset.getString("NONE");
-    */
-    DriverDisplay.noteIgnoranceCheck.setString(noteIgnoranceInpt);
+    DriverDisplay.noteIgnoranceCheck.setString(outputString);
 
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
