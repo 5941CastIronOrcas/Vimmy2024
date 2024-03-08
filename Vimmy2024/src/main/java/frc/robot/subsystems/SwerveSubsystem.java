@@ -16,15 +16,16 @@ import java.lang.Math;
  **/
 
 public class SwerveSubsystem extends SubsystemBase {
-  public static double xOut = 0;
-  public static double yOut = 0;
-  public static double flThrottleOut = 0;
-  public static double frThrottleOut = 0;
-  public static double blThrottleOut = 0;
-  public static double brThrottleOut = 0;
-  public static double oldAngle = 0;
-  public static double newAngle = 0;
+  public static double xOut = 0.0;
+  public static double yOut = 0.0;
+  public static double flThrottleOut = 0.0;
+  public static double frThrottleOut = 0.0;
+  public static double blThrottleOut = 0.0;
+  public static double brThrottleOut = 0.0;
+  public static double oldAngle = 0.0;
+  public static double newAngle = 0.0;
   public static Vector2D goaAvoidVector = new Vector2D(0, 0);
+  public static double goaAvoidAngle = 0.0;
   public static SwerveModule flModule = new SwerveModule(Constants.flaMotor,Constants.fltMotor,Constants.flEncoder,true,Constants.fltInvert,45);
   public static SwerveModule frModule = new SwerveModule(Constants.fraMotor,Constants.frtMotor,Constants.frEncoder,true,Constants.frtInvert,-45);
   public static SwerveModule blModule = new SwerveModule(Constants.blaMotor,Constants.bltMotor,Constants.blEncoder,true,Constants.bltInvert,-45);
@@ -38,6 +39,7 @@ public class SwerveSubsystem extends SubsystemBase {
     oldAngle = newAngle;
     newAngle = PositionEstimator.angleToSpeaker();
     goaAvoidVector = GOAGuidanceSystem.GetAvoidanceVector();
+    goaAvoidAngle = Math.toDegrees(Math.atan2(goaAvoidVector.x, goaAvoidVector.y)) + 180;
   }
 
   @Override
@@ -63,23 +65,10 @@ public class SwerveSubsystem extends SubsystemBase {
     double yComponent = output * Math.cos(angleToTarget);
     DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);
   }
-  public static void GOADriveTo(double x, double y, double angle, double speedLimit, double turnLimit, double XOffset, double YOffset)
+  public static void GOADriveTo(double x, double y, double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
-    /*double angleToTarget = 90-Math.atan2(y-PositionEstimator.robotPosition.getY(), x-PositionEstimator.robotPosition.getX());
-    double pComponent = Constants.swerveDriveToPMult*Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
-    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.deltaX, PositionEstimator.deltaY);
-    double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
-    double xComponent = Functions.DeadZone(output * Math.sin(angleToTarget), Constants.swerveDriveToDeadZone);
-    double yComponent = Functions.DeadZone(output * Math.cos(angleToTarget), Constants.swerveDriveToDeadZone);
-    DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);*/
-    double angleToTarget = Math.atan2(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY());
-    double pComponent = Constants.swerveDriveToPMult*Functions.DeadZone(Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY()), Constants.swerveDriveToDeadZone);
-    atTargetPosition = pComponent < 0.001;
-    double dComponent = Constants.swerveDriveToDMult*Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y);
-    double output = Functions.Clamp(pComponent - dComponent, 0, speedLimit);
-    double xComponent = output * Math.sin(angleToTarget);
-    double yComponent = output * Math.cos(angleToTarget);
-    DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);
+    Vector2D v = GOAGuidanceSystem.GetDriveVector(x, y, goaAvoidVector);
+    DriveFieldOrientedAtAngle(v.x, v.y, goaAvoidAngle, turnLimit);
   }
   
   public static void DriveFieldOriented(double x, double y, double turn)
@@ -110,7 +99,7 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveDriverOriented(LSX, LSY, t);
   }
   public static void DriveDriverOrientedProtectIntake(double LSX, double LSY, double turnLimit) {
-    DriveDriverOrientedAtAngle(LSX, LSY, Math.toDegrees(Math.atan2(goaAvoidVector.x, goaAvoidVector.y))+180, turnLimit);
+    DriveDriverOrientedAtAngle(LSX, LSY, goaAvoidAngle, turnLimit);
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
