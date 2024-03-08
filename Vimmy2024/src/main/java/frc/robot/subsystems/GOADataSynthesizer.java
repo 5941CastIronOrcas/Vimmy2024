@@ -57,17 +57,19 @@ public class GOADataSynthesizer extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    for (int i = 0; i < 8; i++) tempSensorReturn[i] = SonarModules[i].GetObstaclePosition(); // get readings from sensors
-    if (currentFrame >= Constants.GOAFrameRate) {
-    //update the one frame cluster data
-    for (int i = 0; i < 8; i++) {
-      Vector2D tempReading = SonarModules[i].GetObstaclePosition();
-      allObstacles[PointerCluster * 8 + ignoranceID + i] = new Obstacle (tempReading.x, tempReading.y, false, 1);
+  public void periodic() { 
+    if (Constants.isGOASynthEnabled) {
+      for (int i = 0; i < 8; i++) tempSensorReturn[i] = SonarModules[i].GetObstaclePosition(); // get readings from sensors
+      if (currentFrame >= Constants.GOAFrameRate) {
+      //update the one frame cluster data
+      for (int i = 0; i < 8; i++) {
+        Vector2D tempReading = SonarModules[i].GetObstaclePosition();
+        allObstacles[PointerCluster * 8 + ignoranceID + i] = new Obstacle (tempReading.x, tempReading.y, false, 1);
+      }
+      PointerCluster = (short) (PointerCluster++ % (Constants.maxObstacleLifeFrames / Constants.GOAFrameRate));
+      }
+      currentFrame = (short) (currentFrame++ % Constants.GOAFrameRate);
     }
-    PointerCluster = (short) (PointerCluster++ % (Constants.maxObstacleLifeFrames / Constants.GOAFrameRate));
-    }
-    currentFrame = (short) (currentFrame++ % Constants.GOAFrameRate);
   }
 
   @Override

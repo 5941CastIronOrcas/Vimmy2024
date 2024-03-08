@@ -126,6 +126,9 @@ public final class Constants {
   public static final short maxObstacleLifeFrames = 15;
   public static final short GOAFrameRate = 5;
 
+  // is GOA enabled
+  public static final boolean isGOASynthEnabled = false;
+
 
   //ARM STUFF:
 
