@@ -67,7 +67,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
   public static void GOADriveTo(double x, double y, double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
-    Vector2D v = GOAGuidanceSystem.GetDriveVector(x, y, goaAvoidVector);
+    Vector2D v = GOAGuidanceSystem.GetDriveVector(x, y, goaAvoidVector, speedLimit);
     DriveFieldOrientedAtAngle(v.x, v.y, goaAvoidAngle, turnLimit);
   }
   

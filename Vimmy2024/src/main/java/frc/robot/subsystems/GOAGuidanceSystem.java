@@ -61,15 +61,16 @@ public class GOAGuidanceSystem extends SubsystemBase {
     return out;
   }
 
-  public static Vector2D GetDriveVector(double x, double y, Vector2D avoid)
+  public static Vector2D GetDriveVector(double x, double y, Vector2D avoid, double speedLimit)
   {
+    speedLimit = Functions.Clamp(speedLimit, 0, 1);
     Vector2D robotPosition = new Vector2D(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY());
     double toTargetStrengthUncapped = Constants.swerveDriveToPMult*Functions.DeadZone(Functions.Pythagorean(x-PositionEstimator.robotPosition.getX(), y-PositionEstimator.robotPosition.getY()), Constants.swerveDriveToDeadZone);
     double toTargetStrength = toTargetStrengthUncapped>Constants.toTargetStrengthTop?Constants.toTargetStrengthCap:toTargetStrengthUncapped;
     double toTargetAngle = Math.atan2(x-robotPosition.x, y-robotPosition.y);
     Vector2D toTargetVector = new Vector2D(toTargetStrength*Math.sin(toTargetAngle), toTargetStrength*Math.cos(toTargetAngle));
     Vector2D driveVector = new Vector2D(toTargetVector.x+avoid.x, toTargetVector.y+avoid.y);
-    return Functions.ClampVector(driveVector, 1);
+    return Functions.ClampVector(driveVector, speedLimit);
   }
 
   /*public static double GetProtectionAngle()
