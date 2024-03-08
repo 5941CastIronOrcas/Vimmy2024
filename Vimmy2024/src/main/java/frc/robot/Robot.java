@@ -237,6 +237,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
     AutoSequences.AutoStart();
+    for (int i = 0; i < Constants.redNotesPos.length; i++) Constants.allNotesPos[i] = Robot.isRedAlliance ? Constants.redNotesPos[i] : Constants.blueNotesPos[i];
+    for (int i = 0; i < Constants.centerNotesPos.length; i++) Constants.allNotesPos[i + Constants.redNotesPos.length] = Constants.centerNotesPos[i + Constants.redNotesPos.length];
+    for (int i = 0; i < Constants.allNotesPos.length; i++) if (AutoSequences.notesIncluded[i]) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
   }
 
 
