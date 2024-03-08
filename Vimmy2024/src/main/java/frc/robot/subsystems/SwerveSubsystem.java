@@ -99,7 +99,7 @@ public class SwerveSubsystem extends SubsystemBase {
     DriveDriverOriented(LSX, LSY, t);
   }
   public static void DriveDriverOrientedProtectIntake(double LSX, double LSY, double turnLimit) {
-    DriveDriverOrientedAtAngle(LSX, LSY, goaAvoidAngle, turnLimit);
+    DriveDriverOrientedAtAngle(LSX, LSY, Functions.FieldToDriverAngle(goaAvoidAngle), turnLimit);
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
