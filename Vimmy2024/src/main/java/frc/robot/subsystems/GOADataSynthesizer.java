@@ -69,7 +69,7 @@ public class GOADataSynthesizer extends SubsystemBase {
       PointerCluster = (short) (PointerCluster++ % (Constants.maxObstacleLifeFrames / Constants.GOAFrameRate));
       }
       currentFrame = (short) (currentFrame++ % Constants.GOAFrameRate);
-    }
+    } else for (int i = ignoranceID; i < allObstacles.length; i++) allObstacles[i] = new Obstacle(-999, -999, true, 0);
   }
 
   @Override
