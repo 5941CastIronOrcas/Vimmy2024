@@ -19,6 +19,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriverDisplay;
 import frc.robot.subsystems.GOAGuidanceSystem;
+import frc.robot.subsystems.NoteDetector;
 import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.utilityObjects.Vector2D;
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
   public static Boolean isRedAlliance = true;
   public static Boolean isBlueAlliance = false;
   public static boolean robotLimp = true;
+  public static short framesNotePresent = 0;
   public static int selectedAutoSequence = Constants.defaultAutoSequence;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
@@ -245,6 +247,14 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
+    if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2 && PositionEstimator.distToClosestNote() < 2 && !NoteDetector.noteVisible) {
+      framesNotePresent++;
+      if (framesNotePresent >= 40) {
+        PositionEstimator.removeClosestNote();
+        framesNotePresent = 0;
+      }
+
+    }
     switch(selectedAutoSequence) {
       case 0:
         AutoSequences.autoSequence0();
