@@ -188,11 +188,11 @@ public class DriverDisplay extends SubsystemBase {
 
     if (noteIgnoranceInpt.length() > 8) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, 7);
     if (noteIgnoranceInpt.length() < 8) for (int i = noteIgnoranceInpt.length(); i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt + "1";
-    for (int i = 0; i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, i) + (noteIgnoranceInpt.charAt(i) == '0' ? '0' : '1') + noteIgnoranceInpt.substring(i, noteIgnoranceInpt.length() - 1);
+    //for (int i = 0; i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, i) + (noteIgnoranceInpt.charAt(i) == '0' ? '0' : '1') + noteIgnoranceInpt.substring(i, noteIgnoranceInpt.length() - 1);
       for (int i = 0; i < noteIgnoranceInpt.length() - 1; i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
     
     String outputString = "";
-    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? "note " + i + ": yes" : "note " + i + ": no"); 
+    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? "note " + i + ": yes.  " : "note " + i + ": no. "); 
     DriverDisplay.noteIgnoranceCheck.setString(outputString);
 
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
