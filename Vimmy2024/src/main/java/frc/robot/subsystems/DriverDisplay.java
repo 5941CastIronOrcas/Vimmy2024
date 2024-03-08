@@ -59,8 +59,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry shooterFast = arm.add("Shooter fast", false).getEntry();
   public static GenericEntry motorPower1 = arm.add("ArmMotor1 Amps", 0).getEntry();
   public static GenericEntry motorPower2 = arm.add("ArmMotor2 Amps", 0).getEntry();
-  public static GenericEntry motor1Rpm = arm.add("Shooter 1 Rpm", 0).getEntry();
-  public static GenericEntry motor2Rpm = arm.add("Shooter 2 Rpm", 0).getEntry();
+  public static GenericEntry motor1Rpm = arm.add("LowShooterRpm", 0).getEntry();
+  public static GenericEntry motor2Rpm = arm.add("UpShooterRpm", 0).getEntry();
   public static GenericEntry range = arm.add("Range", 0).getEntry();
   public static GenericEntry ShootTotalPower = arm.add("Shooter Amps", 0).getEntry();
   public static GenericEntry IntakeTotalPower = arm.add("Intake Amps", 0).getEntry();

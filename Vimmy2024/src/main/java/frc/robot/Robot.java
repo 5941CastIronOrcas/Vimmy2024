@@ -186,7 +186,7 @@ public class Robot extends TimedRobot {
         }
         else
         {
-          ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis()-Constants.controller2.getLeftTriggerAxis());
+          ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis()-0.3*Constants.controller2.getLeftTriggerAxis());
         }
       }
       if(Constants.controller2.getXButton())
