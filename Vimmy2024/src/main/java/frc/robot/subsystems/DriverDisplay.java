@@ -26,6 +26,7 @@ import frc.robot.utilityObjects.Vector2D;
 public class DriverDisplay extends SubsystemBase {
   
   //Auto Selectors and Whatnot
+  public static double angleToAssign = 0;
   public static ShuffleboardTab AutoStuff = Shuffleboard.getTab("Autonomous");
   public static GenericEntry AutoSequence = AutoStuff.add("Select Your Auto Here", 0).getEntry();
   public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
@@ -127,6 +128,28 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
+    
+    switch ((int)DriverDisplay.gyroOrientation.getInteger(0)) {
+      case 0:
+        angleToAssign = (180);
+        DriverDisplay.gyroOrientationDisplay.setString("0 Angle Selected (Intake Forward)");
+        break;
+
+      case 1:
+        angleToAssign = (-120);
+        DriverDisplay.gyroOrientationDisplay.setString("Right Subwoofer Side Selected");
+        break;
+
+      case 2:
+        angleToAssign = (120);
+        DriverDisplay.gyroOrientationDisplay.setString("Left Subwoofer Side Selected");
+        break;
+
+      default:
+      angleToAssign = (180);
+      DriverDisplay.AutoSequenceDisplay.setString("INVALID VALUE");
+        break;
+    }
 
     //Auto
     String selectedAutoName = "ERROR IN DISPLAYING";

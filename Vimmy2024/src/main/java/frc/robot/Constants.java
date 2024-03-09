@@ -154,7 +154,7 @@ public final class Constants {
   public static final double minArmAngle = 0;
   public static final double maxArmAngle = 99;
   //Intake / Shooter Control Constants
-  public static final double minShootRpm = 5200; //the minimum RPM the shooter needs to be at to shoot
+  public static final double minShootRpm = 5100; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 99.0; //the angle the arm should be at to do the amp
   public static final double trapShootAngle = 30;
@@ -164,10 +164,11 @@ public final class Constants {
   public static final double gravity = 9.81;
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
+  public static final double shootYawOffset = 3;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
   // treshold for auto sequences
-  public static final double maxAutoShootingRange = 2.0;
+  public static final double maxAutoShootingRange = 3.0;
   //CLIMBER STUFF
   //Climber Motor Declarations
   public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);
@@ -196,7 +197,7 @@ public final class Constants {
   public static final double speakerAngleVariation = 5.0;
   public static final double noteCameraHeight = 0.22; //in meters for note detector
   public static final double noteCameraForwardOffset = 0.54; // forward distance from robot center to note detector camera in meters
-  public static final double noteCameraAngle = -15; //for note detector
+  public static final double noteCameraAngle = -20; //for note detector
   public static final double swerveMaxSpeed = 4.4; //the max speed we're capable of moving at in m/s (used for discarding impossible data)
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera 1"; //LEFT (shooter forward)
   public static final String apriltagCamera2Name = "Arducam_OV9281_USB_Camera 2"; //RIGHT (shooter forward)

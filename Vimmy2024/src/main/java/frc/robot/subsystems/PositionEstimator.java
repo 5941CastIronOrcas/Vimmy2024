@@ -95,7 +95,7 @@ public class PositionEstimator extends SubsystemBase {
       return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
     }
     catch(Exception e) {
-      System.out.println("Caught Error: " + e);
+      //System.out.println("Caught Error: " + e);
     }
     
     return previousPosition;
@@ -115,7 +115,7 @@ public class PositionEstimator extends SubsystemBase {
       return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
     }
     catch(Exception e) {
-      System.out.println("Caught Error: " + e);
+      //System.out.println("Caught Error: " + e);
     }
     
     return previousPosition;
@@ -142,16 +142,21 @@ public class PositionEstimator extends SubsystemBase {
     return 90-Math.toDegrees(Math.atan2((Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y) - robotPosition.getY(),(Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x) - robotPosition.getX()));
   }
   public static int nearestAutoNote() {
+    try {
     Vector2D[] notes = new Vector2D[realNoteList.size()];
-    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
-    int id = -1;
-    double minDist = 100000;
-    for (int i = 0; i < notes.length; i++) {
-      if (Functions.Pythagorean(notes[i].x - robotPosition.getX(), notes[i].y - robotPosition.getY()) < minDist) {
-        id = i;
+      for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
+      int id = 0;
+      double minDist = 100000;
+      for (int i = 0; i < notes.length; i++) {
+        if (Functions.Pythagorean(notes[i].x - robotPosition.getX(), notes[i].y - robotPosition.getY()) < minDist) {
+          id = i;
+        }
       }
+      return id;
+    } catch (Exception e) {
+      System.out.println("The duckt tape helped again + " + e);
+      return 0;
     }
-    return id;
   }
   public static double distToClosestNote() {
     Vector2D[] notes = new Vector2D[realNoteList.size()];

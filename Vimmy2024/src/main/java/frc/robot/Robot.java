@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
     }
     else if(Constants.controller1.getPOV() == 90) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, -60, speed);}
     else if(Constants.controller1.getPOV() == 270) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, 60, speed);}
-    else if(Constants.controller1.getPOV() == 0) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, 0, speed);}
+    else if(Constants.controller1.getPOV() == 0) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, 180, speed);}
     else
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle+180,Functions.Pythagorean(RSX, RSY));
@@ -233,7 +233,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    for (int i = 0; i < Constants.allNotesPos.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
+    //for (int i = 0; i < Constants.allNotesPos.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
     Constants.timeSinceStartAtAutoStart = Timer.getFPGATimestamp();
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();

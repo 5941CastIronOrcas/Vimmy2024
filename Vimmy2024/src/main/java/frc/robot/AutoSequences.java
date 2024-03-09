@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.sql.Driver;
+
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -13,27 +15,7 @@ public class AutoSequences {
   public static boolean[] notesIncluded = new boolean[8];
 
   public static void AutoStart() {
-    switch ((int)DriverDisplay.AutoSequence.getInteger(0)) {
-      case 0:
-        Constants.gyro.setYaw(180);
-        DriverDisplay.AutoSequenceDisplay.setString("0 Angle Selected (Intake Forward)");
-        break;
-
-      case 1:
-        Constants.gyro.setYaw(-120);
-        DriverDisplay.AutoSequenceDisplay.setString("Right Subwoofer Side Selected");
-        break;
-
-      case 2:
-        Constants.gyro.setYaw(120);
-        DriverDisplay.AutoSequenceDisplay.setString("Left Subwoofer Side Selected");
-        break;
-
-      default:
-      Constants.gyro.setYaw(180);
-      DriverDisplay.AutoSequenceDisplay.setString("INVALID VALUE");
-        break;
-    }
+    Constants.gyro.setYaw(DriverDisplay.angleToAssign);
     for (int i = 0; i < Constants.redNotesPos.length; i++) Constants.allNotesPos[i] = Robot.isRedAlliance ? Constants.redNotesPos[i] : Constants.blueNotesPos[i];
     for (int i = 0; i < Constants.centerNotesPos.length; i++) Constants.allNotesPos[i + Constants.redNotesPos.length] = Constants.centerNotesPos[i];
     for (int i = 0; i < Constants.allNotesPos.length; i++) if (AutoSequences.notesIncluded[i]) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
