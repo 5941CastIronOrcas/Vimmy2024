@@ -116,6 +116,10 @@ public class Robot extends TimedRobot {
     double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone));
     double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone));
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
+    if(Constants.controller1.getLeftBumper())
+    {
+      RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 165.0 ? (Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) > 110.0 ? 60.0 * Math.round((RSAngle + 90.0) / 60.0) - 90.0 : 90.0 * Math.round(RSAngle / 90.0)) : 90.0 * Math.round(RSAngle / 90.0);
+    }
 
     if (Constants.controller1.getRightBumperPressed()) {
       Constants.gyro.setYaw(180);
