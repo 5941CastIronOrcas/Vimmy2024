@@ -66,7 +66,6 @@ public class PositionEstimator extends SubsystemBase {
   }
 
   public static PhotonTrackedTarget obtainTargets() {
-;
     //Sends back the most clear target and its data
     if (result1.hasTargets()) {
       return result1.getBestTarget();
