@@ -165,10 +165,9 @@ public final class Constants {
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
   public static final double shootYawOffset = 3;
+  public static final double maxShootingRange = 3.0;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
-  // treshold for auto sequences
-  public static final double maxAutoShootingRange = 3.0;
   //CLIMBER STUFF
   //Climber Motor Declarations
   public static final CANSparkMax climberMotorL = new CANSparkMax(33, MotorType.kBrushless);

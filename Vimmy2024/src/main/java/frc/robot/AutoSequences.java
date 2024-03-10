@@ -103,7 +103,7 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
-          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
             ArmSubsystem.ShootSpeaker();
           } else  {
             if (succesfulShots == 0) {
@@ -146,7 +146,7 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
-          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.ShootSpeaker();
           }
@@ -186,7 +186,7 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
-          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
             ArmSubsystem.ShootSpeaker();
           }
           else  {
@@ -226,7 +226,7 @@ public class AutoSequences {
         if (ArmSubsystem.hasNote) {
           if (wasInDriveToNote) PositionEstimator.removeClosestNote();
           wasInDriveToNote = false;
-          if (PositionEstimator.distToSpeaker() < Constants.maxAutoShootingRange) {
+          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
             SwerveSubsystem.FaceSpeaker(0, 0, 1);
             ArmSubsystem.PrepShooter(1);
             ArmSubsystem.ShootSpeaker2();
