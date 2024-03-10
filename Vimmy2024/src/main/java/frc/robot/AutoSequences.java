@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.sql.Driver;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;

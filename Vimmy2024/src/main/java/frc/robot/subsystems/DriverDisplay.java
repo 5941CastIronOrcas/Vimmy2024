@@ -4,15 +4,10 @@
 
 package frc.robot.subsystems;
 
-
-import java.sql.Driver;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +15,7 @@ import frc.robot.AutoSequences;
 import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
-import frc.robot.utilityObjects.Vector2D;
+
 
 
 public class DriverDisplay extends SubsystemBase {
@@ -65,6 +60,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry range = arm.add("Range", 0).getEntry();
   public static GenericEntry ShootTotalPower = arm.add("Shooter Amps", 0).getEntry();
   public static GenericEntry IntakeTotalPower = arm.add("Intake Amps", 0).getEntry();
+  public static GenericEntry atSpeakerAngle = arm.add("Facing speaker", false).getEntry();
+  public static GenericEntry inRange = arm.add("In Range", false).getEntry();
 
 
   //Swerve
@@ -83,7 +80,7 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry totalDriveAmps = swerve.add("Total Amps", 0).getEntry();
   public static GenericEntry atTargetPosition = swerve.add("atTargetPos", false).getEntry();
   public static GenericEntry atTargetAngle = swerve.add("atTargetAngle", false).getEntry();
-  public static GenericEntry atSpeakerAngle = arm.add("Facing speaker", false).getEntry();
+  
 
 
 
@@ -223,10 +220,8 @@ public class DriverDisplay extends SubsystemBase {
 
     //Arm
     DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
-    DriverDisplay.correctArmAngle.setBoolean(ArmSubsystem.correctArmAngle);
     DriverDisplay.arduinoRecall.setDouble(ArmSubsystem.recalledValue);
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
-    DriverDisplay.shooterFast.setBoolean(ArmSubsystem.shooterFast);
     DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
     DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
     DriverDisplay.motor1Rpm.setDouble(Constants.lowerShooterMotor.getEncoder().getVelocity());
@@ -234,7 +229,10 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.range.setDouble(PositionEstimator.distToSpeaker());
     DriverDisplay.ShootTotalPower.setDouble(Constants.lowerShooterMotor.getOutputCurrent() + Constants.upperShooterMotor.getOutputCurrent());
     DriverDisplay.IntakeTotalPower.setDouble(Constants.intakeMotor.getOutputCurrent());
-    
+    DriverDisplay.atSpeakerAngle.setBoolean(PositionEstimator.atSpeakerAngle());
+    DriverDisplay.correctArmAngle.setBoolean(ArmSubsystem.correctArmAngle);
+    DriverDisplay.shooterFast.setBoolean(ArmSubsystem.shooterFast);
+    DriverDisplay.inRange.setBoolean(ArmSubsystem.inRange);
 
 
 
@@ -250,7 +248,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.totalDriveAmps.setDouble(Constants.fraMotor.getOutputCurrent() + Constants.flaMotor.getOutputCurrent() + Constants.braMotor.getOutputCurrent() + Constants.blaMotor.getOutputCurrent());
     DriverDisplay.atTargetPosition.setBoolean(SwerveSubsystem.atTargetPosition);
     DriverDisplay.atTargetAngle.setBoolean(SwerveSubsystem.atTargetAngle);
-    DriverDisplay.atSpeakerAngle.setBoolean(PositionEstimator.atSpeakerAngle());
+    
 
    
     

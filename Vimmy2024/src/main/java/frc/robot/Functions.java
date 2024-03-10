@@ -1,8 +1,6 @@
 package frc.robot;
 import java.lang.Math;
 
-import org.opencv.core.Mat;
-
 import frc.robot.utilityObjects.Vector2D;
 
 

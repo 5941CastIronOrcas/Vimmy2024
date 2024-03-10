@@ -3,17 +3,17 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
-import edu.wpi.first.wpilibj.DutyCycle;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
-import frc.robot.Robot;
+
 
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle = 0;
   public static double dist = 0;
+  public static boolean inRange = false;
   public static double g = Constants.gravity;
   public static boolean hasNote = false;
   public static boolean shooterFast = false;
@@ -26,6 +26,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = -(Constants.armJointEncoder.get() * 360)+212.2;
     dist = PositionEstimator.distToSpeaker();
+    inRange = dist < Constants.maxShootingRange;
 
     recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e);
     //if (!(recalledValue < 0)) {
@@ -151,14 +152,14 @@ public class ArmSubsystem extends SubsystemBase {
   public static void ShootSpeaker() {
     shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && dist < Constants.maxShootingRange) {
+    if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
     }
   }
   public static void ShootSpeaker2() {
     shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
-    if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && dist < Constants.maxShootingRange) {
+    if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
     }
     else
