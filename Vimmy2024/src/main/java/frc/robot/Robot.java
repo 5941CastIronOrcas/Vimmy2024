@@ -257,7 +257,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
-    if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2+Constants.noteCameraForwardOffset && PositionEstimator.distToClosestNote() < 2+Constants.noteCameraForwardOffset && !NoteDetector.noteVisible) {
+    if(selectedAutoSequence > 7)
+    {
+      if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2+Constants.noteCameraForwardOffset && PositionEstimator.distToClosestNote() < 3+Constants.noteCameraForwardOffset && !NoteDetector.noteVisible) {
       framesNoteNotPresent++;
       if (framesNoteNotPresent >= 40) {
         PositionEstimator.removeClosestNote();
@@ -265,9 +267,11 @@ public class Robot extends TimedRobot {
       }
     }
     else
-    {
-      framesNoteNotPresent = 0;
+      {
+        framesNoteNotPresent = 0;
+      }
     }
+    
     switch(selectedAutoSequence) {
       case 0:
         AutoSequences.autoSequence0();
