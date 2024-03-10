@@ -54,6 +54,8 @@ public class Robot extends TimedRobot {
     Constants.climberMotorL.getEncoder().setPosition(0);
     Constants.climberMotorR.getEncoder().setPosition(0);
     Constants.gyro.setYaw(180);
+    for (int i = 0; i < Constants.redNotesPos.length; i++) Constants.allNotesPos[i] = Robot.isRedAlliance ? Constants.redNotesPos[i] : Constants.blueNotesPos[i];
+    for (int i = 0; i < Constants.centerNotesPos.length; i++) Constants.allNotesPos[i + Constants.redNotesPos.length] = Constants.centerNotesPos[i];
      
   }
 
