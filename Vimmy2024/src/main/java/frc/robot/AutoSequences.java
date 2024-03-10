@@ -99,8 +99,6 @@ public class AutoSequences {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
-          if (wasInDriveToNote) PositionEstimator.removeClosestNote();
-            wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
@@ -115,7 +113,11 @@ public class AutoSequences {
           }
 
         } else {
-          if (hadNote) succesfulShots++; 
+          if (hadNote) {
+            succesfulShots++;
+            if (wasInDriveToNote) PositionEstimator.removeClosestNote();
+            wasInDriveToNote = false;
+          }
           hadNote = false;
           if (NoteDetector.noteVisible) {
             ArmSubsystem.IntakeRing();
@@ -142,8 +144,6 @@ public class AutoSequences {
         ArmSubsystem.SpinShooter(1);
 
         if (ArmSubsystem.hasNote) {
-          if (wasInDriveToNote) PositionEstimator.removeClosestNote();
-            wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
@@ -156,7 +156,11 @@ public class AutoSequences {
           }
           
         } else {
-          if (hadNote) succesfulShots++; 
+          if (hadNote) {
+            succesfulShots++;
+            if (wasInDriveToNote) PositionEstimator.removeClosestNote();
+            wasInDriveToNote = false;
+          }
           hadNote = false;
           if (NoteDetector.noteVisible) {
             ArmSubsystem.IntakeRing();
@@ -183,8 +187,6 @@ public class AutoSequences {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
-          if (wasInDriveToNote) PositionEstimator.removeClosestNote();
-            wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
@@ -200,7 +202,11 @@ public class AutoSequences {
           }
 
         } else {
-          if (hadNote) succesfulShots++; 
+          if (hadNote) {
+            succesfulShots++;
+            if (wasInDriveToNote) PositionEstimator.removeClosestNote();
+            wasInDriveToNote = false;
+          }
           hadNote = false;
           if (NoteDetector.noteVisible) {
             ArmSubsystem.IntakeRing();
@@ -226,8 +232,6 @@ public class AutoSequences {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
-          if (wasInDriveToNote) PositionEstimator.removeClosestNote();
-          wasInDriveToNote = false;
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
             SwerveSubsystem.FaceSpeaker(0, 0, 1);
             ArmSubsystem.PrepShooter(1);
@@ -239,7 +243,11 @@ public class AutoSequences {
           }
           
         } else {
-          if (hadNote) succesfulShots++; 
+          if (hadNote) {
+            succesfulShots++;
+            if (wasInDriveToNote) PositionEstimator.removeClosestNote();
+            wasInDriveToNote = false;
+          }
           hadNote = false;
           if (NoteDetector.noteVisible) {
             ArmSubsystem.IntakeRing();
