@@ -103,12 +103,12 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
-          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
+          if (ArmSubsystem.dist < Constants.maxShootingRange) {
             ArmSubsystem.ShootSpeaker();
           } else  {
             if (succesfulShots == 0) {
               SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
-
+              ArmSubsystem.SpinIntake(0);
             } else if (succesfulShots == 1) {
               SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             }
@@ -146,12 +146,13 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
-          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
+          if (ArmSubsystem.dist < Constants.maxShootingRange) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.ShootSpeaker();
           }
           else  {
             SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            ArmSubsystem.SpinIntake(0);
           }
           
         } else {
@@ -186,7 +187,7 @@ public class AutoSequences {
             wasInDriveToNote = false;
           hadNote = true;
           ArmSubsystem.PrepShooter(1);
-          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
+          if (ArmSubsystem.dist < Constants.maxShootingRange) {
             ArmSubsystem.ShootSpeaker();
           }
           else  {
@@ -194,6 +195,7 @@ public class AutoSequences {
               SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             } else if (succesfulShots == 1) {
               SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+              ArmSubsystem.SpinIntake(0);
             }         
           }
 
@@ -226,7 +228,7 @@ public class AutoSequences {
         if (ArmSubsystem.hasNote) {
           if (wasInDriveToNote) PositionEstimator.removeClosestNote();
           wasInDriveToNote = false;
-          if (PositionEstimator.distToSpeaker() < Constants.maxShootingRange) {
+          if (ArmSubsystem.dist < Constants.maxShootingRange) {
             SwerveSubsystem.FaceSpeaker(0, 0, 1);
             ArmSubsystem.PrepShooter(1);
             ArmSubsystem.ShootSpeaker2();
