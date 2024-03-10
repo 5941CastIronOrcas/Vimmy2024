@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,12 +57,12 @@ public class PositionEstimator extends SubsystemBase {
 
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
-    return result1.hasTargets();
+    return result1.hasTargets() && (result1.getTargets().size() >= 2 || result1.getBestTarget().getPoseAmbiguity() < 0.2);
   }
 
   public static Boolean camCheck2() {
     //var result2 = camera2.getLatestResult();
-    return result2.hasTargets();
+    return result2.hasTargets() && (result2.getTargets().size() >= 2 || result2.getBestTarget().getPoseAmbiguity() < 0.2);
   }
 
   public static PhotonTrackedTarget obtainTargets() {
@@ -218,12 +219,29 @@ public class PositionEstimator extends SubsystemBase {
     previousPosition = robotPosition;
     Pose2d globalPose1 = robotPosition;
     Pose2d globalPose2 = robotPosition;
+    if (camCheck1()) {
+      //if((result1.getTargets().size() >= 2 || result1.getBestTarget().getPoseAmbiguity() < 0.2))
+      //{
+        globalPose1 = getEstimatedGlobalPose1();
+      //}
+      //else
+      //{
+        //globalPose1 = PhotonUtils.estimateFieldToRobot(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().getZ(), target.getPitch(), Rotation2d.fromDegrees(-target.getYaw()), robotPosition.getRotation(), robotToCam1);
+        // PhotonTrackedTarget target = result1.getBestTarget();
+        // target.getPoseAmbiguity()
+        // double 
+        // Translation2d camToTargetTranslate = PhotonUtils.estimateCameraToTargetTranslation(0, null)
+        // Transform2d camToTargetTransform = PhotonUtils.estimateCameraToTarget(null, globalPose2, null);
+        // Transform2d cameraToRobot =new Transform2d(-robotToCam1.getX(), -robotToCam1.getY(), new Rotation2d(robotToCam1.getRotation().getY()));
+        // globalPose1 = PhotonUtils.estimateFieldToRobot(camToTargetTransform, aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().toPose2d(), cameraToRobot);
+      //}
+    }
     if(camCheck2())
     {
-      globalPose2 = getEstimatedGlobalPose2();
-    }
-    if (camCheck1()) {
-      globalPose1 = getEstimatedGlobalPose1();
+      //if(result2.getTargets().size() >= 2 || result2.getBestTarget().getPoseAmbiguity() < 0.2)
+      //{
+        globalPose2 = getEstimatedGlobalPose2();
+      //}
     }
     if(camCheck1() && camCheck2())
     {
