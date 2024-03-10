@@ -257,7 +257,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
-    if(selectedAutoSequence >= 7)
+    if(selectedAutoSequence >= 7 && AutoSequences.isAutoTimeBetween(0.1, 16))
     {
       if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2+Constants.noteCameraForwardOffset && PositionEstimator.distToClosestNote() < 3+Constants.noteCameraForwardOffset && !NoteDetector.noteVisible) {
       framesNoteNotPresent++;
