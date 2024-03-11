@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ControllerRumble extends SubsystemBase {
+  public static double cycleHighIntensity = 0;
+  public static double cycleLowIntensity = 0;
+  public static double cycleCycle = 0;
+
   public static double controller1RumbleL;
   public static double controller1RumbleR;
   public static double controller2RumbleL;
@@ -61,6 +65,9 @@ public class ControllerRumble extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
+  public static void RumbleCycle() {
+  }
+
   public static void RumbleBothControllersBothSides(double intensity) {
     controller1RumbleL = intensity;
     controller1RumbleR = intensity;
@@ -68,21 +75,39 @@ public class ControllerRumble extends SubsystemBase {
     controller2RumbleR = intensity;
   }
 
+  public static void smoothRumbleTransitionBothControllersBothSides(double step, double target) {
+    smoothTransition1L(step, target);
+    smoothTransition1R(step, target);
+    smoothTransition2L(step, target);
+    smoothTransition2R(step, target);
+  }
+
   public static void smoothTransition1L(double step, double target) {
     controller1RumbleLtarget = target;
-    //controller1RumbleL = controller1RumbleL != 
+    if (Math.abs(controller1RumbleL - controller1RumbleLtarget) <= target) controller1RumbleL = controller1RumbleLtarget;
+    else if (controller1RumbleL - controller1RumbleLtarget > 0) controller1RumbleL -= step;
+    else if (controller1RumbleL - controller1RumbleLtarget < 0) controller1RumbleL += step;
   }
 
   public static void smoothTransition1R(double step, double target) {
     controller1RumbleRtarget = target;
+    if (Math.abs(controller1RumbleR - controller1RumbleRtarget) <= target) controller1RumbleR = controller1RumbleRtarget;
+    else if (controller1RumbleR - controller1RumbleRtarget > 0) controller1RumbleR -= step;
+    else if (controller1RumbleR - controller1RumbleRtarget < 0) controller1RumbleR += step;
   }
   
   public static void smoothTransition2L(double step, double target) {
     controller2RumbleLtarget = target;
+    if (Math.abs(controller2RumbleL - controller2RumbleLtarget) <= target) controller2RumbleL = controller2RumbleLtarget;
+    else if (controller2RumbleL - controller2RumbleLtarget > 0) controller2RumbleL -= step;
+    else if (controller2RumbleL - controller2RumbleLtarget < 0) controller2RumbleL += step;
   }
   
   public static void smoothTransition2R(double step, double target) {
     controller2RumbleRtarget = target;
+    if (Math.abs(controller2RumbleR - controller2RumbleRtarget) <= target) controller2RumbleR = controller2RumbleRtarget;
+    else if (controller2RumbleR - controller2RumbleRtarget > 0) controller2RumbleR -= step;
+    else if (controller2RumbleR - controller2RumbleRtarget < 0) controller2RumbleR += step;
   }
   
 }
