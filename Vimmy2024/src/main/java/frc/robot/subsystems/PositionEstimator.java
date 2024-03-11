@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -57,6 +58,10 @@ public class PositionEstimator extends SubsystemBase {
   public static double sumY = 0;
   public static double ambiguity1;
   public static double ambiguity2;
+
+  public static double lastTimestamp1 = 0;
+  public static double lastTimestamp2 = 0;
+  public static double trueLatency = 0;
 
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
@@ -120,7 +125,9 @@ public class PositionEstimator extends SubsystemBase {
     
      
     try {
-      return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
+      EstimatedRobotPose poseResult = photonPoseEstimator1.update().get();
+      lastTimestamp1 = poseResult.timestampSeconds;
+      return poseResult.estimatedPose.toPose2d();
     }
     catch(Exception e) {
       //System.out.println("Caught Error: " + e);
@@ -140,7 +147,9 @@ public class PositionEstimator extends SubsystemBase {
     
      
     try {
-      return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
+      EstimatedRobotPose poseResult = photonPoseEstimator2.update().get();
+      lastTimestamp2 = poseResult.timestampSeconds;
+      return poseResult.estimatedPose.toPose2d();
     }
     catch(Exception e) {
       //System.out.println("Caught Error: " + e);
@@ -292,6 +301,7 @@ public class PositionEstimator extends SubsystemBase {
     {
       Pose2d combinedPoses = new Pose2d((globalPose1.getX() + globalPose2.getX())/2.0, (globalPose1.getY() + globalPose2.getY())/2.0, robotPosition.getRotation());
       robotPosition = combinedPoses;
+      //trueLatency = Timer.getFPGATimestamp() - lastTimestamp;
         /*for (int i = 0; i < (latency / 20); i++) {
           if (deltaBuffer[i] != null)
           {
