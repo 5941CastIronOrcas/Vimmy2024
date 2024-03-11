@@ -15,6 +15,10 @@ import frc.robot.utilityObjects.Vector2D;
 public class AutoSequences {
   public static boolean[] notesIncluded = new boolean[8];
 
+  public static boolean wasInDriveToNote = false;
+  public static boolean hadNote = false;
+  public static byte succesfulShots = 0;
+
   public static void AutoStart() {
     Constants.gyro.setYaw(DriverDisplay.angleToAssign);
     PositionEstimator.realNoteList = new ArrayList<>();
@@ -92,9 +96,6 @@ public class AutoSequences {
 
   // shoot basic, collect nearest
     public static void autoSequence7() {
-    boolean wasInDriveToNote = false;
-    boolean hadNote = false;
-    byte succesfulShots = 0;
       if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
@@ -136,9 +137,6 @@ public class AutoSequences {
 
   // shoot aimbot, collect nearest
   public static void autoSequence8() {
-    boolean wasInDriveToNote = false;
-    boolean hadNote = false;
-    byte succesfulShots = 0;
       if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
@@ -180,9 +178,6 @@ public class AutoSequences {
 
   // shoot basic, collect nearest, shoot
   public static void autoSequence9() {
-    boolean wasInDriveToNote = false;
-    boolean hadNote = false;
-    byte succesfulShots = 0;
       if (isAutoTimeBetween(0, 15)) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
@@ -225,9 +220,6 @@ public class AutoSequences {
 
   // shoot aimbot, collect nearest, shoot
   public static void autoSequence10() {
-    boolean wasInDriveToNote = false;
-    boolean hadNote = false;
-    byte succesfulShots = 0;
       if (isAutoTimeBetween(0, 15)) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
