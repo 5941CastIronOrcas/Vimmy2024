@@ -107,9 +107,13 @@ public class SwerveSubsystem extends SubsystemBase {
     //double a = PositionEstimator.angleToSpeaker() + (aSpeed * (PositionEstimator.distToSpeaker() / Constants.launchSpeed));
     //DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(a), turnLimit);
 
-    double aSpeed = (newAngle - oldAngle) * 50;
-    double a = PositionEstimator.angleToSpeaker() + (aSpeed * 0.5);
-    DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(a)+Constants.shootYawOffset, turnLimit);
+    double aSpeed = 0;
+    if(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y) > 0.1)
+    {
+      aSpeed = (newAngle - oldAngle) * 50;
+    }
+    double a = PositionEstimator.angleToSpeaker() + (aSpeed * 0.5) + Constants.shootYawOffset;
+    DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(a), turnLimit);
   }
   public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
   {

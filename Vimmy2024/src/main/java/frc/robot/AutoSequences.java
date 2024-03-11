@@ -1,6 +1,8 @@
 package frc.robot;
 
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -15,6 +17,7 @@ public class AutoSequences {
 
   public static void AutoStart() {
     Constants.gyro.setYaw(DriverDisplay.angleToAssign);
+    PositionEstimator.realNoteList = new ArrayList<>();
     for (int i = 0; i < Constants.allNotesPos.length; i++) if (AutoSequences.notesIncluded[i]) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
   }
 
@@ -165,8 +168,8 @@ public class AutoSequences {
           } else {
             wasInDriveToNote = true;
             Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
-            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
-            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
+            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.5, 0.5, 0, 0);
+            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
           }
         }
       } else {
@@ -247,13 +250,13 @@ public class AutoSequences {
           }
           hadNote = false;
           ArmSubsystem.IntakeRing();
-          if (NoteDetector.noteVisible) {
+          if (NoteDetector.noteVisible && NoteDetector.noteDist < 3) {
             SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
             wasInDriveToNote = true;
             Vector2D closestNote = PositionEstimator.realNoteList.get(PositionEstimator.nearestAutoNote());
-            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
-            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
+            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.5, 0.5, 0, 0);
+            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
           }
         }
       } else {
