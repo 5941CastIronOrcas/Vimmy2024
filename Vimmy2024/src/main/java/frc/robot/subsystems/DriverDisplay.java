@@ -130,22 +130,33 @@ public class DriverDisplay extends SubsystemBase {
     
     switch ((int)DriverDisplay.gyroOrientation.getInteger(0)) {
       case 0:
-        angleToAssign = (180);
+        angleToAssign = 180;
         DriverDisplay.gyroOrientationDisplay.setString("0 Angle Selected (Intake Forward)");
         break;
 
       case 1:
-        angleToAssign = (120);
+        angleToAssign = 120;
         DriverDisplay.gyroOrientationDisplay.setString("Right Subwoofer Side Selected");
         break;
 
       case 2:
-        angleToAssign = (-120);
+        angleToAssign = -120;
         DriverDisplay.gyroOrientationDisplay.setString("Left Subwoofer Side Selected");
         break;
 
+      case 3:
+        angleToAssign = 90;
+        DriverDisplay.gyroOrientationDisplay.setString("Right 90 Degree Selected");
+        break;
+
+      case 4:
+        angleToAssign = -90;
+        DriverDisplay.gyroOrientationDisplay.setString("Left 90 Degree Selected");
+        break;
+
+
       default:
-      angleToAssign = (180);
+      angleToAssign = 180;
       DriverDisplay.AutoSequenceDisplay.setString("INVALID VALUE");
         break;
     }
