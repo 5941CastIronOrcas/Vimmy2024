@@ -56,12 +56,12 @@ public class PositionEstimator extends SubsystemBase {
 
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
-    return result1.hasTargets() && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.2 && ambiguity1 > 0));
+    return result1.hasTargets() && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.05 && ambiguity1 > 0));
   }
 
   public static Boolean camCheck2() {
     //var result2 = camera2.getLatestResult();
-    return result2.hasTargets() && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.2 && ambiguity2 > 0));
+    return result2.hasTargets() && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.05 && ambiguity2 > 0));
   }
 
   public static PhotonTrackedTarget obtainTargets() {
