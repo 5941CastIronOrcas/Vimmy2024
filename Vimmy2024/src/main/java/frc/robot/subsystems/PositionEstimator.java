@@ -9,8 +9,12 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,6 +23,8 @@ import frc.robot.Robot;
 import frc.robot.utilityObjects.Vector2D;
 
 import java.util.ArrayList;
+
+import javax.xml.crypto.dsig.Transform;
 
 import org.photonvision.*;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
@@ -36,8 +42,8 @@ public class PositionEstimator extends SubsystemBase {
 
   public static AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
  
-  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0.0254, 0.2794, 0.4572), new Rotation3d(0,27,0));
-  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,27,0));
+  public static Transform3d robotToCam1 = new Transform3d(new Translation3d(0.0254, 0.2794, 0.4572), new Rotation3d(0, Units.degreesToRadians(27),0));
+  public static Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0254, -0.2794, 0.4572), new Rotation3d(0,Units.degreesToRadians(27),0));
   public static PhotonCamera camera1 = new PhotonCamera(Constants.apriltagCamera1Name);
   public static PhotonCamera camera2 = new PhotonCamera(Constants.apriltagCamera2Name);
   public static PhotonPipelineResult result1 = new PhotonPipelineResult();
@@ -53,10 +59,24 @@ public class PositionEstimator extends SubsystemBase {
   public static double ambiguity1;
   public static double ambiguity2;
 
+  public static double lastTimestamp1 = 0;
+  public static double lastTimestamp2 = 0;
+  public static double trueLatency = 0;
 
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
-    return result1.hasTargets() && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.05 && ambiguity1 > 0));
+    boolean targetCheck = result1.hasTargets();
+    double distance = 100;
+    // try {
+    //   if (targetCheck) {
+    //     distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getBestTarget().getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getBestTarget().getPitch()));
+    //   }
+    // }
+    // catch (Exception e) {
+    //   //System.out.println("Caught Error: " + e);
+    // }
+    
+    return targetCheck && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.05 && ambiguity1 > 0 && distance < 3));
   }
 
   public static Boolean camCheck2() {
@@ -105,7 +125,9 @@ public class PositionEstimator extends SubsystemBase {
     
      
     try {
-      return photonPoseEstimator1.update().get().estimatedPose.toPose2d();
+      EstimatedRobotPose poseResult = photonPoseEstimator1.update().get();
+      lastTimestamp1 = poseResult.timestampSeconds;
+      return poseResult.estimatedPose.toPose2d();
     }
     catch(Exception e) {
       //System.out.println("Caught Error: " + e);
@@ -125,7 +147,9 @@ public class PositionEstimator extends SubsystemBase {
     
      
     try {
-      return photonPoseEstimator2.update().get().estimatedPose.toPose2d();
+      EstimatedRobotPose poseResult = photonPoseEstimator2.update().get();
+      lastTimestamp2 = poseResult.timestampSeconds;
+      return poseResult.estimatedPose.toPose2d();
     }
     catch(Exception e) {
       //System.out.println("Caught Error: " + e);
@@ -256,14 +280,14 @@ public class PositionEstimator extends SubsystemBase {
       //}
       //else
       //{
-        //globalPose1 = PhotonUtils.estimateFieldToRobot(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().getZ(), target.getPitch(), Rotation2d.fromDegrees(-target.getYaw()), robotPosition.getRotation(), robotToCam1);
-        // PhotonTrackedTarget target = result1.getBestTarget();
-        // target.getPoseAmbiguity()
-        // double 
-        // Translation2d camToTargetTranslate = PhotonUtils.estimateCameraToTargetTranslation(0, null)
-        // Transform2d camToTargetTransform = PhotonUtils.estimateCameraToTarget(null, globalPose2, null);
-        // Transform2d cameraToRobot =new Transform2d(-robotToCam1.getX(), -robotToCam1.getY(), new Rotation2d(robotToCam1.getRotation().getY()));
-        // globalPose1 = PhotonUtils.estimateFieldToRobot(camToTargetTransform, aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().toPose2d(), cameraToRobot);
+        // globalPose1 = PhotonUtils.estimateFieldToRobot(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().getZ(), target.getPitch(), Rotation2d.fromDegrees(-target.getYaw()), robotPosition.getRotation(), robotToCam1);
+        //   PhotonTrackedTarget target = result1.getBestTarget();
+        //   target.getPoseAmbiguity()
+        //   double why;
+        //   Translation2d camToTargetTranslate = PhotonUtils.estimateCameraToTargetTranslation(0, null)
+        //   Transform2d camToTargetTransform = PhotonUtils.estimateCameraToTarget(null, globalPose2, null);
+        //   Transform2d cameraToRobot =new Transform2d(-robotToCam1.getX(), -robotToCam1.getY(), new Rotation2d(robotToCam1.getRotation().getY()));
+        //   globalPose1 = PhotonUtils.estimateFieldToRobot(camToTargetTransform, aprilTagFieldLayout.getTagPose(target.getFiducialId()).get().toPose2d(), cameraToRobot);
       //}
     }
     if(camCheck2())
@@ -277,6 +301,7 @@ public class PositionEstimator extends SubsystemBase {
     {
       Pose2d combinedPoses = new Pose2d((globalPose1.getX() + globalPose2.getX())/2.0, (globalPose1.getY() + globalPose2.getY())/2.0, robotPosition.getRotation());
       robotPosition = combinedPoses;
+      //trueLatency = Timer.getFPGATimestamp() - lastTimestamp;
         /*for (int i = 0; i < (latency / 20); i++) {
           if (deltaBuffer[i] != null)
           {
