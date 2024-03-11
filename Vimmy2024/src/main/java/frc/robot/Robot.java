@@ -143,9 +143,6 @@ public class Robot extends TimedRobot {
     {
       SwerveSubsystem.DriveDriverOrientedProtectIntake(LSX, LSY, speed);
     }
-    else if(Constants.controller1.getPOV() == 90) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, -60, speed);}
-    else if(Constants.controller1.getPOV() == 270) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, 60, speed);}
-    else if(Constants.controller1.getPOV() == 0) {SwerveSubsystem.DriveDriverOrientedAtAngle(LSX, LSY, 180, speed);}
     else
     {
       SwerveSubsystem.DriveDriverOrientedAtAngle(LSX,LSY,RSAngle+180,Functions.Pythagorean(RSX, RSY));
