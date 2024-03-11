@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
     if(Constants.controller1.getLeftBumper())
     {
-      RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 165.0 ? (Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) > 105.0 ? 60.0 * Math.round((RSAngle) / 60.0) : 90.0 * Math.round(RSAngle / 90.0)) : 90.0 * Math.round(RSAngle / 90.0);
+      RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 105.0 ? 90 * Math.round(RSAngle / 90.0) : 120.0 * Math.round(RSAngle / 120.0);
     }
 
     if (Constants.controller1.getRightBumperPressed()) {
