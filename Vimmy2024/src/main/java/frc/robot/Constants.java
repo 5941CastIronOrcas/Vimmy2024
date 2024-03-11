@@ -163,7 +163,7 @@ public final class Constants {
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
   public static final double shootYawOffset = 3;
-  public static final double maxShootingRange = 3.0;
+  public static final double maxShootingRange = 4.0;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
   //CLIMBER STUFF

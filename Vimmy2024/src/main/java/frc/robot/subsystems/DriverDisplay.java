@@ -109,6 +109,8 @@ public class DriverDisplay extends SubsystemBase {
   public static ShuffleboardTab position = Shuffleboard.getTab("Position Estimator");
     public static GenericEntry isPresent1 = position.add("Is Present 1", false).getEntry();
     public static GenericEntry isPresent2 = position.add("Is Present 2", false).getEntry();
+    public static GenericEntry ambiguity1 = position.add("Ambiguity 1", 0).getEntry();
+    public static GenericEntry ambiguity2 = position.add("Ambiguity 2", 0).getEntry();
     public static GenericEntry speed = position.add("speed", 0).getEntry();
     public static GenericEntry latency = position.add("Latency", 0).getEntry();
     public static GenericEntry robotX = position.add("Robot X", 0).getEntry();
@@ -133,12 +135,12 @@ public class DriverDisplay extends SubsystemBase {
         break;
 
       case 1:
-        angleToAssign = (-120);
+        angleToAssign = (120);
         DriverDisplay.gyroOrientationDisplay.setString("Right Subwoofer Side Selected");
         break;
 
       case 2:
-        angleToAssign = (120);
+        angleToAssign = (-120);
         DriverDisplay.gyroOrientationDisplay.setString("Left Subwoofer Side Selected");
         break;
 
@@ -295,6 +297,8 @@ public class DriverDisplay extends SubsystemBase {
     //position estimator
     DriverDisplay.isPresent1.setBoolean(PositionEstimator.camCheck1());
     DriverDisplay.isPresent2.setBoolean(PositionEstimator.camCheck2());
+    DriverDisplay.ambiguity1.setDouble(PositionEstimator.ambiguity1);
+    DriverDisplay.ambiguity2.setDouble(PositionEstimator.ambiguity2);
     DriverDisplay.latency.setDouble(PositionEstimator.camera1.getLatestResult().getLatencyMillis());
     DriverDisplay.speed.setDouble(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y));
     DriverDisplay.robotX.setDouble(PositionEstimator.robotPosition.getX());

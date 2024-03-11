@@ -66,7 +66,7 @@ public class AutoSequences {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
             ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
             ArmSubsystem.SpinIntake(0.75);
-        } else if (isAutoTimeBetween(3, 4.5)) {
+        } else if (isAutoTimeBetween(3, 4.85)) {
           ArmSubsystem.SpinIntake(0);
           ArmSubsystem.SpinShooter(0);
           ArmSubsystem.rotateArm(0);
@@ -246,12 +246,12 @@ public class AutoSequences {
             wasInDriveToNote = false;
           }
           hadNote = false;
+          ArmSubsystem.IntakeRing();
           if (NoteDetector.noteVisible) {
-            ArmSubsystem.IntakeRing();
             SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
             wasInDriveToNote = true;
-            Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
+            Vector2D closestNote = PositionEstimator.realNoteList.get(PositionEstimator.nearestAutoNote());
             if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote(), 0.5, 0.5, 0, 0);
             else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote(), 0.5); 
           }

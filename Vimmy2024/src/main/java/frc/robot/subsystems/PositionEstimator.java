@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Functions;
@@ -49,16 +50,18 @@ public class PositionEstimator extends SubsystemBase {
   public static double latency2 = 0;
   public static double sumX = 0;
   public static double sumY = 0;
+  public static double ambiguity1;
+  public static double ambiguity2;
 
 
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
-    return result1.hasTargets() && (result1.getTargets().size() >= 2 || result1.getBestTarget().getPoseAmbiguity() < 0.2);
+    return result1.hasTargets() && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.2 && ambiguity1 > 0));
   }
 
   public static Boolean camCheck2() {
     //var result2 = camera2.getLatestResult();
-    return result2.hasTargets() && (result2.getTargets().size() >= 2 || result2.getBestTarget().getPoseAmbiguity() < 0.2);
+    return result2.hasTargets() && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.2 && ambiguity2 > 0));
   }
 
   public static PhotonTrackedTarget obtainTargets() {
@@ -176,6 +179,8 @@ public class PositionEstimator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("notes remaining", realNoteList.size());
+    SmartDashboard.putNumber("nearestAutoNote", nearestAutoNote());
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
     //robotYawRate = Constants.gyro.getRate();
@@ -205,6 +210,22 @@ public class PositionEstimator extends SubsystemBase {
     result2 = camera2.getLatestResult();
     latency1 = result1.getLatencyMillis();
     latency2 = result2.getLatencyMillis();
+    try
+    {
+      ambiguity1 = result1.getBestTarget().getPoseAmbiguity();
+    }
+    catch(Exception e)
+    {
+      ambiguity1 = -1;
+    }
+    try
+    {
+      ambiguity2 = result2.getBestTarget().getPoseAmbiguity();
+    }
+    catch(Exception e)
+    {
+      ambiguity2 = -1;
+    }
 
     for (int i = 49; i > 0; i--) {
       deltaBuffer[i] = deltaBuffer[i - 1];

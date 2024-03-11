@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
     if(Constants.controller1.getLeftBumper())
     {
-      RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 165.0 ? (Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) > 110.0 ? 60.0 * Math.round((RSAngle + 90.0) / 60.0) - 90.0 : 90.0 * Math.round(RSAngle / 90.0)) : 90.0 * Math.round(RSAngle / 90.0);
+      RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 165.0 ? (Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) > 105.0 ? 60.0 * Math.round((RSAngle) / 60.0) : 90.0 * Math.round(RSAngle / 90.0)) : 90.0 * Math.round(RSAngle / 90.0);
     }
 
     if (Constants.controller1.getRightBumperPressed()) {
@@ -252,7 +252,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
-    if(selectedAutoSequence >= 7 && AutoSequences.isAutoTimeBetween(0.1, 16))
+    /*if(selectedAutoSequence >= 7 && AutoSequences.isAutoTimeBetween(0.1, 16))
     {
       if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.angleToClosestNote(), PositionEstimator.robotPosition.getRotation().getDegrees())) < 15 && PositionEstimator.distToClosestNote() > 0.2+Constants.noteCameraForwardOffset && PositionEstimator.distToClosestNote() < 3+Constants.noteCameraForwardOffset && !NoteDetector.noteVisible) {
       framesNoteNotPresent++;
@@ -265,7 +265,7 @@ public class Robot extends TimedRobot {
       {
         framesNoteNotPresent = 0;
       }
-    }
+    }*/
     
     switch(selectedAutoSequence) {
       case 0:
