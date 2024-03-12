@@ -65,10 +65,10 @@ public class SwerveSubsystem extends SubsystemBase {
     double yComponent = output * Math.cos(angleToTarget);
     DriveFieldOrientedAtAngle(xComponent+(Robot.isRedAlliance?-YOffset:YOffset), yComponent+(Robot.isRedAlliance?XOffset:-XOffset), angle, turnLimit);
   }
-  public static void GOADriveTo(double x, double y, double speedLimit, double turnLimit, double XOffset, double YOffset)
+  public static void GOADriveTo(double x, double y, double angle, double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
     Vector2D v = GOAGuidanceSystem.GetDriveVector(x, y, goaAvoidVector, speedLimit);
-    DriveFieldOrientedAtAngle(v.x, v.y, goaAvoidAngle, turnLimit);
+    DriveFieldOrientedAtAngle(v.x, v.y, angle, turnLimit);
   }
   
   public static void DriveFieldOriented(double x, double y, double turn)
