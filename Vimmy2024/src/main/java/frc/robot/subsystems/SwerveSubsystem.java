@@ -70,6 +70,9 @@ public class SwerveSubsystem extends SubsystemBase {
     Vector2D v = GOAGuidanceSystem.GetDriveVector(x, y, goaAvoidVector, speedLimit);
     DriveFieldOrientedAtAngle(v.x, v.y, angle, turnLimit);
   }
+  public static void GOADriveToProtectIntake (double x, double y, double speedLimit, double turnLimit, double XOffset, double YOffset) {
+    GOADriveTo(x, y, goaAvoidAngle, speedLimit, turnLimit, XOffset, YOffset);
+  }
   
   public static void DriveFieldOriented(double x, double y, double turn)
   {
@@ -100,6 +103,9 @@ public class SwerveSubsystem extends SubsystemBase {
   }
   public static void DriveDriverOrientedProtectIntake(double LSX, double LSY, double turnLimit) {
     DriveDriverOrientedAtAngle(LSX, LSY, Functions.FieldToDriverAngle(goaAvoidAngle), turnLimit);
+  }
+  public static void DriveToProtectIntake(double x, double y, double speedLimit, double turnLimit, double XOffset, double YOffset) {
+    DriveTo(x, y, goaAvoidAngle, speedLimit, turnLimit, XOffset, YOffset);
   }
 
   public static void FaceSpeaker(double x, double y, double turnLimit) {
