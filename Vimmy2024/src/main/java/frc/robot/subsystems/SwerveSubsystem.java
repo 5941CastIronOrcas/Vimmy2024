@@ -124,7 +124,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
     Vector2D target = Robot.isRedAlliance?Constants.redAmpDepositPosition:Constants.blueAmpDepositPosition;
-    DriveTo(target.x, target.y, 0, speedLimit, turnLimit, XOffset, YOffset);
+    DriveTo(target.x, PositionEstimator.robotPosition.getY(), 0, speedLimit, turnLimit, XOffset, YOffset);
   }
 
   public static void CollectNote(double XOffset, double YOffset, double speedLimit) {

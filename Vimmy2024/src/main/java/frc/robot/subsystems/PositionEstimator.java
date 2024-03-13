@@ -67,21 +67,31 @@ public class PositionEstimator extends SubsystemBase {
     //var result = camera1.getLatestResult();
     boolean targetCheck = result1.hasTargets();
     double distance = 100;
-    // try {
-    //   if (targetCheck) {
-    //     distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getBestTarget().getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getBestTarget().getPitch()));
-    //   }
-    // }
-    // catch (Exception e) {
-    //   //System.out.println("Caught Error: " + e);
-    // }
+    try {
+      if (targetCheck) {
+        distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getBestTarget().getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getBestTarget().getPitch()));
+      }
+    }
+    catch (Exception e) {
+      //System.out.println("Caught Error: " + e);
+    }
     
     return targetCheck && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.05 && ambiguity1 > 0 && distance < 3));
   }
 
   public static Boolean camCheck2() {
     //var result2 = camera2.getLatestResult();
-    return result2.hasTargets() && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.05 && ambiguity2 > 0));
+    double distance = 100;
+    boolean targetCheck = result2.hasTargets();
+    try {
+      if (targetCheck) {
+        distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam2.getZ(), aprilTagFieldLayout.getTagPose(result2.getBestTarget().getFiducialId()).get().getZ(), robotToCam2.getRotation().getY(), Units.degreesToRadians(result2.getBestTarget().getPitch()));
+      }
+    }
+    catch (Exception e) {
+      //System.out.println("Caught Error: " + e);
+    }
+    return targetCheck && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.05 && ambiguity2 > 0 && distance < 3));
   }
 
   public static PhotonTrackedTarget obtainTarget1() {
@@ -172,7 +182,7 @@ public class PositionEstimator extends SubsystemBase {
 
   public static double distToSpeaker() {
     double supposed = Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
-    return supposed+0.253776;
+    return 0.967145602537*supposed+0.367526;
   }
   public static double angleToSpeaker()
   {

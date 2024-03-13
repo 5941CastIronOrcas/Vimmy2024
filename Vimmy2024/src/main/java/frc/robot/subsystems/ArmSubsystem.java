@@ -83,7 +83,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinIntake(double input)
   {
-    Constants.intakeMotor.set(-input);
+    Constants.intakeMotor.set(Functions.Clamp(-input, -1, armAngle < 15 ? 0 : 1));
   }
   public static void SpinShooter(double input)
   {
@@ -113,7 +113,7 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() {
-    SpinShooter(0.1,0.7);
+    SpinShooter(1,1);
     moveArmTo(Constants.ampDepositAngle);
     /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {
@@ -131,10 +131,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    double a = -4.87356607*Math.pow(10, 15);
-    double b = 16.604623863;
-    double c = -11.3487133839;
-    double d = 43.1365385842;
+    double a = -3.366287681*Math.pow(10, 15);
+    double b = 14.1873293636;
+    double c = -11.8620824328;
+    double d = 41.2236371084;
     return a*Math.pow(dist + b, c)+d+2; //+5
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
