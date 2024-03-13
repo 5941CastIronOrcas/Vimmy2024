@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -103,7 +105,7 @@ public class DriverDisplay extends SubsystemBase {
   public static ShuffleboardTab goa = Shuffleboard.getTab("GOA");
   public static GenericEntry avoidanceX = goa.add("AvoidanceX", 0).getEntry();
   public static GenericEntry avoidanceY = goa.add("AvoidanceY", 0).getEntry();
-  private final Field2d m_field = new Field2d();
+  
 
   //position estimator
   public static ShuffleboardTab position = Shuffleboard.getTab("Position Estimator");
@@ -117,6 +119,7 @@ public class DriverDisplay extends SubsystemBase {
     public static GenericEntry robotY = position.add("Robot Y", 0).getEntry();
     public static GenericEntry driverYaw = position.add("DriverYaw", 0).getEntry();
     public static GenericEntry fieldYaw = position.add("FieldYaw", 0).getEntry();
+    private final Field2d m_field = new Field2d();
     
 
 
@@ -289,7 +292,6 @@ public class DriverDisplay extends SubsystemBase {
     /*Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
     DriverDisplay.avoidanceX.setDouble(nono.x);
     DriverDisplay.avoidanceY.setDouble(nono.y);
-    Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY(), new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - Math.PI));
     for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++)
     {
       if(GOADataSynthesizer.allObstacles[i] != null)
@@ -297,7 +299,7 @@ public class DriverDisplay extends SubsystemBase {
         m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x, GOADataSynthesizer.allObstacles[i].y, new Rotation2d(0)));
       }
     }
-    m_field.setRobotPose(positionPose2d);*/  //GOA disabled for now
+    */  //GOA disabled for now
     DriverDisplay.avoidanceX.setDouble(SwerveSubsystem.goaAvoidVector.x);
     DriverDisplay.avoidanceY.setDouble(SwerveSubsystem.goaAvoidVector.y);    
     
@@ -318,6 +320,8 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
+    Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY(), new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - Math.PI));
+    m_field.setRobotPose(positionPose2d);
     
 
    
