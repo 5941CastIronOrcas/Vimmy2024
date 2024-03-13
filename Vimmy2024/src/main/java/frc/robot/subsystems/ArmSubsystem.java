@@ -150,14 +150,14 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void ShootSpeaker() {
-    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
+    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
     }
   }
   public static void ShootSpeaker2() {
-    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm);
+    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
