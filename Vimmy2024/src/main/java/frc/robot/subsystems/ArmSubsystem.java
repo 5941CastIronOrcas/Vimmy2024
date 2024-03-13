@@ -12,6 +12,8 @@ import frc.robot.Functions;
 public class ArmSubsystem extends SubsystemBase {
   public static RelativeEncoder armEncoder = Constants.armMotor1.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
   public static double armAngle = 0;
+  public static double oldSpeakerAngle = 0;
+  public static double newSpeakerAngle = 0;
   public static double dist = 0;
   public static boolean inRange = false;
   public static double g = Constants.gravity;
@@ -25,6 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     armAngle = -(Constants.armJointEncoder.get() * 360)+212.2;
+    oldSpeakerAngle = newSpeakerAngle;
+    newSpeakerAngle = GetSpeakerAngle();
     dist = PositionEstimator.distToSpeaker();
     inRange = dist < Constants.maxShootingRange;
 
@@ -143,6 +147,10 @@ public class ArmSubsystem extends SubsystemBase {
       return (-Math.toDegrees(Math.atan2((s*s-d),(g*dist)))+Constants.armAngleOffset);
     }
     return 0.0;*/
+  }
+  public static double GetPredictedSpeakerAngle() {
+    double aSpeed = (newSpeakerAngle - oldSpeakerAngle) * 50;
+    return GetSpeakerAngle() + (aSpeed * (Functions.Pythagorean(PositionEstimator.distToSpeaker(), Constants.speakerHeight) / Constants.launchSpeed));
   }
 
   public static void PrepShooter(double speed) {
