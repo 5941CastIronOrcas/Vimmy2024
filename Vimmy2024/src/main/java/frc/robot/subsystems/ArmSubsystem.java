@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
-
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -97,6 +97,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void Intake(double input)
   {
+    Constants.intakeMotor.setIdleMode(IdleMode.kBrake);
     SpinIntake((hasNote)?0:input);
   }
   public static void IntakeRing() {
@@ -150,6 +151,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void ShootSpeaker() {
+    Constants.intakeMotor.setIdleMode(IdleMode.kCoast);
     shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
@@ -157,6 +159,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
   public static void ShootSpeaker2() {
+    Constants.intakeMotor.setIdleMode(IdleMode.kCoast);
     shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
