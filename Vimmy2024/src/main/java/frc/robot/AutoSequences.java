@@ -94,9 +94,9 @@ public class AutoSequences {
     
     }
 
-  // shoot basic, collect nearest
+  // Retract Climbers, Shoot Basic, Collect Nearest, Shoot
     public static void autoSequence7() {
-      if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
+      if (isAutoTimeBetween(0, 15) && succesfulShots <= 2 && PositionEstimator.realNoteList.size() > 0) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
@@ -135,18 +135,16 @@ public class AutoSequences {
       }
     }
 
-  // shoot aimbot, collect nearest
+  // Retract Climbers, Shoot Aimbot, Collect Nearest, Shoot
   public static void autoSequence8() {
-      if (isAutoTimeBetween(0, 15) && succesfulShots < 2) {
+      if (isAutoTimeBetween(0, 15) && succesfulShots <= 2 && PositionEstimator.realNoteList.size() > 0) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
-
         if (ArmSubsystem.hasNote) {
-          hadNote = true;
-          ArmSubsystem.PrepShooter(1);
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
-            SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            ArmSubsystem.ShootSpeaker();
+            SwerveSubsystem.FaceSpeaker(0, 0, 1);
+            ArmSubsystem.PrepShooter(1);
+            ArmSubsystem.ShootSpeaker2();
           }
           else  {
             SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
@@ -160,12 +158,12 @@ public class AutoSequences {
             wasInDriveToNote = false;
           }
           hadNote = false;
+          ArmSubsystem.IntakeRing();
           if (NoteDetector.noteVisible && NoteDetector.noteDist < 3) {
-            ArmSubsystem.IntakeRing();
             SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
             wasInDriveToNote = true;
-            Vector2D closestNote = Constants.allNotesPos[PositionEstimator.nearestAutoNote()];
+            Vector2D closestNote = PositionEstimator.realNoteList.get(PositionEstimator.nearestAutoNote());
             if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.5, 0.5, 0, 0);
             else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
           }
@@ -176,9 +174,9 @@ public class AutoSequences {
     
   }
 
-  // shoot basic, collect nearest, shoot
+  // Retract Climbers, Shoot Basic, Collect and Shoot as Many as Possible
   public static void autoSequence9() {
-      if (isAutoTimeBetween(0, 15)) {
+      if (isAutoTimeBetween(0, 15) && PositionEstimator.realNoteList.size() > 0) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
@@ -218,9 +216,9 @@ public class AutoSequences {
       }
   }
 
-  // shoot aimbot, collect nearest, shoot
+  // Retract Climbers, Shoot Aimbot, Collect and Shoot as Many as Possible
   public static void autoSequence10() {
-      if (isAutoTimeBetween(0, 15)) {
+      if (isAutoTimeBetween(0, 15) && PositionEstimator.realNoteList.size() > 0) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
