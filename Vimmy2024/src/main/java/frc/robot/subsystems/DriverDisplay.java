@@ -29,6 +29,8 @@ public class DriverDisplay extends SubsystemBase {
   public static GenericEntry AutoSequenceDisplay = AutoStuff.add("You Have Selected:", "N/A").getEntry();
   public static GenericEntry rng = AutoStuff.add("rng", 0).getEntry();
 
+  public static GenericEntry AutoSuccesfullShots = AutoStuff.add("Succesfull Shots: ", "N/A").getEntry();
+
   public static GenericEntry gyroOrientation = AutoStuff.add("Gyro Start Angle", 0).getEntry(); 
   public static GenericEntry gyroOrientationDisplay = AutoStuff.add("Gyro Angle Selected", "N/A").getEntry();
 
@@ -132,7 +134,7 @@ public class DriverDisplay extends SubsystemBase {
   public void periodic() {
     if(ArmSubsystem.hasNote) ControllerRumble.RumbleBothControllersBothSides(0.5);
     else ControllerRumble.RumbleBothControllersBothSides(0);
-    
+    AutoSuccesfullShots.setInteger(AutoSequences.succesfulShots);
     switch ((int)DriverDisplay.gyroOrientation.getInteger(0)) {
       case 0:
         angleToAssign = 180;
