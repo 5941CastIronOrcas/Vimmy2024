@@ -150,12 +150,12 @@ public class DriverDisplay extends SubsystemBase {
         break;
 
       case 3:
-        angleToAssign = 90;
+        angleToAssign = -90;
         DriverDisplay.gyroOrientationDisplay.setString("Intake Face Left 90 Degree");
         break;
 
       case 4:
-        angleToAssign = -90;
+        angleToAssign = 90;
         DriverDisplay.gyroOrientationDisplay.setString("Intake Face Right 90 Degree");
         break;
 

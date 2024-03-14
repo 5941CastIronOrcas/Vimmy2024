@@ -152,7 +152,7 @@ public final class Constants {
   public static final double minArmAngle = 0;
   public static final double maxArmAngle = 99;
   //Intake / Shooter Control Constants
-  public static final double minShootRpm = 4800; //the minimum RPM the shooter needs to be at to shoot
+  public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
   public static final double intakeAngle = 0.0; //the angle in degrees the arm should be at to intake a ring
   public static final double ampDepositAngle = 99.0; //the angle the arm should be at to do the amp
   public static final double trapShootAngle = 30;
@@ -162,8 +162,8 @@ public final class Constants {
   public static final double gravity = 9.81;
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
-  public static final double shootYawOffset = 4.5;
-  public static final double maxShootingRange = 4.0;
+  public static final double shootYawOffset = 3.5;
+  public static final double maxShootingRange = 3.5;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
   //CLIMBER STUFF

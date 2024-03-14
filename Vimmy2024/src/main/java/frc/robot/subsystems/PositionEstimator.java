@@ -182,6 +182,7 @@ public class PositionEstimator extends SubsystemBase {
 
   public static double distToSpeaker() {
     double supposed = Functions.Pythagorean((Robot.isRedAlliance?Constants.redSpeaker.x:Constants.blueSpeaker.x)-robotPosition.getX(), (Robot.isRedAlliance?Constants.redSpeaker.y:Constants.blueSpeaker.y)-robotPosition.getY());
+    //return supposed;
     return 0.967145602537*supposed+0.367526;
   }
   public static double angleToSpeaker()

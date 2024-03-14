@@ -136,11 +136,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetSpeakerAngle() {
-    double a = -3.366287681*Math.pow(10, 15);
-    double b = 14.1873293636;
-    double c = -11.8620824328;
-    double d = 41.2236371084;
-    return a*Math.pow(dist + b, c)+d+2; //+5
+    double a = -70.8237335782; //-3.366287681*Math.pow(10, 15);
+    double b = -0.349465145747;
+    double c = -0.262092184395;
+    double d = 87.2383991914;
+    return a*Math.pow(dist + b, c)+d; //+5
     /*double s = Constants.launchSpeed + Functions.AltAxisCoord(PositionEstimator.velocity.x, PositionEstimator.velocity.y, SwerveSubsystem.angleToSpeaker);
     double d = Math.pow(s,4)-g*((g*dist*dist)+(2*Constants.speakerHeight*s*s));
     if (d>0) {
@@ -160,7 +160,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public static void ShootSpeaker() {
     Constants.intakeMotor.setIdleMode(IdleMode.kCoast);
-    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
+    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 1);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
@@ -168,7 +168,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void ShootSpeaker2() {
     Constants.intakeMotor.setIdleMode(IdleMode.kCoast);
-    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 2.2);
+    shooterFast = (Constants.upperShooterMotor.getEncoder().getVelocity() >= Constants.minShootRpm) || (Constants.upperShooterMotor.getEncoder().getVelocity() > Constants.minShootRpm/2 && PositionEstimator.distToSpeaker() < 1);
     correctArmAngle = (Math.abs(GetSpeakerAngle()-armAngle) < Constants.armAngleVariation);
     if (shooterFast && correctArmAngle && PositionEstimator.atSpeakerAngle() && inRange) {
       SpinIntake(1);
