@@ -20,6 +20,9 @@ public class AutoSequences {
   public static byte succesfulShots = 0;
 
   public static void AutoStart() {
+    wasInDriveToNote = false;
+    hadNote = false;
+    succesfulShots = 0;
     Constants.gyro.setYaw(DriverDisplay.angleToAssign);
     PositionEstimator.realNoteList = new ArrayList<>();
     for (int i = 0; i < Constants.allNotesPos.length; i++) if (AutoSequences.notesIncluded[i]) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
