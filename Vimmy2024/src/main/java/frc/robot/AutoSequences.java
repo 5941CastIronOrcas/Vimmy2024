@@ -4,6 +4,7 @@ package frc.robot;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriverDisplay;
@@ -17,7 +18,7 @@ public class AutoSequences {
 
   public static boolean wasInDriveToNote = false;
   public static boolean hadNote = false;
-  public static byte succesfulShots = 0;
+  public static int succesfulShots = 0;
 
   public static void AutoStart() {
     wasInDriveToNote = false;
@@ -221,10 +222,12 @@ public class AutoSequences {
 
   // Retract Climbers, Shoot Aimbot, Collect and Shoot as Many as Possible
   public static void autoSequence10() {
-      if (isAutoTimeBetween(0, 15) && PositionEstimator.realNoteList.size() > 0) {
+    SmartDashboard.putNumber("Fuckin auto", succesfulShots);
+      if (isAutoTimeBetween(0, 15) && !(!(PositionEstimator.realNoteList.size() > 0) && !ArmSubsystem.hasNote)) {
         ClimberSubsystem.moveClimbers(-1, 0);
         ArmSubsystem.SpinShooter(1);
         if (ArmSubsystem.hasNote) {
+          hadNote = true;
           if (ArmSubsystem.dist < Constants.maxShootingRange) {
             SwerveSubsystem.FaceSpeaker(0, 0, 1);
             ArmSubsystem.PrepShooter(1);
@@ -238,18 +241,21 @@ public class AutoSequences {
         } else {
           if (hadNote) {
             succesfulShots++;
-            if (wasInDriveToNote) PositionEstimator.removeClosestNote();
+            if (wasInDriveToNote && succesfulShots > 1) {
+              PositionEstimator.removeClosestNote();
+              System.out.println("Trying to remove the note, I promise!!!");
+            }
             wasInDriveToNote = false;
           }
           hadNote = false;
           ArmSubsystem.IntakeRing();
           if (NoteDetector.noteVisible && NoteDetector.noteDist < 3) {
+            wasInDriveToNote = true;
             SwerveSubsystem.CollectNote(0, 0, 0.5);        
           } else {
-            wasInDriveToNote = true;
             Vector2D closestNote = PositionEstimator.realNoteList.get(PositionEstimator.nearestAutoNote());
             if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.5, 0.5, 0, 0);
-            else SwerveSubsystem.DriveDriverOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
+            else SwerveSubsystem.DriveFieldOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
           }
         }
       } else {

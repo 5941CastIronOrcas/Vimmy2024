@@ -191,13 +191,13 @@ public class PositionEstimator extends SubsystemBase {
   }
   public static int nearestAutoNote() {
     try {
-    Vector2D[] notes = new Vector2D[realNoteList.size()];
-      for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
-      int id = 0;
+    int id = 0;
       double minDist = 100000;
-      for (int i = 0; i < notes.length; i++) {
-        if (Functions.Pythagorean(notes[i].x - robotPosition.getX(), notes[i].y - robotPosition.getY()) < minDist) {
+      for (int i = 0; i < realNoteList.size(); i++) {
+        double d = Functions.Pythagorean(realNoteList.get(i).x - robotPosition.getX(), realNoteList.get(i).y - robotPosition.getY());
+        if (d < minDist) {
           id = i;
+          minDist = d;
         }
       }
       return id;
@@ -210,13 +210,21 @@ public class PositionEstimator extends SubsystemBase {
     Vector2D[] notes = new Vector2D[realNoteList.size()];
     for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
-    return Functions.Pythagorean(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY());
+    try
+    {
+      return Functions.Pythagorean(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY());
+    }
+    catch(Exception e)
+    {
+      return 10000000;
+    }
+    
   }
   public static double angleToClosestNote() {
     Vector2D[] notes = new Vector2D[realNoteList.size()];
     for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
-    return 90-Math.toDegrees(Math.atan2(notes[n].y - robotPosition.getY(), notes[n].x - robotPosition.getX()));
+    return Math.toDegrees(Math.atan2(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY()));
   }
   public static boolean atSpeakerAngle() {
     return Math.abs(Functions.DeltaAngleDeg(angleToSpeaker(), robotPosition.getRotation().getDegrees()))<Constants.speakerAngleVariation;
@@ -230,6 +238,7 @@ public class PositionEstimator extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("notes remaining", realNoteList.size());
     SmartDashboard.putNumber("nearestAutoNote", nearestAutoNote());
+    SmartDashboard.putNumber("distClosestNote", distToClosestNote());
     // This method will be called once per scheduler run
     robotYawDriverRelative = Functions.DeltaAngleDeg(0, -Constants.gyro.getYaw().getValueAsDouble());
     //robotYawRate = Constants.gyro.getRate();
