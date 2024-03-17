@@ -51,10 +51,12 @@ public class AutoSequences {
     public static void autoSequence3() {
         ClimberSubsystem.moveClimbers(-1, 0);
         if (isAutoTimeBetween(0, 1)) {
-            ArmSubsystem.PrepShooter(0.8);
+            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.SpinShooter(1);
         } else if (isAutoTimeBetween(1, 2)) {
             ArmSubsystem.SpinIntake(0.75);
-            ArmSubsystem.PrepShooter(0.8);
+            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.SpinShooter(1);
         }
         else Functions.killAllMotors();
     }
@@ -72,10 +74,15 @@ public class AutoSequences {
   // shoot basic, drive out
     public static void autoSequence5() {
         ClimberSubsystem.moveClimbers(-1, 0);
-        if (isAutoTimeBetween(0, 2)) ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
+        if (isAutoTimeBetween(0, 2)) 
+        {
+          ArmSubsystem.moveArmTo(16.1);
+          ArmSubsystem.SpinShooter(1); 
+        }
         else if (isAutoTimeBetween(2, 3)) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
+            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.SpinShooter(1);
             ArmSubsystem.SpinIntake(0.75);
         } else if (isAutoTimeBetween(3, 4.85)) {
           ArmSubsystem.SpinIntake(0);
@@ -234,7 +241,7 @@ public class AutoSequences {
             ArmSubsystem.ShootSpeaker2();
           }
           else  {
-            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.5, 0.5, 0, 0);
+            SwerveSubsystem.DriveTo((Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).x, (Robot.isRedAlliance ? Constants.redSpeaker : Constants.blueSpeaker).y, PositionEstimator.angleToSpeaker(), 0.8, 0.5, 0, 0);
             ArmSubsystem.SpinIntake(0);
           }
           
@@ -251,10 +258,10 @@ public class AutoSequences {
           ArmSubsystem.IntakeRing();
           if (NoteDetector.noteVisible && NoteDetector.noteDist < 3) {
             wasInDriveToNote = true;
-            SwerveSubsystem.CollectNote(0, 0, 0.5);        
+            SwerveSubsystem.CollectNote(0, 0, 0.8);        
           } else {
             Vector2D closestNote = PositionEstimator.realNoteList.get(PositionEstimator.nearestAutoNote());
-            if (SwerveSubsystem.atTargetAngle) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.5, 0.5, 0, 0);
+            if (Math.abs(Functions.DeltaAngleDeg(PositionEstimator.robotPosition.getRotation().getDegrees(), PositionEstimator.angleToClosestNote()+180)) < 10) SwerveSubsystem.DriveTo(closestNote.x, closestNote.y, PositionEstimator.angleToClosestNote()+180, 0.8, 0.5, 0, 0);
             else SwerveSubsystem.DriveFieldOrientedAtAngle(0, 0, PositionEstimator.angleToClosestNote()+180, 0.5); 
           }
         }

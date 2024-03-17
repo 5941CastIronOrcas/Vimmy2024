@@ -66,32 +66,62 @@ public class PositionEstimator extends SubsystemBase {
   public static Boolean camCheck1() {
     //var result = camera1.getLatestResult();
     boolean targetCheck = result1.hasTargets();
+    double[] distances = new double[result1.getTargets().size()];
     double distance = 100;
     try {
       if (targetCheck) {
-        distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getBestTarget().getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getBestTarget().getPitch()));
+        for(int i = 0; i < result1.getTargets().size(); i++)
+        {
+          distances[i] = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getTargets().get(i).getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getTargets().get(i).getPitch()));
+        }
+        double minDist = 1000;
+        for(int i = 0; i < distances.length; i++)
+        {
+          if(distances[i] < minDist)
+          {
+            minDist = distances[i];
+            distance = distances[i];
+          }
+        }
+        //distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam1.getZ(), aprilTagFieldLayout.getTagPose(result1.getBestTarget().getFiducialId()).get().getZ(), robotToCam1.getRotation().getY(), Units.degreesToRadians(result1.getBestTarget().getPitch()));
       }
+      SmartDashboard.putNumber("distance1", distance);
     }
     catch (Exception e) {
       //System.out.println("Caught Error: " + e);
     }
     
-    return targetCheck && (result1.getTargets().size() >= 2 || (ambiguity1 < 0.05 && ambiguity1 > 0 && distance < 3));
+    return targetCheck && ((result1.getTargets().size() >= 2 && distance < 5) || (ambiguity1 < 0.05 && ambiguity1 > 0 && distance < 3));
   }
 
   public static Boolean camCheck2() {
     //var result2 = camera2.getLatestResult();
     double distance = 100;
     boolean targetCheck = result2.hasTargets();
+    double[] distances = new double[result2.getTargets().size()];
     try {
       if (targetCheck) {
-        distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam2.getZ(), aprilTagFieldLayout.getTagPose(result2.getBestTarget().getFiducialId()).get().getZ(), robotToCam2.getRotation().getY(), Units.degreesToRadians(result2.getBestTarget().getPitch()));
+        for(int i = 0; i < result2.getTargets().size(); i++)
+        {
+          distances[i] = PhotonUtils.calculateDistanceToTargetMeters(robotToCam2.getZ(), aprilTagFieldLayout.getTagPose(result2.getTargets().get(i).getFiducialId()).get().getZ(), robotToCam2.getRotation().getY(), Units.degreesToRadians(result2.getTargets().get(i).getPitch()));
+        }
+        double minDist = 1000;
+        for(int i = 0; i < distances.length; i++)
+        {
+          if(distances[i] < minDist)
+          {
+            minDist = distances[i];
+            distance = distances[i];
+          }
+        }
+        //distance = PhotonUtils.calculateDistanceToTargetMeters(robotToCam2.getZ(), aprilTagFieldLayout.getTagPose(result2.getBestTarget().getFiducialId()).get().getZ(), robotToCam2.getRotation().getY(), Units.degreesToRadians(result2.getBestTarget().getPitch()));
       }
+      SmartDashboard.putNumber("distance2", distance);
     }
     catch (Exception e) {
       //System.out.println("Caught Error: " + e);
     }
-    return targetCheck && (result2.getTargets().size() >= 2 || (ambiguity2 < 0.05 && ambiguity2 > 0 && distance < 3));
+    return targetCheck && ((result2.getTargets().size() >= 2 && distance < 5) || (ambiguity2 < 0.05 && ambiguity2 > 0 && distance < 3));
   }
 
   public static PhotonTrackedTarget obtainTarget1() {
