@@ -256,7 +256,7 @@ public class AutoSequences {
           }
           hadNote = false;
           ArmSubsystem.IntakeRing();
-          if (NoteDetector.noteVisible && NoteDetector.noteDist < 3) {
+          if (NoteDetector.noteVisible && NoteDetector.noteDist < 2) {
             wasInDriveToNote = true;
             SwerveSubsystem.CollectNote(0, 0, 0.8);        
           } else {
