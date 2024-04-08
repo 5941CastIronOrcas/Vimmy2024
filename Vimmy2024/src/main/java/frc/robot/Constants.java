@@ -29,9 +29,9 @@ import frc.robot.utilityObjects.Vector2D;
  */
 public final class Constants {
   //CONTROLLER STUFF:
-  public static final XboxController controller1 = new XboxController(0);
-  public static final XboxController controller2 = new XboxController(1);
-  public static final double controllerDeadZone = 0.1;
+  public static final XboxController controller1 = new XboxController(0); //drivetrain controller
+  public static final XboxController controller2 = new XboxController(1); //arm controller
+  public static final double controllerDeadZone = 0.1; //how far the stick can go without triggering input
 
   //Misc
   //public static final DigitalInput limpRobotButton = new DigitalInput(0);
@@ -40,16 +40,16 @@ public final class Constants {
   public static double timeSinceStartAtAutoStart = 0;
   //SWERVE STUFF:
   //Gyro
-  public static final Pigeon2 gyro = new Pigeon2(54);
+  public static final Pigeon2 gyro = new Pigeon2(54); 
   //Swerve Motor Declarations
-  public static final CANSparkMax flaMotor = new CANSparkMax(27, MotorType.kBrushless);
-  public static final CANSparkMax fltMotor = new CANSparkMax(26, MotorType.kBrushless);
-  public static final CANSparkMax fraMotor = new CANSparkMax(25, MotorType.kBrushless);
-  public static final CANSparkMax frtMotor = new CANSparkMax(24, MotorType.kBrushless);
-  public static final CANSparkMax blaMotor = new CANSparkMax(21, MotorType.kBrushless);
-  public static final CANSparkMax bltMotor = new CANSparkMax(20, MotorType.kBrushless);
-  public static final CANSparkMax braMotor = new CANSparkMax(23, MotorType.kBrushless);
-  public static final CANSparkMax brtMotor = new CANSparkMax(22, MotorType.kBrushless);
+  public static final CANSparkMax flaMotor = new CANSparkMax(27, MotorType.kBrushless); //front left angle motor
+  public static final CANSparkMax fltMotor = new CANSparkMax(26, MotorType.kBrushless); //front left throttle motor
+  public static final CANSparkMax fraMotor = new CANSparkMax(25, MotorType.kBrushless); //front right angle motor
+  public static final CANSparkMax frtMotor = new CANSparkMax(24, MotorType.kBrushless); //front right throttle motor
+  public static final CANSparkMax blaMotor = new CANSparkMax(21, MotorType.kBrushless); //back left angle motor
+  public static final CANSparkMax bltMotor = new CANSparkMax(20, MotorType.kBrushless); //back left throttle motor
+  public static final CANSparkMax braMotor = new CANSparkMax(23, MotorType.kBrushless); //back right angle motor
+  public static final CANSparkMax brtMotor = new CANSparkMax(22, MotorType.kBrushless); //back right throttle motor
   //Swerve Motor Inversions
   public static final boolean fltInvert = true;
   public static final boolean frtInvert = false;
@@ -131,8 +131,8 @@ public final class Constants {
   //ARM STUFF:
 
   //Arm Motor Declarations
-  public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless);
-  public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless);
+  public static final CANSparkMax armMotor1 = new CANSparkMax(28, MotorType.kBrushless); //left arm motor viewing from the front of the robot
+  public static final CANSparkMax armMotor2 = new CANSparkMax( 29, MotorType.kBrushless); //right arm motor
   public static final Boolean armMotor1Invert = true;
   public static final Boolean armMotor2Invert = false;
   public static final CANSparkMax intakeMotor = new CANSparkMax(30, MotorType.kBrushless);
@@ -158,8 +158,8 @@ public final class Constants {
   public static final double trapShootAngle = 30;
   public static final double trapShootSpeed = 0.5;
   public static final double trapMinRPM = 2000;
-  public static final double launchSpeed = 10.0;
-  public static final double gravity = 9.81;
+  public static final double launchSpeed = 10.0; //speed of ring after being launched in m/s
+  public static final double gravity = 9.81; //gravity acceleration in m/s^2
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
   public static final double shootYawOffset = 3.5;
@@ -190,8 +190,8 @@ public final class Constants {
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
   public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
   public static final Vector2D blueAmpDepositPosition = new Vector2D(1.8415, 8.24);
-  public static final double speakerHeight = 2.05;
-  public static final double speakerAngleVariation = 5.0;
+  public static final double speakerHeight = 2.05; //height of speaker opening in meters
+  public static final double speakerAngleVariation = 5.0; //how many degrees the arm angle can be from the target and still shoot
   public static final double noteCameraHeight = 0.22; //in meters for note detector
   public static final double noteCameraForwardOffset = 0.54; // forward distance from robot center to note detector camera in meters
   public static final double noteCameraAngle = -20; //for note detector
