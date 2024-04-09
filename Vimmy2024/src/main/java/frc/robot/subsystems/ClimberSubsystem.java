@@ -39,6 +39,18 @@ public class ClimberSubsystem extends SubsystemBase {
     !Constants.rClimberSwitch.get()?0:Functions.Clamp(Constants.climberReductionMult*(lClimberAngle-Constants.climberSmoothingEnd)-Constants.climberMaxHitSpeed, -1, -Constants.climberMaxHitSpeed), 
     rClimberAngle>=Constants.climberMaxHeight?0:1));
   }
+  public static void moveClimbersIndependent(double Rspeed, double Lspeed){
+     Constants.climberMotorL.set(Functions.Clamp(Lspeed*(Constants.climberMotorLInvert?-1:1), 
+    !Constants.lClimberSwitch.get()?0: Functions.Clamp(Constants.climberReductionMult*(lClimberAngle-Constants.climberSmoothingEnd)-Constants.climberMaxHitSpeed, -1, -Constants.climberMaxHitSpeed), 
+    lClimberAngle>=Constants.climberMaxHeight?0:1));
+
+    Constants.climberMotorR.set(Functions.Clamp(Rspeed*(Constants.climberMotorRInvert?-1:1), 
+    !Constants.rClimberSwitch.get()?0:Functions.Clamp(Constants.climberReductionMult*(lClimberAngle-Constants.climberSmoothingEnd)-Constants.climberMaxHitSpeed, -1, -Constants.climberMaxHitSpeed), 
+    rClimberAngle>=Constants.climberMaxHeight?0:1));
+  }
+  public static void moveClimbersTo(double rightpos, double leftpos, double speed){
+    moveClimbersIndependent(Functions.Clamp((rightpos-rClimberAngle)*Constants.climberGoToPMult, -speed, speed), Functions.Clamp((leftpos-lClimberAngle)*Constants.climberGoToPMult, -speed, speed));
+  }
 
   public static void autoBalance(double speed) {
     moveClimbers(speed,Functions.Clamp((Constants.climberBalancePMult*(-Constants.gyro.getRoll().getValueAsDouble())), 
