@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
   public static boolean robotLimp = true;
   public static short framesNoteNotPresent = 0;
   public static int selectedAutoSequence = Constants.defaultAutoSequence;
+  public static double timeSinceRPSstart = 0;
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;
@@ -149,70 +150,82 @@ public class Robot extends TimedRobot {
     }
 
     //Arm
-    if(Constants.controller1.getBButton())
-    {
-      ArmSubsystem.IntakeRing();
+    if(Constants.controller2.getBackButton()) {
+      ArmSubsystem.moveArmTo(0);
+      ClimberSubsystem.moveClimbersTo(0, 0, 1);
     }
-    else if(Constants.controller1.getXButton())
-    {
-      ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
-      ArmSubsystem.ShootSpeaker();
+    else if (Constants.controller2.getStartButton()) {
+      RPS();
     }
-    else if(Constants.controller1.getRightTriggerAxis() > 0.5)
-    {
-      ArmSubsystem.IntakeRing();
-    }
-    else
-    {
-      if(Constants.controller2.getYButton())
+    else {
+      if(Constants.controller1.getBButton())
       {
-        ArmSubsystem.DepositAmp();
+        ArmSubsystem.IntakeRing();
+      }
+      else if(Constants.controller1.getXButton())
+      {
+        ArmSubsystem.PrepShooter(Constants.defaultShooterSpeed);
+        ArmSubsystem.ShootSpeaker();
+      }
+      else if(Constants.controller1.getRightTriggerAxis() > 0.5)
+      {
+        ArmSubsystem.IntakeRing();
       }
       else
       {
-        if(Constants.controller2.getRightBumper())
+        if(Constants.controller2.getYButton())
         {
-          ArmSubsystem.moveArmTo(16.1);
+          ArmSubsystem.DepositAmp();
         }
         else
         {
-          ArmSubsystem.rotateArm(LSY2);
+          if(Constants.controller2.getRightBumper())
+          {
+            ArmSubsystem.moveArmTo(16.1);
+          }
+          else
+          {
+            ArmSubsystem.rotateArm(LSY2);
+          }
+          
+          if(Constants.controller2.getRightBumper())
+          {
+            ArmSubsystem.SpinShooter(1);
+          }
+          else
+          {
+            ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis()-0.3*Constants.controller2.getLeftTriggerAxis());
+          }
         }
+        if(Constants.controller2.getXButton())
+          {
+            ArmSubsystem.SpinIntake(0.5);
+          }
+          else if(Constants.controller2.getBButton())
+          {
+            ArmSubsystem.SpinIntake(-0.25);
+          } else if (Constants.controller2.getAButton()) {
+            ArmSubsystem.Intake(0.5);
+          }
+          else
+          {
+            ArmSubsystem.SpinIntake(-Constants.controller2.getLeftTriggerAxis());
+          }
         
-        if(Constants.controller2.getRightBumper())
-        {
-          ArmSubsystem.SpinShooter(1);
-        }
-        else
-        {
-          ArmSubsystem.SpinShooter(Constants.controller2.getRightTriggerAxis()-0.3*Constants.controller2.getLeftTriggerAxis());
-        }
       }
-      if(Constants.controller2.getXButton())
-        {
-          ArmSubsystem.SpinIntake(0.5);
-        }
-        else if(Constants.controller2.getBButton())
-        {
-          ArmSubsystem.SpinIntake(-0.25);
-        } else if (Constants.controller2.getAButton()) {
-          ArmSubsystem.Intake(0.5);
-        }
-        else
-        {
-          ArmSubsystem.SpinIntake(-Constants.controller2.getLeftTriggerAxis());
-        }
-      
-    }
 
-    ClimberSubsystem.moveClimbers(RSY2, RSX2);
-    
+      ClimberSubsystem.moveClimbers(RSY2, RSX2);
+    }
 
 
 
     //if(ArmSubsystem.hasNote) ControllerRumble.RumbleBothControllersBothSides(0.5);
     //else ControllerRumble.RumbleBothControllersBothSides(0);
     
+  }
+
+  public void RPS() {
+    timeSinceRPSstart += 0.02;
   }
 
 

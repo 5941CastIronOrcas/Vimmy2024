@@ -19,6 +19,9 @@ public class Functions {
     public static double Exponential(double input) {
         return input * Math.abs(input);
     }
+    public static double TriangleWave(double x) {
+        return 2*(Math.asin(Math.sin(2*Math.PI*x)))/Math.PI;
+    }
     public static double Pythagorean(double x, double y) {
         return Math.sqrt((x * x) + (y * y));
     }
