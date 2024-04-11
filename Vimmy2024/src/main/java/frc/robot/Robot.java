@@ -158,6 +158,7 @@ public class Robot extends TimedRobot {
       RPS();
     }
     else {
+      timeSinceRPSstart = 0;
       if(Constants.controller1.getBButton())
       {
         ArmSubsystem.IntakeRing();
@@ -226,6 +227,8 @@ public class Robot extends TimedRobot {
 
   public void RPS() {
     timeSinceRPSstart += 0.02;
+    double pos = (Functions.TriangleWave(timeSinceRPSstart-0.25)+1)*Constants.climberMaxHeight*0.5;
+    ClimberSubsystem.moveClimbersTo(pos, pos, 1);
   }
 
 
