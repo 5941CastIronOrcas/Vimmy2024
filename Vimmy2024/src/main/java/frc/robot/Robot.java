@@ -153,7 +153,10 @@ public class Robot extends TimedRobot {
     //Arm
     if(Constants.controller2.getBackButton()) {
       ArmSubsystem.moveArmTo(0);
-      ClimberSubsystem.moveClimbersTo(0, 0, 1);
+      ClimberSubsystem.moveClimbers(-1,0);
+    }
+    else if (Constants.controller2.getStartButtonPressed()) {
+      RPSStart();
     }
     else if (Constants.controller2.getStartButton()) {
       RPS();
@@ -226,7 +229,12 @@ public class Robot extends TimedRobot {
     
   }
 
-  public void RPS() {
+  public void RPSStart() { //Called the frame the start button is pressed, initiating the rock paper scissors stuff
+    timeSinceRPSstart = 0.0;
+    RPS = (int)(Math.random()*3);
+  }
+
+  public void RPS() { //This function is called any time the start button is currently pressed down. It handles the climber and arm motion.
     timeSinceRPSstart += 0.02;
     if (timeSinceRPSstart <= 3.0) {
       //The period of time when it's moving the climbers up and down and preparing to "shoot"
@@ -238,22 +246,15 @@ public class Robot extends TimedRobot {
         case 0:
           //Rock
           ArmSubsystem.moveArmTo(90);
-          if (ArmSubsystem.armAngle > 89) RPS = -1; //This just deletes RPS so a new one is generated
         case 1:
           //Paper
           ClimberSubsystem.moveClimbersTo(0, Constants.climberMaxHeight, 1);
-          if (ClimberSubsystem.lClimberAngle > Constants.climberMaxHeight-1) RPS = -1;
         case 2:
           //Scissors
           ClimberSubsystem.moveClimbersTo(Constants.climberMaxHeight, 0, 1);
-          if (ClimberSubsystem.rClimberAngle > Constants.climberMaxHeight-1) RPS = -1;
-        default:
-          //This just generates a random number from 0-2 if there isn't one
-          RPS = (int)(Math.random()*3);
       }
     }
   }
-
 
   @Override
   public void testInit() {
