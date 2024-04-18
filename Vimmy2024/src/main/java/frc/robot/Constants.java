@@ -184,7 +184,7 @@ public final class Constants {
   public static final double climberReductionMult = (climberMaxHitSpeed-1) / (climberSmoothingStart-climberSmoothingEnd);
   //public static final double climberMaxSpeed = 1;
   public static final double climberMaxHeight = 95;
-  public static final double climberGoToPMult = 1;
+  public static final double climberGoToPMult = 0.2;
 
   //POSITION ESTIMATION AND FIELD CONSTANTS:
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);

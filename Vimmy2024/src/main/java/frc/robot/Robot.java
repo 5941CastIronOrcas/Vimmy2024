@@ -234,24 +234,31 @@ public class Robot extends TimedRobot {
     RPS = (int)(Math.random()*3);
   }
 
-  public void RPS() { //This function is called any time the start button is currently pressed down. It handles the climber and arm motion.
+  public void RPS() { //This function is called any time the start button is currently pressed down. It handles the climber and arm motion for rock paper scissors.
     timeSinceRPSstart += 0.02;
     if (timeSinceRPSstart <= 3.0) {
       //The period of time when it's moving the climbers up and down and preparing to "shoot"
-      double pos = (Functions.TriangleWave(timeSinceRPSstart-0.25)+1)*Constants.climberMaxHeight*0.5;
+      double pos = (Functions.TriangleWave(timeSinceRPSstart-0.25)+1)*Constants.climberMaxHeight*0.25;
       ClimberSubsystem.moveClimbersTo(pos, pos, 1);
+      ArmSubsystem.rotateArm(0);
     }
     else {
       switch (RPS) {
         case 0:
           //Rock
           ArmSubsystem.moveArmTo(90);
+          ClimberSubsystem.moveClimbers(0, 0);
+          break;
         case 1:
           //Paper
           ClimberSubsystem.moveClimbersTo(0, Constants.climberMaxHeight, 1);
+          ArmSubsystem.rotateArm(0);
+          break;
         case 2:
           //Scissors
           ClimberSubsystem.moveClimbersTo(Constants.climberMaxHeight, 0, 1);
+          ArmSubsystem.rotateArm(0);
+          break;
       }
     }
   }
