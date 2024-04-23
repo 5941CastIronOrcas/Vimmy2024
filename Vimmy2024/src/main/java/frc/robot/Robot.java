@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArduinoCommunication;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.ControllerRumble;
+import frc.robot.subsystems.ControllerRumble                                                                                                           ;
 import frc.robot.subsystems.DriverDisplay;
-import frc.robot.subsystems.GOAGuidanceSystem;
-import frc.robot.subsystems.NoteDetector;
-import frc.robot.subsystems.PositionEstimator;
+import                                                                                                            frc.robot.subsystems.GOAGuidanceSystem;
+import                                                                                                            frc.robot.subsystems.NoteDetector;
+import                                                                                                            frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /**
@@ -235,8 +235,8 @@ public class Robot extends TimedRobot {
   }
 
   public void RPS() { //This function is called any time the start button is currently pressed down. It handles the climber and arm motion for rock paper scissors.
-    timeSinceRPSstart += 0.02;
-    if (timeSinceRPSstart <= 3.0) {
+    timeSinceRPSstart += 0.025;
+    if (timeSinceRPSstart <= 4.0) {
       //The period of time when it's moving the climbers up and down and preparing to "shoot"
       double pos = (Functions.TriangleWave(timeSinceRPSstart-0.25)+1)*Constants.climberMaxHeight*0.25;
       ClimberSubsystem.moveClimbersTo(pos, pos, 1);
@@ -246,7 +246,7 @@ public class Robot extends TimedRobot {
       switch (RPS) {
         case 0:
           //Rock
-          ArmSubsystem.moveArmTo(90);
+          ArmSubsystem.moveArmTo(45);
           ClimberSubsystem.moveClimbers(0, 0);
           break;
         case 1:
@@ -259,7 +259,7 @@ public class Robot extends TimedRobot {
           ClimberSubsystem.moveClimbersTo(Constants.climberMaxHeight, 0, 1);
           ArmSubsystem.rotateArm(0);
           break;
-      }
+      } 
     }
   }
 

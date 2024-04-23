@@ -316,7 +316,7 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.isPresent2.setBoolean(PositionEstimator.camCheck2());
     DriverDisplay.ambiguity1.setDouble(PositionEstimator.ambiguity1);
     DriverDisplay.ambiguity2.setDouble(PositionEstimator.ambiguity2);
-    DriverDisplay.latency.setDouble(PositionEstimator.camera1.getLatestResult().getLatencyMillis());
+    DriverDisplay.latency.setDouble(PositionEstimator.camera1                                                                                                          .getLatestResult().getLatencyMillis());
     DriverDisplay.speed.setDouble(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y));
     DriverDisplay.robotX.setDouble(PositionEstimator.robotPosition.getX());
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
