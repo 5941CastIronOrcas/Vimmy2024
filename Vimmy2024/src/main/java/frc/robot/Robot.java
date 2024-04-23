@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArduinoCommunication;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.ControllerRumble                                                                                                           ;
+import frc.robot.subsystems.ControllerRumble;
 import frc.robot.subsystems.DriverDisplay;
-import                                                                                                            frc.robot.subsystems.GOAGuidanceSystem;
-import                                                                                                            frc.robot.subsystems.NoteDetector;
-import                                                                                                            frc.robot.subsystems.PositionEstimator;
+import frc.robot.subsystems.GOAGuidanceSystem;
+import frc.robot.subsystems.NoteDetector;
+import frc.robot.subsystems.PositionEstimator;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /**
