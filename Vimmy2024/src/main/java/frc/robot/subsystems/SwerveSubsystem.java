@@ -121,6 +121,16 @@ public class SwerveSubsystem extends SubsystemBase {
     double a = PositionEstimator.angleToSpeaker() + (aSpeed * 0.5);
     DriveDriverOrientedAtAngle(x, y, Functions.FieldToDriverAngle(a), turnLimit);
   }
+
+  public static void SquareDriveTo(double x, double y, double angle, double speedLimit, double turnLimit, double XOffset, double YOffset, boolean xFirst) {
+    if (xFirst) {
+      DriveTo(x, Math.abs(y-PositionEstimator.robotPosition.getY())<Constants.swerveSquareDriveToDeadZone?y:PositionEstimator.robotPosition.getY(), angle, speedLimit, turnLimit, XOffset, YOffset);
+    }
+    else {
+      DriveTo(Math.abs(x-PositionEstimator.robotPosition.getX())<Constants.swerveSquareDriveToDeadZone?x:PositionEstimator.robotPosition.getX(), y, angle, speedLimit, turnLimit, XOffset, YOffset);
+    }
+  }
+
   public static void GoToAmp(double speedLimit, double turnLimit, double XOffset, double YOffset)
   {
     Vector2D target = Robot.isRedAlliance?Constants.redAmpDepositPosition:Constants.blueAmpDepositPosition;

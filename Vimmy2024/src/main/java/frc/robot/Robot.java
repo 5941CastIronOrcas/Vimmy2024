@@ -186,7 +186,7 @@ public class Robot extends TimedRobot {
         {
           if(Constants.controller2.getRightBumper())
           {
-            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.manualMoveArmTo();
           }
           else
           {

@@ -51,11 +51,11 @@ public class AutoSequences {
     public static void autoSequence3() {
         ClimberSubsystem.moveClimbers(-1, 0);
         if (isAutoTimeBetween(0, 1)) {
-            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.manualMoveArmTo();
             ArmSubsystem.SpinShooter(1);
         } else if (isAutoTimeBetween(1, 2)) {
             ArmSubsystem.SpinIntake(0.75);
-            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.manualMoveArmTo();
             ArmSubsystem.SpinShooter(1);
         }
         else Functions.killAllMotors();
@@ -76,12 +76,12 @@ public class AutoSequences {
         ClimberSubsystem.moveClimbers(-1, 0);
         if (isAutoTimeBetween(0, 2)) 
         {
-          ArmSubsystem.moveArmTo(16.1);
+          ArmSubsystem.manualMoveArmTo();
           ArmSubsystem.SpinShooter(1); 
         }
         else if (isAutoTimeBetween(2, 3)) {
             SwerveSubsystem.DriveDriverOriented(0, 0, 0);
-            ArmSubsystem.moveArmTo(16.1);
+            ArmSubsystem.manualMoveArmTo();
             ArmSubsystem.SpinShooter(1);
             ArmSubsystem.SpinIntake(0.75);
         } else if (isAutoTimeBetween(3, 4.85)) {

@@ -78,6 +78,7 @@ public final class Constants {
   public static final double swerveDriveToPMult = 1.0;
   public static final double swerveDriveToDMult = 0.14;
   public static final double swerveDriveToDeadZone = 0.03; //if the robot is within this many meters of the target position, it stops moving.
+  public static final double swerveSquareDriveToDeadZone = 0.03;
   //Swerve Collect Ring Constants
   public static final double swerveCollectNotePMult = 0.5;
   

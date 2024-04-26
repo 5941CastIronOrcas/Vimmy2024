@@ -76,6 +76,10 @@ public class ArmSubsystem extends SubsystemBase {
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
      DriverDisplay.armTarget.setDouble(a);
   }
+
+  public static void manualMoveArmTo() {
+    moveArmTo(16.1);
+  }
   
   public static void rotateArm(double t) {
     t = Functions.Clamp(t+(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))), -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1));
