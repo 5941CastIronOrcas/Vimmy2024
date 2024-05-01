@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   public static short framesNoteNotPresent = 0;
   public static int selectedAutoSequence = Constants.defaultAutoSequence;
   public static double timeSinceRPSstart = 0;
-  public static int RPS = -1;
+  public static int RPS = -1; //variable that chooses which thing in RPS
   //public static boolean limpButtonOld = Constants.limpRobotButton.get();
 
   private RobotContainer m_robotContainer;
@@ -49,11 +49,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     ArduinoCommunication.Wrap();
-    Constants.climberMotorL.getEncoder().setPosition(0);
+    Constants.climberMotorL.getEncoder().setPosition(0); //sets all climber encoders and the robot's gyro to zero.
     Constants.climberMotorR.getEncoder().setPosition(0);
     Constants.gyro.setYaw(180);
-    for (int i = 0; i < Constants.redNotesPos.length; i++) Constants.allNotesPos[i] = Robot.isRedAlliance ? Constants.redNotesPos[i] : Constants.blueNotesPos[i];
-    for (int i = 0; i < Constants.centerNotesPos.length; i++) Constants.allNotesPos[i + Constants.redNotesPos.length] = Constants.centerNotesPos[i];
+    for (int i = 0; i < Constants.redNotesPos.length; i++) Constants.allNotesPos[i] = Robot.isRedAlliance ? Constants.redNotesPos[i] : Constants.blueNotesPos[i]; //gets the values in either redNotesPos or blueNotesPos depending on the current team, and adds them to the start of the allNotesPos array.
+    for (int i = 0; i < Constants.centerNotesPos.length; i++) Constants.allNotesPos[i + Constants.redNotesPos.length] = Constants.centerNotesPos[i]; //adds the center notes to the end of the allNotesPos array.
      
   }
 
@@ -108,20 +108,20 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() { 
     double speed = 1-(0.75*Constants.controller1.getLeftTriggerAxis());
-    double LSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftX(), Constants.controllerDeadZone)) * speed;
+    double LSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftX(), Constants.controllerDeadZone)) * speed; //gets each controller's inputs
     double LSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getLeftY(), Constants.controllerDeadZone)) * speed;
     double RSX = Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightX(), Constants.controllerDeadZone)) * speed;
     double RSY = -Functions.Exponential(Functions.DeadZone(Constants.controller1.getRightY(), Constants.controllerDeadZone)) * speed;
     double LSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getLeftY(), Constants.controllerDeadZone));
     double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone));
     double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone));
-    double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX));
-    if(Constants.controller1.getLeftBumper())
+    double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX)); //gets the angle the right stick on controller 1 is pointing to.
+    if(Constants.controller1.getLeftBumper()) //snaps to specific directions to climb and score amp
     {
       RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 105.0 ? 90 * Math.round(RSAngle / 90.0) : 120.0 * Math.round(RSAngle / 120.0);
     }
 
-    if (Constants.controller1.getRightBumperPressed()) {
+    if (Constants.controller1.getRightBumperPressed()) { //resets the robot's yaw
       Constants.gyro.setYaw(180);
     }
     //SwerveSubsystem.Drive(LSX, LSY, RSX);
