@@ -201,6 +201,8 @@ public final class Constants {
   public static final String apriltagCamera1Name = "Arducam_OV9281_USB_Camera 1"; //LEFT (shooter forward)
   public static final String apriltagCamera2Name = "Arducam_OV9281_USB_Camera 2"; //RIGHT (shooter forward)
   public static final String noteDetectionCameraName = "Arducam_OV9782_USB_Camera";
+  public static final double FieldDisplayOffsetX = 1.0;
+  public static final double FieldDisplayOffsetY = 0.4;
 
 
 

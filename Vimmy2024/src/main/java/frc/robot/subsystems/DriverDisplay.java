@@ -293,15 +293,16 @@ public class DriverDisplay extends SubsystemBase {
     //GOA
     /*Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
     DriverDisplay.avoidanceX.setDouble(nono.x);
-    DriverDisplay.avoidanceY.setDouble(nono.y);
+    DriverDisplay.avoidanceY.setDouble(nono.y);*/
     for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++)
     {
       if(GOADataSynthesizer.allObstacles[i] != null)
       {
-        m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x, GOADataSynthesizer.allObstacles[i].y, new Rotation2d(0)));
+        m_field.getObject(Integer.toString(i)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[i].x + Constants.FieldDisplayOffsetX, GOADataSynthesizer.allObstacles[i].y + Constants.FieldDisplayOffsetY, new Rotation2d(0)));
       }
     }
-    */  //GOA disabled for now
+    //m_field.getObject(Integer.toString(1)).setPose(new Pose2d(GOADataSynthesizer.allObstacles[1].x + Constants.FieldDisplayOffsetX, GOADataSynthesizer.allObstacles[1].y + Constants.FieldDisplayOffsetY, new Rotation2d(0)));
+
     DriverDisplay.avoidanceX.setDouble(SwerveSubsystem.goaAvoidVector.x);
     DriverDisplay.avoidanceY.setDouble(SwerveSubsystem.goaAvoidVector.y);    
     
@@ -316,13 +317,13 @@ public class DriverDisplay extends SubsystemBase {
     DriverDisplay.isPresent2.setBoolean(PositionEstimator.camCheck2());
     DriverDisplay.ambiguity1.setDouble(PositionEstimator.ambiguity1);
     DriverDisplay.ambiguity2.setDouble(PositionEstimator.ambiguity2);
-    DriverDisplay.latency.setDouble(PositionEstimator.camera1                                                                                                          .getLatestResult().getLatencyMillis());
+    DriverDisplay.latency.setDouble(PositionEstimator.camera1.getLatestResult().getLatencyMillis());
     DriverDisplay.speed.setDouble(Functions.Pythagorean(PositionEstimator.velocity.x, PositionEstimator.velocity.y));
     DriverDisplay.robotX.setDouble(PositionEstimator.robotPosition.getX());
     DriverDisplay.robotY.setDouble(PositionEstimator.robotPosition.getY());
     DriverDisplay.driverYaw.setDouble(PositionEstimator.robotYawDriverRelative);
     DriverDisplay.fieldYaw.setDouble( Functions.DeltaAngleDeg(0, PositionEstimator.robotPosition.getRotation().getDegrees()));
-    Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX(), PositionEstimator.robotPosition.getY(), new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - 0.5*Math.PI));
+    Pose2d positionPose2d = new Pose2d(PositionEstimator.robotPosition.getX()+Constants.FieldDisplayOffsetX, PositionEstimator.robotPosition.getY()+Constants.FieldDisplayOffsetY, new Rotation2d(-PositionEstimator.robotPosition.getRotation().getRadians() - 0.5*Math.PI));
     m_field.setRobotPose(positionPose2d);
     
 
