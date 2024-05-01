@@ -294,6 +294,7 @@ public class DriverDisplay extends SubsystemBase {
     /*Vector2D nono = GOAGuidanceSystem.GetAvoidanceVector();
     DriverDisplay.avoidanceX.setDouble(nono.x);
     DriverDisplay.avoidanceY.setDouble(nono.y);*/
+    m_field.getObject("(0,0)").setPose(new Pose2d(Constants.FieldDisplayOffsetX, Constants.FieldDisplayOffsetY, new Rotation2d(0)));
     for (int i = 0; i < GOADataSynthesizer.allObstacles.length; i++)
     {
       if(GOADataSynthesizer.allObstacles[i] != null)
