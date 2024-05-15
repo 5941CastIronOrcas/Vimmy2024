@@ -17,6 +17,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AutoSequences;
 import frc.robot.Constants;
 import frc.robot.Functions;
 import frc.robot.Robot;
@@ -226,7 +227,7 @@ public class PositionEstimator extends SubsystemBase {
       for (int i = 0; i < realNoteList.size(); i++) {
         double d = Functions.Pythagorean(realNoteList.get(i).x - robotPosition.getX(), realNoteList.get(i).y - robotPosition.getY());
         if (d < minDist) {
-          id = i;
+          id = AutoSequences.noteList[i];
           minDist = d;
         }
       }
@@ -237,24 +238,22 @@ public class PositionEstimator extends SubsystemBase {
     }
   }
   public static double distToClosestNote() {
-    Vector2D[] notes = new Vector2D[realNoteList.size()];
-    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
     try
     {
-      return Functions.Pythagorean(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY());
+      return Functions.Pythagorean(realNoteList.get(n).x - robotPosition.getX(), realNoteList.get(n).y - robotPosition.getY());
     }
     catch(Exception e)
     {
       return 10000000;
     }
-    
   }
   public static double angleToClosestNote() {
-    Vector2D[] notes = new Vector2D[realNoteList.size()];
-    for (int i = 0; i < notes.length; i++) notes[i] = realNoteList.get(i);
     int n = nearestAutoNote();
-    return Math.toDegrees(Math.atan2(notes[n].x - robotPosition.getX(), notes[n].y - robotPosition.getY()));
+    return Math.toDegrees(Math.atan2(realNoteList.get(n).x - robotPosition.getX(), realNoteList.get(n).y - robotPosition.getY()));
+  }
+  public static int nextAutoNote() {
+    return 1;
   }
   public static boolean atSpeakerAngle() {
     return Math.abs(Functions.DeltaAngleDeg(angleToSpeaker(), robotPosition.getRotation().getDegrees()))<Constants.speakerAngleVariation;

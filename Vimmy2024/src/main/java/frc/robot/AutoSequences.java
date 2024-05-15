@@ -14,7 +14,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.utilityObjects.Vector2D;
 
 public class AutoSequences {
-  public static boolean[] notesIncluded = new boolean[8];
+  public static int[] noteList;
 
   public static boolean wasInDriveToNote = false;
   public static boolean hadNote = false;
@@ -26,7 +26,7 @@ public class AutoSequences {
     succesfulShots = 0;
     Constants.gyro.setYaw(DriverDisplay.angleToAssign);
     PositionEstimator.realNoteList = new ArrayList<>();
-    for (int i = 0; i < Constants.allNotesPos.length; i++) if (AutoSequences.notesIncluded[i]) PositionEstimator.realNoteList.add(Constants.allNotesPos[i]);
+    for (int i = 0; i < noteList.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[noteList[i]]);
   }
 
   // kill all the motors

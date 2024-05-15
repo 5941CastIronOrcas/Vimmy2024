@@ -39,7 +39,7 @@ public class DriverDisplay extends SubsystemBase {
   //public static GenericEntry noteIgnoranceHEX = AutoStuff.add("notePatternHEX", "N/A").getEntry();
   public static GenericEntry noteIgnoranceCheck = AutoStuff.add("Selected Note Ignorance [0 - ignore, 1 - include]", "N/A").getEntry();
 
-  public static GenericEntry notesIgnorance = AutoStuff.add("notesToggleInput", "11111111").getEntry();
+  public static GenericEntry notesIgnorance = AutoStuff.add("notesToggleInput", "12345678").getEntry();
 
   //NoteDetector
   public static ShuffleboardTab noteDetector = Shuffleboard.getTab("NoteDetector");
@@ -224,16 +224,18 @@ public class DriverDisplay extends SubsystemBase {
 
         
     // note choosing
-    String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("11111111");
+    String noteIgnoranceInpt = DriverDisplay.notesIgnorance.getString("12345678");
 
     if (noteIgnoranceInpt.length() >= 8) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, 8);
-    if (noteIgnoranceInpt.length() < 8) for (int i = noteIgnoranceInpt.length(); i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt + "1";
+    if (noteIgnoranceInpt.length() < 1) noteIgnoranceInpt = "12345678";
     //for (int i = 0; i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, i) + (noteIgnoranceInpt.charAt(i) == '0' ? '0' : '1') + noteIgnoranceInpt.substring(i, noteIgnoranceInpt.length() - 1);
-      for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
+      //for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
+    AutoSequences.noteList = new int[noteIgnoranceInpt.length()];
     
+    for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.noteList[i] = noteIgnoranceInpt.charAt(i).toInt();
     String outputString = "";
-    for (int i = 0; i < 8; i++) outputString = outputString + (AutoSequences.notesIncluded[i] ? "" : (i + 1) + ", "); 
-    DriverDisplay.noteIgnoranceCheck.setString("Disabled notes: " + outputString);
+    for (int i = 0; i < AutoSequences.noteList.length; i++) outputString += AutoSequences.noteList[i] + ", "; 
+    DriverDisplay.noteIgnoranceCheck.setString("Enabled Notes" + outputString);
 
     DriverDisplay.AutoSequenceDisplay.setString(selectedAutoName);
     DriverDisplay.rng.setDouble(Math.random());
