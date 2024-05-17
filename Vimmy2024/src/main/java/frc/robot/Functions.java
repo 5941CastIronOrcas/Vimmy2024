@@ -85,6 +85,26 @@ public class Functions {
         return new Vector2D(n*in.x, n*in.y);
     }
 
+    public static String ContainsMultiple(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.substring(1).indexOf(s.substring(0,1)) != -1) return s.substring(0,1);
+            s = s.substring(1);
+        }
+        return "";
+    }
+    public static boolean ContainsMultipleOf(String s, String in) {
+        s = s.substring(s.indexOf(in));
+        return s.substring(in.length()).indexOf(in) != -1;
+    }
+    public static String RemoveMultiples(String s) {
+        while (!ContainsMultiple(s).equals("")) {
+            String sub = ContainsMultiple(s);
+            int i = s.substring(s.indexOf(sub) + 1).indexOf(sub);
+            s = s.substring(0,i) + s.substring(i+1);
+        }
+        return s;
+    }
+
     public static void setRobotLimp(boolean yes)
     {
         if(yes)

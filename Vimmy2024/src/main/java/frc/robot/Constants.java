@@ -214,7 +214,20 @@ public final class Constants {
   public static SerialPort arduino;
   public static boolean isArduinoConnected = false;
   
+  //ANSI Color Codes:
+  public static final String ansiRESET = "\u001B[0m";
+  public static final String ansiBLK = "\u001B[30m";
+  public static final String ansiRED = "\u001B[31m";
+  public static final String ansiGRN = "\u001B[32m";
+  public static final String ansiYLW = "\u001B[33m";
+  public static final String ansiBLU = "\u001B[34m";
+  public static final String ansiPRP = "\u001B[35m";
+  public static final String ansiCYN = "\u001B[36m";
+  public static final String ansiWHT = "\u001B[37m";
+  
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+
+  
   }
 }

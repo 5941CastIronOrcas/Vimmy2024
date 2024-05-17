@@ -60,6 +60,8 @@ public class PositionEstimator extends SubsystemBase {
   public static double ambiguity1;
   public static double ambiguity2;
 
+  private static int currentAutoNote = 0;
+
   public static double lastTimestamp1 = 0;
   public static double lastTimestamp2 = 0;
   public static double trueLatency = 0;
@@ -252,8 +254,28 @@ public class PositionEstimator extends SubsystemBase {
     int n = nearestAutoNote();
     return Math.toDegrees(Math.atan2(realNoteList.get(n).x - robotPosition.getX(), realNoteList.get(n).y - robotPosition.getY()));
   }
-  public static int nextAutoNote() {
-    return 1;
+  public static int currentAutoNote() {
+    return currentAutoNote;
+  }
+  public static void nextAutoNote() {
+    currentAutoNote ++;
+  }
+  public static double distToCurrentNote() {
+    int n = currentAutoNote;
+    try
+    {
+      return Functions.Pythagorean(realNoteList.get(n).x - robotPosition.getX(), realNoteList.get(n).y - robotPosition.getY());
+    }
+    catch(Exception e)
+    {
+      return 10000000;
+    }
+  }
+  public static double angleToCurrentNote() {
+    int n = currentAutoNote;
+
+
+    return Math.toDegrees(Math.atan2(realNoteList.get(n).x - robotPosition.getX(), realNoteList.get(n).y - robotPosition.getY()));
   }
   public static boolean atSpeakerAngle() {
     return Math.abs(Functions.DeltaAngleDeg(angleToSpeaker(), robotPosition.getRotation().getDegrees()))<Constants.speakerAngleVariation;

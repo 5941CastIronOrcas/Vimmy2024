@@ -228,11 +228,14 @@ public class DriverDisplay extends SubsystemBase {
 
     if (noteIgnoranceInpt.length() >= 8) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, 8);
     if (noteIgnoranceInpt.length() < 1) noteIgnoranceInpt = "12345678";
+    noteIgnoranceInpt = Functions.RemoveMultiples(noteIgnoranceInpt);
     //for (int i = 0; i < 8; i++) noteIgnoranceInpt = noteIgnoranceInpt.substring(0, i) + (noteIgnoranceInpt.charAt(i) == '0' ? '0' : '1') + noteIgnoranceInpt.substring(i, noteIgnoranceInpt.length() - 1);
       //for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.notesIncluded[i] = noteIgnoranceInpt.charAt(i) == '1' ? true : false;
     AutoSequences.noteList = new int[noteIgnoranceInpt.length()];
     
-    for (int i = 0; i < noteIgnoranceInpt.length(); i++) AutoSequences.noteList[i] = noteIgnoranceInpt.charAt(i).toInt();
+    for (int i = 0; i < noteIgnoranceInpt.length(); i++) {
+      AutoSequences.noteList[i] = (int)noteIgnoranceInpt.charAt(i);
+    }
     String outputString = "";
     for (int i = 0; i < AutoSequences.noteList.length; i++) outputString += AutoSequences.noteList[i] + ", "; 
     DriverDisplay.noteIgnoranceCheck.setString("Enabled Notes" + outputString);
