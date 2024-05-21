@@ -93,6 +93,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double input) //spins the shooter at the inputted speed (-1 to 1), applies multiplier to equalize the shooter rpms.
   {
+    input *= 0.4;
     Constants.lowerShooterMotor.set(input*Constants.bottomRpmMult);
     Constants.upperShooterMotor.set(input);
   }

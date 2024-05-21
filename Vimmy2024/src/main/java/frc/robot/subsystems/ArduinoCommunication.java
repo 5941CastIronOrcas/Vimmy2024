@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.Constants;
 
 public class ArduinoCommunication {
-    // this function wraps arduino to port.
+
+    //This_function_Finds_arduino_
+    
     public static void Wrap() {
         Constants.isArduinoConnected = true;
         try {
@@ -16,6 +18,7 @@ public class ArduinoCommunication {
                 System.out.println("Connected on kUSB1");
             } catch (Exception e1) {
                 try {
+                    
                     Constants.arduino = new SerialPort(500000, SerialPort.Port.kUSB2);
                     System.out.println("Connected on kUSB2");
                 } catch (Exception e2) {
@@ -34,6 +37,7 @@ public class ArduinoCommunication {
         if (Constants.arduino.getBytesReceived() > 0) {
             //System.out.println("Handling comminication");
             String readed = Constants.arduino.readString();
+            System.out.println("recieved:_"+readed);
             String filtered = "";
             for (int i = 0, p = 0; i < readed.length() ; i++) {
                 if (readed.charAt(i) =='.') {
@@ -46,6 +50,7 @@ public class ArduinoCommunication {
             }
             //System.out.println("Recieved date succesfull. Data: " + filtered);
             try {
+                System.out.println("Filtered: " + filtered);
                 finalValue = Double.valueOf(filtered);
             } catch (Exception e) {
                 System.out.println(" \u001b[31;1m.The communication is out of sync!!!");
