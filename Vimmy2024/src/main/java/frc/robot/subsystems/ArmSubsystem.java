@@ -32,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
     dist = PositionEstimator.distToSpeaker();
     inRange = dist < Constants.maxShootingRange; //checks if robot is in range of the speaker
 
-    recalledValue = ArduinoCommunication.RecallOneValue((byte) 0x2e); //????????
+    recalledValue = Arduino.getCallArduino((byte) 0x2e); //????????
     //if (!(recalledValue < 0)) {
       if(recalledValue < Constants.hasNoteTreshold) //if the ultrasonic can see a Note
       {
