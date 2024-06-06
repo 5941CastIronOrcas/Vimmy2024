@@ -104,6 +104,18 @@ public class Functions {
         }
         return s;
     }
+    public static String Rainbowify(String s) {
+        String out = "";
+        int c = 0;
+        for (int i = 0; i < s.length(); i++) {
+            String color;
+            switch(c) {
+                case 0: color = Constants.ansiRED;
+                case 1: color = Constants.ansiYLW;
+            }
+        }
+        return out;
+    }
 
     public static void setRobotLimp(boolean yes)
     {
