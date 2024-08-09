@@ -71,6 +71,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static void moveArmTo(double a) { //uses a pd controller to go to a given angle.
+    a = Functions.Clamp(a, Constants.minArmAngle, Constants.maxArmAngle);
     rotateArm(Functions.Clamp((Constants.armMotorPMult*(a - armAngle)) 
     -(Constants.armMotorDMult*armEncoder.getVelocity()), 
     -Constants.maxArmSpeed, Constants.maxArmSpeed));
@@ -82,7 +83,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   
   public static void rotateArm(double t) { //moves the arm with a certain amount of power, ranging from 1 to -1. the funky stuff in the first line just limits the arm angle.
-    t = Functions.Clamp(t+(Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle))), -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1));
+    t = Functions.Clamp(t, -Functions.Clamp(0.2*(armAngle-Constants.minArmAngle), 0, 1), Functions.Clamp(-(0.2*(armAngle-Constants.maxArmAngle)), 0, 1)) + (Constants.armMotorGravMult*Math.cos(Math.toRadians(armAngle)));
     Constants.armMotor1.set((Constants.armMotor1Invert)?-t:t);
     Constants.armMotor2.set((Constants.armMotor2Invert)?-t:t);
     DriverDisplay.armThrottle.setDouble(t);
@@ -93,7 +94,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double input) //spins the shooter at the inputted speed (-1 to 1), applies multiplier to equalize the shooter rpms.
   {
-    //input *= 0.4;
+    input *= 0.5;
     Constants.lowerShooterMotor.set(input*Constants.bottomRpmMult);
     Constants.upperShooterMotor.set(input);
   }

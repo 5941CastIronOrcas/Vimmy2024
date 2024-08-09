@@ -132,8 +132,9 @@ public class DriverDisplay extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(ArmSubsystem.hasNote) ControllerRumble.RumbleBothControllersBothSides(0.5);
-    else ControllerRumble.RumbleBothControllersBothSides(0);
+    //if(ArmSubsystem.hasNote) ControllerRumble.RumbleBothControllersBothSides(0.5);
+    //else ControllerRumble.RumbleBothControllersBothSides(0);
+    
     AutoSuccesfullShots.setInteger((int)AutoSequences.succesfulShots);
     switch ((int)DriverDisplay.gyroOrientation.getInteger(0)) {
       case 0:

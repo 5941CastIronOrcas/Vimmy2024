@@ -150,7 +150,7 @@ public final class Constants {
   public static final double maxArmSpeed = 1.0; //Max speed the arm PID is allowed to output to the arm motor
   public static final double armAngleVariation = 1.0; //how close the arm has to be to the target angle in degrees to allow shooting
   public static final double armAngleOffset = 60;
-  public static final double minArmAngle = 1;
+  public static final double minArmAngle = 2;
   public static final double maxArmAngle = 99;
   //Intake / Shooter Control Constants
   public static final double minShootRpm = 5000; //the minimum RPM the shooter needs to be at to shoot
