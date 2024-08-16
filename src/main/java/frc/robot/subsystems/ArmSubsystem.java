@@ -20,7 +20,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static boolean hasNote = false; //whether or not the robot is currently holding a note
   public static boolean shooterFast = false; //whether or not the shooter is spinning at or above the minimum shoot speed
   public static boolean correctArmAngle = false; //whether or not the arm is close enough to the correct angle to shoot to get the note in the speaker
-  public static double recalledValue; //the distance measured by the ultrasonic hooked into the arduino
+  public static boolean lineBreak; //the distance measured by the ultrasonic hooked into the arduino
   int noNoteFrames = 0; //the number of frames that have passed since the last time the ultrasonic sensor saw a Note
   public ArmSubsystem() {}
 
@@ -32,15 +32,16 @@ public class ArmSubsystem extends SubsystemBase {
     dist = PositionEstimator.distToSpeaker();
     inRange = dist < Constants.maxShootingRange; //checks if robot is in range of the speaker
 
-    recalledValue = Arduino.getCallArduino((byte) 0x2e); //????????
+    //recalledValue = Arduino.getCallArduino((byte) 0x2e); //????????
+    lineBreak = Constants.linebreakSensor.get();
     //if (!(recalledValue < 0)) {
-      if(recalledValue < Constants.hasNoteTreshold) //if the ultrasonic can see a Note
+      if(!lineBreak) //if the ultrasonic can see a Note
       {
         hasNote = true; //immediately assume the note is real
         noNoteFrames = 0; //set the number of frames since a note was seen to 0
       }
       else noNoteFrames++; //if the ultrasonic can't see a note, increase noNoteFrames
-      if(noNoteFrames>40) hasNote = false; //if it has been 40 frames since the ultrasonic saw a Note, then assume the robot is not holding a Note
+      if(noNoteFrames>5) hasNote = false; //if it has been 40 frames since the ultrasonic saw a Note, then assume the robot is not holding a Note
     //}
 
     //this code is not working
@@ -94,7 +95,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void SpinShooter(double input) //spins the shooter at the inputted speed (-1 to 1), applies multiplier to equalize the shooter rpms.
   {
-    input *= 0.5;
+    //input *= 0.5;
     Constants.lowerShooterMotor.set(input*Constants.bottomRpmMult);
     Constants.upperShooterMotor.set(input);
   }

@@ -111,6 +111,7 @@ public final class Constants {
   public static AnalogInput ultrasonicSensor6 = new AnalogInput(5);
   public static AnalogInput ultrasonicSensor7 = new AnalogInput(6);
   public static AnalogInput ultrasonicSensor8 = new AnalogInput(7);
+  public static DigitalInput linebreakSensor = new DigitalInput(9);
   public static DigitalOutput ultrasonicPing = new DigitalOutput(0);
   public static double voltageScaleFactor = 0;
   //Pan the servos 
