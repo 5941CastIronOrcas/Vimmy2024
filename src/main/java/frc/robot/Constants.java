@@ -164,7 +164,7 @@ public final class Constants {
   public static final double gravity = 9.81; //gravity acceleration in m/s^2
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
-  public static final double shootYawOffset = 3.5;
+  public static final double shootYawOffset = 6;
   public static final double maxShootingRange = 3.5;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
