@@ -246,7 +246,7 @@ public class DriverDisplay extends SubsystemBase {
 
     //Arm
     DriverDisplay.armAngle.setDouble(ArmSubsystem.armAngle);
-    DriverDisplay.arduinoRecall.setDouble(ArmSubsystem.recalledValue);
+    DriverDisplay.arduinoRecall.setDouble(1.0);
     DriverDisplay.armHasNote.setBoolean(ArmSubsystem.hasNote);
     DriverDisplay.motorPower1.setDouble(Constants.armMotor1.getOutputCurrent());
     DriverDisplay.motorPower2.setDouble(Constants.armMotor2.getOutputCurrent());
