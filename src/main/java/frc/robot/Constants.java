@@ -164,7 +164,7 @@ public final class Constants {
   public static final double gravity = 9.81; //gravity acceleration in m/s^2
   public static final double defaultShooterSpeed = 1.0;
   public static final double bottomRpmMult = 1.0;
-  public static final double shootYawOffset = 6;
+  public static final double shootYawOffset = 3.5 ;
   public static final double maxShootingRange = 3.5;
   // theshold for sonic sensor
   public static final double hasNoteTreshold = 10;
@@ -188,7 +188,7 @@ public final class Constants {
   public static final double climberMaxHeight = 95;
   public static final double climberGoToPMult = 0.2;
 
-  //POSITION ESTIMATION AND FIELD CONSTANTS:
+  //POSITION ESTIMATION AND FIELD CONSTANTS:  
   public static final Vector2D redSpeaker = new Vector2D(16.579342, 5.547868);
   public static final Vector2D blueSpeaker = new Vector2D(-0.0381, 5.547868 );
   public static final Vector2D redAmpDepositPosition = new Vector2D(14.700758, 8.24); //7.74
