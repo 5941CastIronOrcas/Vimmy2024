@@ -26,7 +26,7 @@ public class AutoSequences {
     succesfulShots = 0;
     Constants.gyro.setYaw(DriverDisplay.angleToAssign);
     PositionEstimator.realNoteList = new ArrayList<>();
-    for (int i = 0; i < noteList.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[noteList[i]]);
+    //for (int i = 0; i < noteList.length; i++) PositionEstimator.realNoteList.add(Constants.allNotesPos[noteList[i]]);
   }
 
   // kill all the motors
