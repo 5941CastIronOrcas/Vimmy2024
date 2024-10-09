@@ -111,7 +111,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public static void IntakeRing() { //moves the arm to the intake position, and tries to pick up a Note
     moveArmTo(Constants.intakeAngle);
-    Intake(0.5);
+    Intake(0.75);
   }
   // public static void ShootAtAngle(double a) {
   //   SpinShooter(1);
@@ -123,7 +123,7 @@ public class ArmSubsystem extends SubsystemBase {
   //   }
   // }
   public static void DepositAmp() { //moves the arm to the amp despositing position, and preps the shooter wheels to eject the Note
-    SpinShooter(1,1);
+    SpinShooter(0.25,0.25);
     moveArmTo(Constants.ampDepositAngle);
     /*if (Math.abs(Constants.ampDepositAngle-armAngle) < Constants.armAngleVariation) 
     {

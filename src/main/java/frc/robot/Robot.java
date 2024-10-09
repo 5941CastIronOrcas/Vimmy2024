@@ -204,13 +204,13 @@ public class Robot extends TimedRobot {
         }
         if(Constants.controller2.getXButton())
           {
-            ArmSubsystem.SpinIntake(0.5);
+            ArmSubsystem.SpinIntake(0.75);
           }
           else if(Constants.controller2.getBButton())
           {
             ArmSubsystem.SpinIntake(-0.25);
           } else if (Constants.controller2.getAButton()) {
-            ArmSubsystem.Intake(0.5);
+            ArmSubsystem.Intake(0.75);
           }
           else
           {

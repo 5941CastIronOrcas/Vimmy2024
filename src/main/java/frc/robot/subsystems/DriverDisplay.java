@@ -235,7 +235,7 @@ public class DriverDisplay extends SubsystemBase {
     AutoSequences.noteList = new int[noteIgnoranceInpt.length()];
     
     for (int i = 0; i < noteIgnoranceInpt.length(); i++) {
-      AutoSequences.noteList[i] = (int)noteIgnoranceInpt.charAt(i);
+      AutoSequences.noteList[i] = Character.getNumericValue(noteIgnoranceInpt.charAt(i));
     }
     String outputString = "";
     for (int i = 0; i < AutoSequences.noteList.length; i++) outputString += AutoSequences.noteList[i] + ", "; 
