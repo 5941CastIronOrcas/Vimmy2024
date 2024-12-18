@@ -103,7 +103,8 @@ public class Robot extends TimedRobot {
       Functions.setRobotLimp(robotLimp);
     }
   }
-
+//global gay bool
+boolean isGay = true;
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() { 
@@ -116,6 +117,7 @@ public class Robot extends TimedRobot {
     double RSY2 = -Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightY(), Constants.controllerDeadZone));
     double RSX2 = Functions.Exponential(Functions.DeadZone(Constants.controller2.getRightX(), Constants.controllerDeadZone));
     double RSAngle = 90-Math.toDegrees(Math.atan2(RSY, RSX)); //gets the angle the right stick on controller 1 is pointing to.
+    
     if(Constants.controller1.getLeftBumper()) //snaps to specific directions to climb and score amp
     {
       RSAngle = Math.abs(Functions.DeltaAngleDeg(0, RSAngle)) < 105.0 ? 90 * Math.round(RSAngle / 90.0) : 120.0 * Math.round(RSAngle / 120.0);
